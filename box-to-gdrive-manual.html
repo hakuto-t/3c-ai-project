@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Box → Google Drive 移管マニュアル</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --primary: #1e293b;
+    --primary-light: #334155;
+    --accent: #2563eb;
+    --accent-light: #3b82f6;
+    --accent-soft: #dbeafe;
+    --accent-bg: #eff6ff;
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+    --red-border: #fecaca;
+    --orange: #ea580c;
+    --orange-soft: #fff7ed;
+    --orange-border: #fed7aa;
+    --green: #16a34a;
+    --green-soft: #f0fdf4;
+    --green-border: #bbf7d0;
+    --yellow: #ca8a04;
+    --yellow-soft: #fefce8;
+    --yellow-border: #fef08a;
+    --purple: #7c3aed;
+    --purple-soft: #f5f3ff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-400: #94a3b8;
+    --gray-500: #64748b;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 6px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', 'Inter', -apple-system, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "palt";
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e293b 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    padding: 80px 40px 60px;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(37,99,235,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(16,163,74,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 4.5vw, 44px);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 32px;
+    max-width: 600px;
+  }
+
+  .hero-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .hero-info-item {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    font-size: 13px;
+  }
+
+  .hero-info-item .label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2px;
+  }
+
+  .hero-info-item .value {
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* ===== TOC ===== */
+  .toc {
+    max-width: 900px;
+    margin: -30px auto 0;
+    padding: 0 24px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .toc-inner {
+    background: #fff;
+    border-radius: var(--radius);
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-lg);
+    padding: 32px 36px;
+  }
+
+  .toc h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 8px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-xs);
+    text-decoration: none;
+    color: var(--gray-600);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .toc-item:hover {
+    background: var(--accent-bg);
+    color: var(--accent);
+  }
+
+  .toc-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--gray-100);
+    color: var(--gray-500);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .toc-item:hover .toc-num {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ===== CONTENT ===== */
+  .content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== PHASE SECTION ===== */
+  .phase-section {
+    margin: 56px 0 0;
+    scroll-margin-top: 24px;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .phase-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .phase-icon.blue { background: var(--accent-soft); }
+  .phase-icon.green { background: var(--green-soft); }
+  .phase-icon.orange { background: var(--orange-soft); }
+  .phase-icon.red { background: var(--red-soft); }
+  .phase-icon.purple { background: var(--purple-soft); }
+
+  .phase-header h2 {
+    font-size: clamp(20px, 3vw, 26px);
+    font-weight: 800;
+    color: var(--gray-900);
+    line-height: 1.3;
+  }
+
+  .phase-header .phase-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  /* ===== STEP CARD ===== */
+  .step-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .step-card:hover {
+    border-color: var(--gray-300);
+    box-shadow: var(--shadow-md);
+  }
+
+  .step-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    cursor: pointer;
+  }
+
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: 10px;
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .step-num.green-num { background: var(--green); }
+  .step-num.orange-num { background: var(--orange); }
+  .step-num.red-num { background: var(--red); }
+  .step-num.purple-num { background: var(--purple); }
+
+  .step-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+    flex: 1;
+  }
+
+  .step-body {
+    padding: 0 24px 24px;
+    padding-left: 74px;
+  }
+
+  .step-body p {
+    font-size: 14.5px;
+    color: var(--gray-600);
+    margin-bottom: 14px;
+    line-height: 2;
+  }
+
+  .step-body ol, .step-body ul {
+    margin: 0 0 16px 0;
+    padding-left: 20px;
+  }
+
+  .step-body li {
+    font-size: 14.5px;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    line-height: 1.9;
+  }
+
+  .step-body li strong {
+    color: var(--gray-800);
+  }
+
+  /* ===== ALERT BOXES ===== */
+  .alert {
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    margin: 16px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    line-height: 1.6;
+  }
+
+  .alert-body {
+    flex: 1;
+  }
+
+  .alert-body .alert-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .alert-body p {
+    font-size: 13.5px;
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .alert.info {
+    background: var(--accent-bg);
+    border: 1px solid #bfdbfe;
+  }
+  .alert.info .alert-title { color: var(--accent); }
+  .alert.info p { color: #1e40af; }
+
+  .alert.warning {
+    background: var(--yellow-soft);
+    border: 1px solid var(--yellow-border);
+  }
+  .alert.warning .alert-title { color: var(--yellow); }
+  .alert.warning p { color: #92400e; }
+
+  .alert.danger {
+    background: var(--red-soft);
+    border: 1px solid var(--red-border);
+  }
+  .alert.danger .alert-title { color: var(--red); }
+  .alert.danger p { color: #991b1b; }
+
+  .alert.success {
+    background: var(--green-soft);
+    border: 1px solid var(--green-border);
+  }
+  .alert.success .alert-title { color: var(--green); }
+  .alert.success p { color: #166534; }
+
+  .alert.safe {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+  }
+  .alert.safe .alert-title { color: var(--green); }
+  .alert.safe p { color: #166534; }
+
+  /* ===== STATUS BANNER ===== */
+  .status-banner {
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 24px 0;
+    text-align: center;
+  }
+
+  .status-banner.free {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border: 2px solid #86efac;
+  }
+
+  .status-banner.free .status-icon { font-size: 36px; margin-bottom: 8px; }
+  .status-banner.free .status-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--green);
+  }
+  .status-banner.free .status-sub {
+    font-size: 14px;
+    color: #166534;
+    margin-top: 4px;
+  }
+
+  .status-banner.stop {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    border: 2px solid #fca5a5;
+  }
+
+  .status-banner.stop .status-icon { font-size: 36px; margin-bottom: 8px; }
+  .status-banner.stop .status-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--red);
+  }
+  .status-banner.stop .status-sub {
+    font-size: 14px;
+    color: #991b1b;
+    margin-top: 4px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    position: relative;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gray-200);
+    border-radius: 3px;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 28px 60px;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: 14px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    background: #fff;
+    z-index: 1;
+  }
+
+  .timeline-dot.green { border-color: var(--green); }
+  .timeline-dot.red { border-color: var(--red); }
+  .timeline-dot.orange { border-color: var(--orange); }
+  .timeline-dot.filled { background: var(--accent); }
+  .timeline-dot.filled.green { background: var(--green); }
+  .timeline-dot.filled.red { background: var(--red); }
+
+  .timeline-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .timeline-content {
+    font-size: 14px;
+    color: var(--gray-700);
+    font-weight: 500;
+  }
+
+  .timeline-detail {
+    font-size: 13px;
+    color: var(--gray-400);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  /* ===== VISUAL DIAGRAM ===== */
+  .visual-box {
+    background: var(--gray-900);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin: 20px 0;
+    font-family: 'Inter', 'Noto Sans JP', monospace;
+    font-size: 13.5px;
+    line-height: 2;
+    color: #e2e8f0;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+
+  .visual-box .highlight { color: #60a5fa; font-weight: 600; }
+  .visual-box .safe { color: #4ade80; font-weight: 600; }
+  .visual-box .danger { color: #f87171; font-weight: 600; }
+  .visual-box .warn { color: #fbbf24; font-weight: 600; }
+  .visual-box .dim { color: #64748b; }
+
+  /* ===== TABLE ===== */
+  .data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    font-size: 14px;
+    margin: 16px 0;
+  }
+
+  .data-table thead {
+    background: var(--gray-800);
+    color: #fff;
+  }
+
+  .data-table th {
+    padding: 12px 16px;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    text-align: left;
+  }
+
+  .data-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-100);
+    background: #fff;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--gray-50); }
+
+  /* ===== CHECKLIST ===== */
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist .check {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--gray-300);
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .checklist .check:hover {
+    border-color: var(--accent);
+    background: var(--accent-bg);
+  }
+
+  /* ===== EMAIL TEMPLATE ===== */
+  .email-template {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .email-header {
+    background: var(--gray-100);
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .email-header .email-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .email-header .email-subject {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-top: 2px;
+  }
+
+  .email-body {
+    padding: 20px 24px;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 2;
+    white-space: pre-wrap;
+  }
+
+  /* ===== DIVIDER ===== */
+  .section-divider {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-divider hr {
+    border: none;
+    height: 1px;
+    background: var(--gray-200);
+    margin: 16px 0;
+  }
+
+  /* ===== QUICK REF ===== */
+  .quick-ref {
+    background: linear-gradient(135deg, var(--gray-900), var(--primary-light));
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 24px 0;
+    color: #fff;
+  }
+
+  .quick-ref h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+
+  .quick-ref table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+
+  .quick-ref th {
+    text-align: left;
+    padding: 8px 12px;
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .quick-ref td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.8);
+  }
+
+  .quick-ref tr:last-child td { border-bottom: none; }
+
+  .quick-ref .key { color: #60a5fa; font-weight: 600; }
+
+  /* ===== OVERALL FLOW ===== */
+  .flow-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .flow-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .flow-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .flow-card .flow-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--gray-200);
+    margin-bottom: 4px;
+  }
+
+  .flow-card .flow-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+
+  .flow-card .flow-desc {
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  .flow-card .flow-status {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  .flow-card .flow-status.ok { background: var(--green-soft); color: var(--green); }
+  .flow-card .flow-status.caution { background: var(--red-soft); color: var(--red); }
+
+  .flow-arrow {
+    display: none;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--gray-900);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 40px;
+    font-size: 13px;
+    margin-top: 56px;
+  }
+
+  .footer strong { color: rgba(255,255,255,0.6); }
+
+  /* ===== PRINT ===== */
+  @media print {
+    .hero { padding: 40px 24px; }
+    .toc { margin-top: 0; }
+    .step-card, .alert, .email-template { break-inside: avoid; }
+    body { font-size: 12px; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 48px 20px 40px; }
+    .hero-info { flex-direction: column; }
+    .toc { padding: 0 16px; margin-top: -20px; }
+    .toc-inner { padding: 24px 20px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .content { padding: 0 16px; }
+    .step-body { padding-left: 24px; }
+    .phase-header { flex-direction: column; }
+    .flow-cards { grid-template-columns: 1fr; }
+    .visual-box { font-size: 12px; padding: 20px; }
+    .data-table { display: block; overflow-x: auto; }
+    .status-banner { padding: 20px; }
+    .quick-ref { padding: 20px; }
+    .email-body { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">MultCloud Premium Plan</div>
+    <h1>
+      Box → Google Drive<br>
+      <span class="gradient-text">全社データ移管マニュアル</span>
+    </h1>
+    <p class="hero-subtitle">
+      パソコンが苦手な方でも、この手順書に沿って進めれば大丈夫。<br>
+      1ステップずつ、やることだけを分かりやすくまとめました。
+    </p>
+    <div class="hero-info">
+      <div class="hero-info-item">
+        <span class="label">対象規模</span>
+        <span class="value">約80名</span>
+      </div>
+      <div class="hero-info-item">
+        <span class="label">使用ツール</span>
+        <span class="value">MultCloud（プレミアプラン）</span>
+      </div>
+      <div class="hero-info-item">
+        <span class="label">所要期間</span>
+        <span class="value">約3〜5週間</span>
+      </div>
+      <div class="hero-info-item">
+        <span class="label">業務影響</span>
+        <span class="value">ほぼなし（最終日のみ半日停止）</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOC ===== -->
+<div class="toc">
+  <div class="toc-inner">
+    <h2>&#128214; このマニュアルの構成</h2>
+    <div class="toc-grid">
+      <a href="#overview" class="toc-item">
+        <span class="toc-num">1</span>
+        移管作業の全体像
+      </a>
+      <a href="#box-rule" class="toc-item">
+        <span class="toc-num">2</span>
+        Boxいつ使える？ルール早見表
+      </a>
+      <a href="#prepare" class="toc-item">
+        <span class="toc-num">3</span>
+        事前準備（IT担当向け）
+      </a>
+      <a href="#setup" class="toc-item">
+        <span class="toc-num">4</span>
+        MultCloudの初期設定
+      </a>
+      <a href="#phase1" class="toc-item">
+        <span class="toc-num">5</span>
+        フェーズ1：部署ごとに一括転送
+      </a>
+      <a href="#phase2" class="toc-item">
+        <span class="toc-num">6</span>
+        フェーズ2：毎晩の自動差分同期
+      </a>
+      <a href="#phase3" class="toc-item">
+        <span class="toc-num">7</span>
+        フェーズ3：最終同期と切り替え
+      </a>
+      <a href="#after" class="toc-item">
+        <span class="toc-num">8</span>
+        移管完了後の確認作業
+      </a>
+      <a href="#emails" class="toc-item">
+        <span class="toc-num">9</span>
+        社員への案内メール（4通）
+      </a>
+      <a href="#quickref" class="toc-item">
+        <span class="toc-num">10</span>
+        IT担当向けクイックリファレンス
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ===== 1. OVERVIEW ===== -->
+<div class="phase-section" id="overview">
+  <div class="phase-header">
+    <div class="phase-icon blue">&#128506;</div>
+    <div>
+      <h2>1. 移管作業の全体像</h2>
+      <p class="phase-desc">まず最初に、全体の流れを把握しましょう。大きく3つのフェーズで進めます。</p>
+    </div>
+  </div>
+
+  <div class="flow-cards">
+    <div class="flow-card">
+      <div class="flow-num">1</div>
+      <div class="flow-label">部署ごとに一括転送</div>
+      <div class="flow-desc">過去データを部署単位でまとめてコピー</div>
+      <div class="flow-status ok">Boxは自由に使えます</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-num">2</div>
+      <div class="flow-label">毎晩の自動差分同期</div>
+      <div class="flow-desc">日中の更新を毎晩自動でGoogle Driveに反映</div>
+      <div class="flow-status ok">Boxは自由に使えます</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-num">3</div>
+      <div class="flow-label">最終同期 → 切り替え</div>
+      <div class="flow-desc">週末に最終同期 → 月曜からGoogle Drive</div>
+      <div class="flow-status caution">Boxの書き込み一時停止</div>
+    </div>
+  </div>
+
+  <div class="alert info">
+    <span class="alert-icon">&#128161;</span>
+    <div class="alert-body">
+      <div class="alert-title">ポイント：なぜ3段階に分けるの？</div>
+      <p>80人が毎日使っているBoxのデータを、1回で完璧に移すのは難しいです。フェーズ1で大部分をコピーし、フェーズ2で日々の更新を自動で追いかけ、フェーズ3で最後の仕上げをします。こうすることで、<strong>社員の皆さんはほとんどの期間、今まで通りBoxを使い続けられます。</strong></p>
+    </div>
+  </div>
+
+  <p style="font-size:14px; color:var(--gray-500); margin-top: 20px;"><strong>想定スケジュール</strong></p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>期間</th>
+        <th>やること</th>
+        <th>社員への影響</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1週目</strong></td>
+        <td>事前準備・MultCloud設定・社員への事前通知</td>
+        <td>なし</td>
+      </tr>
+      <tr>
+        <td><strong>2〜3週目</strong></td>
+        <td>フェーズ1：部署ごとの一括転送</td>
+        <td>なし（Boxは通常利用OK）</td>
+      </tr>
+      <tr>
+        <td><strong>3〜4週目</strong></td>
+        <td>フェーズ2：毎晩の自動差分同期</td>
+        <td>なし（Boxは通常利用OK）</td>
+      </tr>
+      <tr>
+        <td><strong>切り替え週末</strong></td>
+        <td>フェーズ3：最終同期 → 切り替え</td>
+        <td><strong style="color:var(--red);">金曜夜〜月曜朝のみ書き込み停止</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 2. BOX RULE ===== -->
+<div class="phase-section" id="box-rule">
+  <div class="phase-header">
+    <div class="phase-icon green">&#9989;</div>
+    <div>
+      <h2>2. Boxいつ使える？ルール早見表</h2>
+      <p class="phase-desc">これだけ覚えておけばOKです。社員の皆さんに一番伝えたい内容です。</p>
+    </div>
+  </div>
+
+  <div class="status-banner free">
+    <div class="status-icon">&#9989;</div>
+    <div class="status-text">フェーズ1・2の間（約3週間）</div>
+    <div class="status-sub">Boxは今まで通り、自由に使ってOKです！<br>ファイルの作成・編集・削除、すべて普段通りで大丈夫です。</div>
+  </div>
+
+  <div class="alert info">
+    <span class="alert-icon">&#128172;</span>
+    <div class="alert-body">
+      <div class="alert-title">なぜ自由に使えるの？</div>
+      <p>MultCloudは、Boxのファイルを<strong>「読むだけ」</strong>でコピーします。皆さんがBoxでファイルを作ったり編集しても、コピー作業に全く影響しません。そして、フェーズ2の「差分同期」が、日中に更新されたファイルを<strong>毎晩自動的に</strong>Google Driveに反映してくれます。だから安心して普段通り仕事をしてください。</p>
+    </div>
+  </div>
+
+  <div class="status-banner stop">
+    <div class="status-icon">&#9940;</div>
+    <div class="status-text">フェーズ3：切り替え直前だけ（金曜夜〜月曜朝）</div>
+    <div class="status-sub">Boxへのファイルの保存・編集・削除を<strong>一時的に停止</strong>してください。<br>ファイルを見る・読むだけなら大丈夫です。</div>
+  </div>
+
+  <div class="alert danger">
+    <span class="alert-icon">&#9888;&#65039;</span>
+    <div class="alert-body">
+      <div class="alert-title">なぜ最後だけ停止が必要なの？</div>
+      <p>最終同期は「Boxの最新データを全部Google Driveに反映する」作業です。この作業中にファイルを更新すると、その更新がGoogle Driveに反映されない（取りこぼす）可能性があります。<strong>業務への影響を最小限にするため、金曜夜〜月曜朝の週末に実施します。</strong></p>
+    </div>
+  </div>
+
+  <div class="visual-box"><span class="dim">--- 移管期間中のBoxの使い方 ---</span>
+
+<span class="safe">&#9632; フェーズ1（1〜2週間）</span>
+  <span class="safe">Boxは自由に使ってOK</span> &#8592; 裏側でデータを一括コピー中
+
+<span class="safe">&#9632; フェーズ2（1〜2週間）</span>
+  <span class="safe">Boxは自由に使ってOK</span> &#8592; 毎晩自動で差分を同期中
+
+<span class="danger">&#9632; フェーズ3（金曜夜〜月曜朝の約2日間）</span>
+  <span class="danger">Boxへの書き込み禁止！</span>  &#8592; 最終同期中（見るだけはOK）
+
+<span class="safe">&#9632; 月曜朝〜</span>
+  <span class="highlight">Google Driveで業務開始！</span>
+  <span class="dim">（Boxはしばらく読み取り専用で残ります）</span></div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 3. PREPARE ===== -->
+<div class="phase-section" id="prepare">
+  <div class="phase-header">
+    <div class="phase-icon purple">&#128203;</div>
+    <div>
+      <h2>3. 事前準備</h2>
+      <p class="phase-desc">移管を始める前に確認・準備しておくことです。IT担当者が行います。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num purple-num">A</span>
+      <span class="step-title">Boxのデータ量を確認する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>Boxの<strong>管理コンソール</strong>にログインします</li>
+        <li>全社で使っている<strong>合計のデータ量</strong>（例：500GB）を確認します</li>
+        <li>できれば<strong>部署ごとのデータ量</strong>も確認します</li>
+      </ol>
+      <div class="alert info">
+        <span class="alert-icon">&#128221;</span>
+        <div class="alert-body">
+          <div class="alert-title">なぜ確認するの？</div>
+          <p>Google Driveにそのデータを受け入れるだけの空き容量があるか確認するためです。また、部署ごとの量が分かると、転送の順番を決めるのに役立ちます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num purple-num">B</span>
+      <span class="step-title">Google Driveの容量を確認する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>Google Workspace管理コンソール</strong>にログインします</li>
+        <li>組織全体の<strong>ストレージ容量</strong>を確認します</li>
+        <li>Boxの合計データ量が入るだけの空きがあるか確認します</li>
+        <li>足りない場合は、<strong>事前にプランをアップグレード</strong>しておきます</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num purple-num">C</span>
+      <span class="step-title">部署ごとの転送順番を決める</span>
+    </div>
+    <div class="step-body">
+      <p>全データを一度に転送するのではなく、<strong>部署ごとに分けて順番に転送</strong>します。<br>
+      以下のような表を作って、順番を決めましょう。</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>転送順</th><th>部署名</th><th>データ量</th><th>予定日</th><th>完了</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>（例）総務部</td><td>15GB</td><td>○/○（金）</td><td></td></tr>
+          <tr><td>2</td><td>（例）人事部</td><td>20GB</td><td>○/○（金）</td><td></td></tr>
+          <tr><td>3</td><td>（例）経理部</td><td>45GB</td><td>○/○（金）</td><td></td></tr>
+          <tr><td>4</td><td>（例）営業部</td><td>120GB</td><td>○/○（金）</td><td></td></tr>
+          <tr><td>5</td><td>（例）開発部</td><td>300GB</td><td>○/○（金）</td><td></td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert info">
+        <span class="alert-icon">&#128161;</span>
+        <div class="alert-body">
+          <div class="alert-title">順番の決め方のコツ</div>
+          <p><strong>データ量が少ない部署から始める</strong>のがおすすめです。最初の部署で手順に慣れることができ、万が一問題があっても影響が小さくて済みます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num purple-num">D</span>
+      <span class="step-title">Boxの共有設定を記録しておく</span>
+    </div>
+    <div class="step-body">
+      <p>Boxで「誰がどのフォルダにアクセスできるか」という設定は、<strong>MultCloudでは移行されません。</strong><br>
+      移管後にGoogle Drive側で設定し直す必要があるため、事前に記録しておきます。</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>フォルダ名</th><th>アクセスできる人</th><th>権限</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>（例）経理部/給与データ</td><td>経理部メンバーのみ</td><td>編集可</td></tr>
+          <tr><td>（例）営業部/提案書</td><td>営業部 + マネージャー</td><td>閲覧のみ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num purple-num">E</span>
+      <span class="step-title">担当者を決める</span>
+    </div>
+    <div class="step-body">
+      <table class="data-table">
+        <thead>
+          <tr><th>役割</th><th>人数</th><th>やること</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>移管リーダー</strong></td>
+            <td>1名</td>
+            <td>全体のスケジュール管理、社員への通知</td>
+          </tr>
+          <tr>
+            <td><strong>IT担当</strong></td>
+            <td>1〜2名</td>
+            <td>MultCloudの操作、データの確認</td>
+          </tr>
+          <tr>
+            <td><strong>各部署の連絡係</strong></td>
+            <td>各部署1名</td>
+            <td>部署内への周知、自部署のデータ確認</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 4. SETUP ===== -->
+<div class="phase-section" id="setup">
+  <div class="phase-header">
+    <div class="phase-icon blue">&#9881;&#65039;</div>
+    <div>
+      <h2>4. MultCloudの初期設定</h2>
+      <p class="phase-desc">MultCloudにBoxとGoogle Driveを登録します。最初に1回だけ行う設定です。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">1</span>
+      <span class="step-title">MultCloudにログインする</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>パソコンのブラウザ（Chrome や Edge）で <strong>https://www.multcloud.com</strong> を開きます</li>
+        <li>プレミアプランを契約済みのアカウントの<strong>メールアドレス</strong>と<strong>パスワード</strong>を入力します</li>
+        <li><strong>「ログイン」</strong>ボタンをクリックします</li>
+        <li>MultCloudの管理画面が表示されれば成功です</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">2</span>
+      <span class="step-title">MultCloudにBoxを追加する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>画面の左側にあるメニューから <strong>「クラウドを追加」</strong> をクリックします</li>
+        <li>クラウドサービスの一覧が表示されます。<strong>「Box」</strong> のアイコンを探してクリックします
+          <div class="alert warning">
+            <span class="alert-icon">&#128270;</span>
+            <div class="alert-body">
+              <div class="alert-title">Box for Business をお使いの場合</div>
+              <p>「Box」ではなく <strong>「Box for Business」</strong> というアイコンがある場合は、そちらを選んでください。</p>
+            </div>
+          </div>
+        </li>
+        <li>Boxのログイン画面が出てきます。<strong>管理者アカウント</strong>のメールアドレスとパスワードでログインします</li>
+        <li>「MultCloudがあなたのBoxにアクセスすることを許可しますか？」という画面が出たら <strong>「許可」</strong> をクリックします</li>
+        <li>画面の左側メニューに <strong>「Box」</strong> と表示されれば、追加成功です</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">3</span>
+      <span class="step-title">MultCloudにGoogle Driveを追加する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>もう一度、左側メニューの <strong>「クラウドを追加」</strong> をクリックします</li>
+        <li>今度は <strong>「Google Drive」</strong> のアイコンを探してクリックします
+          <div class="alert warning">
+            <span class="alert-icon">&#128270;</span>
+            <div class="alert-body">
+              <div class="alert-title">Google Workspace をお使いの場合</div>
+              <p>会社でGoogle Workspace（ビジネス版）を使っている場合は、「Google Drive」ではなく <strong>「Google Workspace」</strong> を選ぶ場合があります。画面をよく確認してください。</p>
+            </div>
+          </div>
+        </li>
+        <li>Googleのログイン画面が出てきます。<strong>管理者アカウント</strong>のGoogleアカウントでログインします</li>
+        <li>「MultCloudがあなたのGoogle Driveにアクセスすることを許可しますか？」という画面が出たら <strong>「許可」</strong> をクリックします</li>
+        <li>画面の左側メニューに <strong>「Google Drive」</strong> と表示されれば、追加成功です</li>
+      </ol>
+
+      <div class="alert success">
+        <span class="alert-icon">&#127881;</span>
+        <div class="alert-body">
+          <div class="alert-title">初期設定完了！</div>
+          <p>これでMultCloudの左側メニューに「Box」と「Google Drive」の両方が表示されているはずです。この設定は1回だけでOKです。次回からはログインするだけで使えます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 5. PHASE 1 ===== -->
+<div class="phase-section" id="phase1">
+  <div class="phase-header">
+    <div class="phase-icon blue">&#128230;</div>
+    <div>
+      <h2>5. フェーズ1：部署ごとに一括転送</h2>
+      <p class="phase-desc">Boxにある過去のデータを、部署ごとにGoogle Driveにコピーします。</p>
+    </div>
+  </div>
+
+  <div class="status-banner free">
+    <div class="status-icon">&#9989;</div>
+    <div class="status-text">この間、社員の皆さんはBoxを自由に使えます</div>
+    <div class="status-sub">特別な対応は不要です。今まで通り仕事をしてください。</div>
+  </div>
+
+  <p style="font-size: 14.5px; color: var(--gray-600); margin: 20px 0;">以下の手順を、<strong>部署ごとに繰り返します</strong>。事前に決めた転送順に従って、1部署ずつ進めてください。</p>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">1</span>
+      <span class="step-title">「クラウド転送」を開く</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>MultCloudにログインします</li>
+        <li>画面の左側メニューから <strong>「クラウド転送」</strong> をクリックします</li>
+        <li>転送の設定画面が表示されます</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">2</span>
+      <span class="step-title">転送元（Box）を設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>画面の<strong>左側の枠</strong>（「転送元」）をクリックします</li>
+        <li><strong>「Box」</strong> を選びます</li>
+        <li>Boxの中のフォルダ一覧が表示されるので、<strong>今回転送したい部署のフォルダ</strong>をクリックして選びます
+          <br><span style="font-size:13px; color:var(--gray-400);">例：最初に総務部を転送する場合は「総務部」フォルダを選択</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">3</span>
+      <span class="step-title">転送先（Google Drive）を設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>画面の<strong>右側の枠</strong>（「転送先」）をクリックします</li>
+        <li><strong>「Google Drive」</strong> を選びます</li>
+        <li>Google Driveの中で、<strong>該当部署のデータを保存したいフォルダ</strong>を選びます
+          <br><span style="font-size:13px; color:var(--gray-400);">例：Google Drive内に「総務部」フォルダがあればそれを選択</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">4</span>
+      <span class="step-title">オプションを設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>画面下部の <strong>「オプション」</strong> ボタンをクリックします</li>
+        <li><strong>「E-メール」</strong> タブを開きます</li>
+        <li>メール通知を <strong>「ON」</strong> にします
+          <br><span style="font-size:13px; color:var(--gray-400);">これで、転送が完了したときにメールでお知らせが届きます</span></li>
+        <li><strong>「保存」</strong> または <strong>「はい」</strong> をクリックして設定を保存します</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">5</span>
+      <span class="step-title">転送を開始する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>設定内容を確認します：
+          <ul>
+            <li>左側（転送元）に正しい部署のBoxフォルダが表示されていますか？</li>
+            <li>右側（転送先）に正しいGoogle Driveのフォルダが表示されていますか？</li>
+          </ul>
+        </li>
+        <li>問題なければ <strong>「今すぐ転送」</strong> ボタンをクリックします</li>
+        <li>転送が始まります</li>
+      </ol>
+
+      <div class="alert info">
+        <span class="alert-icon">&#128187;</span>
+        <div class="alert-body">
+          <div class="alert-title">転送が始まったら、パソコンは閉じてOK</div>
+          <p>MultCloudのサーバーが転送を行うので、ブラウザを閉じても、パソコンをシャットダウンしても大丈夫です。転送は自動で続きます。完了したらメールが届きます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">6</span>
+      <span class="step-title">転送の完了を確認する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>MultCloudにログインし、左側メニューの <strong>「タスクリスト」</strong> をクリックします</li>
+        <li>該当の転送タスクの進捗が <strong>100%</strong> になっていることを確認します</li>
+        <li>Google Driveを開いて、転送先フォルダの中身を確認します：
+          <ul>
+            <li>フォルダの構造がBoxと同じになっていますか？</li>
+            <li>主なファイルを2〜3個開いて、中身が正しく表示されますか？</li>
+          </ul>
+        </li>
+        <li>該当部署の連絡係にも確認をお願いします</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">7</span>
+      <span class="step-title">管理表に記録して、次の部署へ</span>
+    </div>
+    <div class="step-body">
+      <p>完了した部署を管理表に記録し、<strong>次の部署の転送に進みます</strong>。ステップ1〜6を繰り返してください。</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>部署</th><th>開始日時</th><th>完了日時</th><th>確認</th><th>連絡係確認</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>総務部</td><td>○/○ 20:00</td><td>○/○ 22:30</td><td style="color:var(--green);">OK</td><td style="color:var(--green);">OK</td></tr>
+          <tr><td>人事部</td><td>○/○ 23:00</td><td>○/○ 01:00</td><td style="color:var(--green);">OK</td><td style="color:var(--green);">OK</td></tr>
+          <tr><td>経理部</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>...</td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+
+      <div class="alert success">
+        <span class="alert-icon">&#127942;</span>
+        <div class="alert-body">
+          <div class="alert-title">全部署の転送が完了したら</div>
+          <p>フェーズ2に進みます。次のステップでは、毎晩自動で差分を同期する設定を行います。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 6. PHASE 2 ===== -->
+<div class="phase-section" id="phase2">
+  <div class="phase-header">
+    <div class="phase-icon green">&#128260;</div>
+    <div>
+      <h2>6. フェーズ2：毎晩の自動差分同期</h2>
+      <p class="phase-desc">日中に社員が更新したファイルを、毎晩自動でGoogle Driveに反映します。</p>
+    </div>
+  </div>
+
+  <div class="status-banner free">
+    <div class="status-icon">&#9989;</div>
+    <div class="status-text">この間も、社員の皆さんはBoxを自由に使えます</div>
+    <div class="status-sub">毎晩、その日の更新分が自動でGoogle Driveに反映されます。</div>
+  </div>
+
+  <div class="alert info">
+    <span class="alert-icon">&#128161;</span>
+    <div class="alert-body">
+      <div class="alert-title">「差分同期」って何？</div>
+      <p>フェーズ1で過去のデータはコピーしましたが、フェーズ1の実行中〜完了後に社員が新しく作ったり更新したファイルは、まだGoogle Driveに反映されていません。<br><br>
+      <strong>「差分同期」（増分同期）</strong>は、<strong>前回の同期後に変更されたファイルだけ</strong>を転送する仕組みです。既にコピー済みのファイルはスキップするので、毎回短時間で終わります。これを毎晩自動実行することで、BoxとGoogle Driveの差をどんどん小さくしていきます。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">1</span>
+      <span class="step-title">「クラウド同期」を開く</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>MultCloudにログインします</li>
+        <li>画面の左側メニューから <strong>「クラウド同期」</strong> をクリックします
+          <br><span style="font-size:13px; color:var(--gray-400);">※フェーズ1で使った「クラウド転送」とは別のメニューです。間違えないよう注意。</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">2</span>
+      <span class="step-title">同期元と同期先を設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>左側の枠</strong>（同期元）をクリックし、<strong>Boxの一番上のフォルダ</strong>（ルート）を選択します
+          <br><span style="font-size:13px; color:var(--gray-400);">※今回はフェーズ1と違い、部署単位ではなくBox全体を選びます</span></li>
+        <li><strong>右側の枠</strong>（同期先）をクリックし、<strong>Google Driveの対応するフォルダ</strong>を選択します</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">3</span>
+      <span class="step-title">同期モードを「増分同期」に設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>「オプション」</strong> ボタンをクリックします</li>
+        <li><strong>「同期モード」</strong> タブを開きます</li>
+        <li>以下のように設定します：
+          <table class="data-table">
+            <thead><tr><th>設定項目</th><th>選ぶ値</th></tr></thead>
+            <tbody>
+              <tr><td>方向</td><td><strong>一方向</strong>（Box → Google Drive）</td></tr>
+              <tr><td>モード</td><td><strong>増分同期</strong></td></tr>
+            </tbody>
+          </table>
+        </li>
+        <li>設定できたら <strong>「保存」</strong> をクリックします</li>
+      </ol>
+
+      <div class="alert warning">
+        <span class="alert-icon">&#128270;</span>
+        <div class="alert-body">
+          <div class="alert-title">「増分同期」が見つからない場合</div>
+          <p>「増分同期」はプレミアプラン専用の機能です。プレミアプランにログインしているか確認してください。画面上に「シンプル同期」「ベーシック同期」しか表示されない場合は、プランの確認が必要です。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">4</span>
+      <span class="step-title">毎晩の自動実行スケジュールを設定する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>「スケジュール」</strong> ボタンをクリックします</li>
+        <li>以下のように設定します：
+          <table class="data-table">
+            <thead><tr><th>設定項目</th><th>選ぶ値</th></tr></thead>
+            <tbody>
+              <tr><td>頻度</td><td><strong>毎日</strong></td></tr>
+              <tr><td>実行時刻</td><td><strong>午前 2:00</strong></td></tr>
+            </tbody>
+          </table>
+          <span style="font-size:13px; color:var(--gray-400);">※午前2時なら社員が仕事をしていない時間なので、業務に影響しません</span>
+        </li>
+        <li>設定できたら <strong>「保存」</strong> をクリックします</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">5</span>
+      <span class="step-title">初回の同期を実行する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>「今すぐ同期」</strong> ボタンをクリックします</li>
+        <li>初回はフェーズ1の後に更新されたファイルをまとめて同期するので、少し時間がかかります</li>
+        <li>2回目以降は前日の更新分だけなので、短時間で終わります</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">6</span>
+      <span class="step-title">毎朝、同期が成功しているか確認する</span>
+    </div>
+    <div class="step-body">
+      <p><strong>この作業を毎朝行ってください。</strong> 1〜2分で終わります。</p>
+      <ol>
+        <li>MultCloudにログインします</li>
+        <li>左側メニューの <strong>「タスクリスト」</strong> をクリックします</li>
+        <li>前夜の同期タスクが <strong>「成功」</strong> になっているか確認します</li>
+        <li>エラーが出ている場合は、手動で <strong>「再実行」</strong> します</li>
+      </ol>
+
+      <div class="alert info">
+        <span class="alert-icon">&#128197;</span>
+        <div class="alert-body">
+          <div class="alert-title">この状態を1〜2週間続けます</div>
+          <p>毎晩自動で差分同期が安定して成功するようになったら、いよいよ最終フェーズ（フェーズ3）に進みます。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 7. PHASE 3 ===== -->
+<div class="phase-section" id="phase3">
+  <div class="phase-header">
+    <div class="phase-icon red">&#128680;</div>
+    <div>
+      <h2>7. フェーズ3：最終同期と切り替え</h2>
+      <p class="phase-desc">いよいよ最後のステップです。ここだけは慎重に進めてください。</p>
+    </div>
+  </div>
+
+  <div class="status-banner stop">
+    <div class="status-icon">&#9940;</div>
+    <div class="status-text">このフェーズだけ、Boxへの書き込みを一時停止します</div>
+    <div class="status-sub">金曜夜〜月曜朝の週末に実施し、業務への影響を最小限にします。</div>
+  </div>
+
+  <div class="alert danger">
+    <span class="alert-icon">&#9888;&#65039;</span>
+    <div class="alert-body">
+      <div class="alert-title">なぜ書き込み停止が必要？（もう一度おさらい）</div>
+      <p>最終同期中にBoxでファイルを更新すると、その更新がGoogle Driveに反映されない可能性があります。「引っ越し当日にまだ荷物を部屋に運び入れている」ようなものです。全部の荷物を積み終えてからトラックを出発させないと、積み残しが出ます。</p>
+    </div>
+  </div>
+
+  <h3 style="font-size: 16px; font-weight: 700; margin: 28px 0 16px; color: var(--gray-900);">切り替え週末のタイムライン</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot filled red"></div>
+      <div class="timeline-time">金曜 18:00</div>
+      <div class="timeline-content"><strong>全社員にBoxの書き込み停止を通知する</strong></div>
+      <div class="timeline-detail">メールまたはチャットで「Boxへのファイル保存・編集を止めてください」と連絡</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot red"></div>
+      <div class="timeline-time">金曜 18:00〜19:00</div>
+      <div class="timeline-content">社員がBoxで作業していないことを確認する</div>
+      <div class="timeline-detail">まだ作業中の人がいたら、完了を待つ</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot filled red"></div>
+      <div class="timeline-time">金曜 19:00</div>
+      <div class="timeline-content"><strong>最終の増分同期を手動で実行する</strong></div>
+      <div class="timeline-detail">MultCloud → タスクリスト → 増分同期タスク →「今すぐ同期」</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">金曜夜〜土曜</div>
+      <div class="timeline-content">最終同期の完了を待つ</div>
+      <div class="timeline-detail">自動で進むので待つだけ。完了メールが届きます。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot filled green"></div>
+      <div class="timeline-time">土曜〜日曜</div>
+      <div class="timeline-content"><strong>データの整合性をチェックする</strong>（次章参照）</div>
+      <div class="timeline-detail">Google Driveのデータが正しくコピーされているか確認</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot green"></div>
+      <div class="timeline-time">日曜</div>
+      <div class="timeline-content">Google Driveの共有設定を再構築する</div>
+      <div class="timeline-detail">事前に記録しておいた共有設定をGoogle Drive側で設定</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot green"></div>
+      <div class="timeline-time">日曜夜</div>
+      <div class="timeline-content">MultCloudの自動スケジュールを停止する</div>
+      <div class="timeline-detail">タスクリスト → スケジュール → 削除</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot filled green"></div>
+      <div class="timeline-time">月曜 9:00</div>
+      <div class="timeline-content"><strong>全社員にGoogle Driveへの切り替えを通知する</strong></div>
+      <div class="timeline-detail">「今日からGoogle Driveで仕事してください」と連絡</div>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num red-num">1</span>
+      <span class="step-title">金曜 19:00 — 最終同期を手動実行する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>MultCloudにログインします</li>
+        <li>左側メニューの <strong>「タスクリスト」</strong> をクリックします</li>
+        <li>フェーズ2で設定した<strong>増分同期のタスク</strong>を見つけます</li>
+        <li>そのタスクの <strong>「今すぐ同期」</strong> ボタンをクリックします</li>
+        <li>同期が始まります。フェーズ2を十分な期間実行していれば、差分は少ないので短時間で完了するはずです</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num red-num">2</span>
+      <span class="step-title">同期完了を確認する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li><strong>「タスクリスト」</strong> で進捗率が <strong>100%</strong> になっていることを確認します</li>
+        <li>完了メールが届いていることも確認します</li>
+        <li>エラーが出ていないことを確認します</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num red-num">3</span>
+      <span class="step-title">日曜夜 — 自動スケジュールを停止する</span>
+    </div>
+    <div class="step-body">
+      <ol>
+        <li>MultCloudの <strong>「タスクリスト」</strong> を開きます</li>
+        <li>フェーズ2で設定した増分同期タスクの <strong>スケジュール設定を削除</strong> します
+          <br><span style="font-size:13px; color:var(--gray-400);">もう毎晩の自動同期は必要ないため、停止します</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="alert success">
+    <span class="alert-icon">&#127881;</span>
+    <div class="alert-body">
+      <div class="alert-title">書き込み停止期間を最短にするコツ</div>
+      <p>フェーズ2の増分同期を<strong>十分な期間（1〜2週間）</strong>実行してから最終同期に臨むと、最終同期で転送すべきデータがごく少量になります。結果として、金曜夜に開始して土曜朝には完了する、ということも可能です。<strong>事前の準備が充実しているほど、停止期間は短くなります。</strong></p>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 8. AFTER ===== -->
+<div class="phase-section" id="after">
+  <div class="phase-header">
+    <div class="phase-icon green">&#128269;</div>
+    <div>
+      <h2>8. 移管完了後の確認作業</h2>
+      <p class="phase-desc">切り替え前の最終チェックと、切り替え後の運用ルールです。</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">A</span>
+      <span class="step-title">データの整合性チェック（土日に実施）</span>
+    </div>
+    <div class="step-body">
+      <p>Google Driveに正しくデータが移管されているか、以下のポイントを確認します。</p>
+      <ul class="checklist">
+        <li><span class="check"></span><strong>フォルダ構造の確認</strong> — 主要フォルダがBoxと同じ構成で再現されているか</li>
+        <li><span class="check"></span><strong>ファイル数の確認</strong> — 部署ごとにファイル数がおおむね一致しているか</li>
+        <li><span class="check"></span><strong>全体容量の確認</strong> — Google Driveの使用量がBoxとおおむね一致しているか</li>
+        <li><span class="check"></span><strong>重要ファイルの確認</strong> — 各部署の主なファイルを数個開いて、中身が表示されるか</li>
+        <li><span class="check"></span><strong>各部署連絡係の確認</strong> — 各部署の連絡係に自部署のデータを確認してもらう</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">B</span>
+      <span class="step-title">Google Driveの共有設定を再構築する（日曜に実施）</span>
+    </div>
+    <div class="step-body">
+      <div class="alert warning">
+        <span class="alert-icon">&#9888;&#65039;</span>
+        <div class="alert-body">
+          <div class="alert-title">重要：共有設定は自動で移行されません</div>
+          <p>Boxで設定していた「誰がどのフォルダにアクセスできるか」という設定は、MultCloudでは移行されません。事前に記録しておいた共有設定一覧を見ながら、Google Drive側で手動で設定し直してください。</p>
+        </div>
+      </div>
+      <ol>
+        <li>事前準備で作成した <strong>共有設定一覧</strong> を手元に用意します</li>
+        <li>Google Driveで該当フォルダを右クリック → <strong>「共有」</strong> → メンバーを追加</li>
+        <li>すべてのフォルダの共有設定が完了するまで繰り返します</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">C</span>
+      <span class="step-title">切り替え後、Boxを2週間残す</span>
+    </div>
+    <div class="step-body">
+      <p>月曜に切り替えた後も、<strong>最低2週間はBoxを読み取り専用で残してください。</strong></p>
+      <table class="data-table">
+        <thead><tr><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>移管漏れのファイルがあった場合に、Boxで確認できます</td></tr>
+          <tr><td>社員が「あのファイルどこ？」となったときの保険になります</td></tr>
+          <tr><td>2週間問題なければ、Boxの契約解約の手続きに進めます</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 9. EMAILS ===== -->
+<div class="phase-section" id="emails">
+  <div class="phase-header">
+    <div class="phase-icon orange">&#128231;</div>
+    <div>
+      <h2>9. 社員への案内メール（全4通）</h2>
+      <p class="phase-desc">コピー&ペーストでそのまま使えるメールのテンプレートです。日付と担当者名を書き換えてお使いください。</p>
+    </div>
+  </div>
+
+  <!-- Email 1 -->
+  <h3 style="font-size: 15px; font-weight: 700; margin: 24px 0 12px; color: var(--gray-700);">第1通：事前通知（移管開始2週間前に送信）</h3>
+  <div class="email-template">
+    <div class="email-header">
+      <div class="email-label">件名</div>
+      <div class="email-subject">【重要】ファイルストレージをBoxからGoogle Driveに移行します</div>
+    </div>
+    <div class="email-body">各位
+
+&#9675;月より、社内ファイルストレージをBoxからGoogle Driveへ移行します。
+
+&#9632; 皆さんへの影響
+・移行作業中もBoxは今まで通り自由に使えます
+・皆さん側で特別な作業は不要です
+・ある時点でBoxへの書き込みを一時停止していただく
+　期間がありますが、週末に設定しますので
+　業務への影響は最小限です
+・詳細な日程は追ってご連絡します
+
+&#9632; スケジュール（予定）
+・&#9675;月&#9675;日〜&#9675;月&#9675;日：データ移行作業（Boxは通常通り利用可）
+・&#9675;月&#9675;日（金）夜〜&#9675;月&#9675;日（月）朝：最終同期（Box書き込み停止）
+・&#9675;月&#9675;日（月）〜：Google Driveでの業務開始
+
+ご不明点はIT担当（&#9675;&#9675;）までお問い合わせください。</div>
+  </div>
+
+  <!-- Email 2 -->
+  <h3 style="font-size: 15px; font-weight: 700; margin: 32px 0 12px; color: var(--gray-700);">第2通：書き込み停止の予告（切り替え1週間前に送信）</h3>
+  <div class="email-template">
+    <div class="email-header">
+      <div class="email-label">件名</div>
+      <div class="email-subject">【予告】&#9675;月&#9675;日(金)18時よりBoxへの書き込みを停止します</div>
+    </div>
+    <div class="email-body">各位
+
+来週金曜日にBoxの最終データ同期を行います。
+その間、Boxへのファイル保存・編集を停止していただきます。
+
+&#9632; 書き込み停止期間
+  &#9675;月&#9675;日（金）18:00 〜 &#9675;月&#9675;日（月）9:00
+
+&#9632; この期間にできること・できないこと
+  &#9675; Boxのファイルを見る・読む → OK
+  &#10005; Boxにファイルを保存・編集・削除 → NG
+
+&#9632; お願い
+・金曜18時までに、その日の作業ファイルの保存を完了してください
+・週末にどうしてもファイル作業が必要な場合は、
+　一時的にご自身のPC（ローカル）に保存してください
+
+&#9632; 月曜日からの変更点
+・月曜朝にGoogle Driveへの切り替え案内をお送りします
+・月曜以降はGoogle Driveをメインでご利用ください
+
+ご不明点はIT担当（&#9675;&#9675;）までお問い合わせください。</div>
+  </div>
+
+  <!-- Email 3 -->
+  <h3 style="font-size: 15px; font-weight: 700; margin: 32px 0 12px; color: var(--gray-700);">第3通：切り替え当日通知（月曜朝に送信）</h3>
+  <div class="email-template">
+    <div class="email-header">
+      <div class="email-label">件名</div>
+      <div class="email-subject">【本日から】Google Driveでの作業を開始してください</div>
+    </div>
+    <div class="email-body">各位
+
+本日よりファイルの保存先がGoogle Driveに変わります。
+
+&#9632; やること
+・今日からファイルの保存・編集はGoogle Driveで行ってください
+・アクセス方法：drive.google.com にログイン
+・フォルダ構造はBoxと同じです
+
+&#9632; やらないでほしいこと
+・Boxに新しいファイルを保存しないでください
+・Boxの既存ファイルを削除しないでください
+　（念のため残しています）
+
+&#9632; 困ったときは
+1. まずGoogle Driveのフォルダを確認
+2. 見つからなければBoxで検索（読み取りはできます）
+3. それでも解決しない場合 → IT担当（&#9675;&#9675;）に連絡
+
+本日中、各部署の連絡係が巡回して
+困りごとがないか確認します。
+遠慮なくお声がけください。</div>
+  </div>
+
+  <!-- Email 4 -->
+  <h3 style="font-size: 15px; font-weight: 700; margin: 32px 0 12px; color: var(--gray-700);">第4通：完全移行完了通知（切り替え2週間後に送信）</h3>
+  <div class="email-template">
+    <div class="email-header">
+      <div class="email-label">件名</div>
+      <div class="email-subject">【完了】Box → Google Driveへの移行が完了しました</div>
+    </div>
+    <div class="email-body">各位
+
+&#9675;月&#9675;日に実施したGoogle Driveへの移行から2週間が経過し、
+問題がないことを確認しましたので、移行完了といたします。
+
+&#9632; 今後について
+・Boxは&#9675;月&#9675;日をもって利用停止します
+・今後はすべてGoogle Driveをご利用ください
+・Boxのブックマークやショートカットが残っている方は
+　削除をお願いします
+
+皆さまのご協力ありがとうございました。
+引き続きご不明点があればIT担当（&#9675;&#9675;）まで
+お問い合わせください。</div>
+  </div>
+</div>
+
+<div class="section-divider"><hr></div>
+
+<!-- ===== 10. QUICK REF ===== -->
+<div class="phase-section" id="quickref">
+  <div class="phase-header">
+    <div class="phase-icon blue">&#128218;</div>
+    <div>
+      <h2>10. IT担当向けクイックリファレンス</h2>
+      <p class="phase-desc">作業中に迷ったときにサッと見返せる早見表です。</p>
+    </div>
+  </div>
+
+  <div class="quick-ref">
+    <h3>MultCloud操作早見表</h3>
+    <table>
+      <thead>
+        <tr><th>やりたいこと</th><th>MultCloudの操作</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>部署フォルダを一括転送</td>
+          <td><span class="key">クラウド転送</span> → Box/部署名 → Google Drive/部署名 → 今すぐ転送</td>
+        </tr>
+        <tr>
+          <td>差分だけ追いつかせる</td>
+          <td><span class="key">クラウド同期</span> → 増分同期（一方向） → 今すぐ同期</td>
+        </tr>
+        <tr>
+          <td>毎晩自動で差分同期</td>
+          <td><span class="key">クラウド同期</span> → スケジュール → 毎日 午前2:00</td>
+        </tr>
+        <tr>
+          <td>進捗を確認する</td>
+          <td><span class="key">タスクリスト</span></td>
+        </tr>
+        <tr>
+          <td>完了通知を受け取る</td>
+          <td><span class="key">オプション</span> → E-メール → ON</td>
+        </tr>
+        <tr>
+          <td>特定ファイルだけ除外</td>
+          <td><span class="key">オプション</span> → フィルター</td>
+        </tr>
+        <tr>
+          <td>自動同期を止める</td>
+          <td><span class="key">タスクリスト</span> → 該当タスク → スケジュール削除</td>
+        </tr>
+        <tr>
+          <td>最終同期を手動実行</td>
+          <td><span class="key">タスクリスト</span> → 該当タスク → 今すぐ同期</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size: 16px; font-weight: 700; margin: 28px 0 12px; color: var(--gray-900);">フェーズ別チェックリスト</h3>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num">1</span>
+      <span class="step-title">フェーズ1完了時の確認</span>
+    </div>
+    <div class="step-body">
+      <ul class="checklist">
+        <li><span class="check"></span>全部署の転送が100%完了している</li>
+        <li><span class="check"></span>各部署のフォルダ構造がGoogle Driveに再現されている</li>
+        <li><span class="check"></span>各部署連絡係の確認OKを取得している</li>
+        <li><span class="check"></span>管理表にすべて記録している</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num green-num">2</span>
+      <span class="step-title">フェーズ2実行中（毎朝の確認）</span>
+    </div>
+    <div class="step-body">
+      <ul class="checklist">
+        <li><span class="check"></span>前夜の増分同期が正常完了している</li>
+        <li><span class="check"></span>エラーが出ていない</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-card-header">
+      <span class="step-num red-num">3</span>
+      <span class="step-title">フェーズ3（切り替え週末）の確認</span>
+    </div>
+    <div class="step-body">
+      <ul class="checklist">
+        <li><span class="check"></span>金曜18:00に全社員へ書き込み停止を通知した</li>
+        <li><span class="check"></span>金曜19:00に最終同期を手動実行した</li>
+        <li><span class="check"></span>最終同期が100%完了した</li>
+        <li><span class="check"></span>データ整合性チェックを完了した</li>
+        <li><span class="check"></span>Google Driveの共有設定を再構築した</li>
+        <li><span class="check"></span>MultCloudの自動スケジュールを停止した</li>
+        <li><span class="check"></span>月曜朝に切り替え通知を送信した</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.content -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>
+    <strong>Box → Google Drive 全社データ移管マニュアル</strong><br>
+    MultCloud Premium Plan 使用 | 作成日: 2026.02.20<br>
+    <span style="font-size: 11px; margin-top: 8px; display: inline-block;">このマニュアルは社内利用を目的としています</span>
+  </p>
+</div>
+
+</body>
+</html>
