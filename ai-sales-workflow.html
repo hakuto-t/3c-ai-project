@@ -5,870 +5,560 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI × 住宅営業 | 完全業務フローガイド</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
-  :root {
-    --bg: #0a0a1a;
-    --bg-card: #12122a;
-    --bg-card-alt: #1a1a3e;
-    --bg-surface: #0e0e24;
-    --text: #e8e8f0;
-    --text-muted: #9898b8;
-    --text-dim: #6868a0;
-    --accent: #6c5ce7;
-    --accent-light: #a29bfe;
-    --accent-glow: rgba(108, 92, 231, 0.3);
-    --cyan: #00cec9;
-    --cyan-glow: rgba(0, 206, 201, 0.2);
-    --orange: #e17055;
-    --orange-light: #fab1a0;
-    --green: #00b894;
-    --green-light: #55efc4;
-    --green-glow: rgba(0, 184, 148, 0.2);
-    --pink: #fd79a8;
-    --pink-glow: rgba(253, 121, 168, 0.2);
-    --yellow: #fdcb6e;
-    --yellow-glow: rgba(253, 203, 110, 0.15);
-    --blue: #74b9ff;
-    --blue-glow: rgba(116, 185, 255, 0.2);
-    --border: rgba(255,255,255,0.06);
-    --border-accent: rgba(108, 92, 231, 0.3);
-    --radius: 16px;
-    --radius-sm: 10px;
-    --shadow: 0 8px 32px rgba(0,0,0,0.4);
-    --shadow-glow: 0 0 40px rgba(108, 92, 231, 0.15);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) var(--bg);
-  }
-
-  body {
-    font-family: 'Noto Sans JP', 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.8;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ===== HERO ===== */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    padding: 40px 20px;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 800px 600px at 30% 20%, rgba(108, 92, 231, 0.12), transparent),
-      radial-gradient(ellipse 600px 400px at 70% 80%, rgba(0, 206, 201, 0.08), transparent),
-      radial-gradient(ellipse 400px 300px at 50% 50%, rgba(253, 121, 168, 0.05), transparent);
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(108, 92, 231, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(108, 92, 231, 0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 20px;
-    border-radius: 100px;
-    background: rgba(108, 92, 231, 0.15);
-    border: 1px solid rgba(108, 92, 231, 0.3);
-    color: var(--accent-light);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-bottom: 32px;
-  }
-
-  .hero-badge::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-light);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 900;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    background: linear-gradient(135deg, #fff 0%, var(--accent-light) 50%, var(--cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero p {
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto 40px;
-    line-height: 1.9;
-  }
-
-  .hero-stats {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
-    flex-wrap: wrap;
-  }
-
-  .hero-stat {
-    text-align: center;
-  }
-
-  .hero-stat .num {
-    font-family: 'Inter', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, var(--cyan), var(--accent-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-stat .label {
-    font-size: 12px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  /* ===== NAV ===== */
-  .toc {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(10, 10, 26, 0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 20px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .toc::-webkit-scrollbar { display: none; }
-
-  .toc-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 4px;
-    padding: 12px 0;
-    min-width: max-content;
-  }
-
-  .toc a {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-muted);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-
-  .toc a:hover {
-    background: rgba(108, 92, 231, 0.15);
-    color: var(--accent-light);
-  }
-
-  .toc a .step-num {
-    font-family: 'Inter', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    width: 20px;
-    height: 20px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(108, 92, 231, 0.2);
-    color: var(--accent-light);
-  }
-
-  /* ===== CONTAINER ===== */
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ===== CONCEPT SECTION ===== */
-  .concept-section {
-    padding: 100px 24px 80px;
-  }
-
-  .concept-grid {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .concept-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    transition: all 0.3s;
-  }
-
-  .concept-card:hover {
-    border-color: var(--border-accent);
-    box-shadow: var(--shadow-glow);
-    transform: translateY(-2px);
-  }
-
-  .concept-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .concept-card h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #fff;
-  }
-
-  .concept-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.8;
-  }
-
-  /* ===== SECTION HEADER ===== */
-  .section-header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .section-header .overline {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent-light);
-    margin-bottom: 12px;
-  }
-
-  .section-header h2 {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 16px;
-  }
-
-  .section-header p {
-    font-size: 15px;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  /* ===== PHASE SECTION ===== */
-  .phase-section {
-    padding: 80px 0;
-    position: relative;
-  }
-
-  .phase-section + .phase-section {
-    border-top: 1px solid var(--border);
-  }
-
-  /* Phase Header */
-  .phase-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    margin-bottom: 40px;
-  }
-
-  .phase-number {
-    flex-shrink: 0;
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    color: #fff;
-    position: relative;
-  }
-
-  .phase-number::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 18px;
-    border: 2px solid;
-    opacity: 0.3;
-  }
-
-  .phase-title h2 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 6px;
-  }
-
-  .phase-title .subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-
-  /* Content Blocks */
-  .content-block {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 20px;
-    overflow: hidden;
-    transition: all 0.3s;
-  }
-
-  .content-block:hover {
-    border-color: rgba(255,255,255,0.1);
-  }
-
-  .block-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .block-tag {
-    padding: 4px 12px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-
-  .tag-sales {
-    background: rgba(0, 206, 201, 0.15);
-    color: var(--cyan);
-    border: 1px solid rgba(0, 206, 201, 0.25);
-  }
-
-  .tag-ai {
-    background: rgba(108, 92, 231, 0.15);
-    color: var(--accent-light);
-    border: 1px solid rgba(108, 92, 231, 0.25);
-  }
-
-  .tag-output {
-    background: rgba(253, 203, 110, 0.15);
-    color: var(--yellow);
-    border: 1px solid rgba(253, 203, 110, 0.25);
-  }
-
-  .tag-goal {
-    background: rgba(0, 184, 148, 0.15);
-    color: var(--green-light);
-    border: 1px solid rgba(0, 184, 148, 0.25);
-  }
-
-  .tag-tip {
-    background: rgba(253, 121, 168, 0.15);
-    color: var(--pink);
-    border: 1px solid rgba(253, 121, 168, 0.25);
-  }
-
-  .block-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
-    flex: 1;
-  }
-
-  .block-body {
-    padding: 24px;
-  }
-
-  .block-body p {
-    color: var(--text-muted);
-    margin-bottom: 16px;
-    line-height: 1.9;
-  }
-
-  .block-body p:last-child {
-    margin-bottom: 0;
-  }
-
-  .block-body strong {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  /* Lists */
-  .detail-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .detail-list li {
-    position: relative;
-    padding: 10px 0 10px 28px;
-    color: var(--text-muted);
-    font-size: 14px;
-    line-height: 1.8;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
-
-  .detail-list li:last-child {
-    border-bottom: none;
-  }
-
-  .detail-list li::before {
-    content: '';
-    position: absolute;
-    left: 4px;
-    top: 18px;
-    width: 8px;
-    height: 8px;
-    border-radius: 3px;
-  }
-
-  .list-cyan li::before { background: var(--cyan); opacity: 0.7; }
-  .list-accent li::before { background: var(--accent-light); opacity: 0.7; }
-  .list-green li::before { background: var(--green); opacity: 0.7; }
-  .list-yellow li::before { background: var(--yellow); opacity: 0.7; }
-  .list-pink li::before { background: var(--pink); opacity: 0.7; }
-  .list-blue li::before { background: var(--blue); opacity: 0.7; }
-
-  .detail-list li strong {
-    color: #fff;
-    font-weight: 600;
-  }
-
-  /* Sub items */
-  .sub-list {
-    list-style: none;
-    padding: 8px 0 0 20px;
-  }
-
-  .sub-list li {
-    padding: 4px 0 4px 20px;
-    border-bottom: none;
-    font-size: 13px;
-    color: var(--text-dim);
-  }
-
-  .sub-list li::before {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    top: 12px;
-    opacity: 0.4;
-  }
-
-  /* Highlight box */
-  .highlight-box {
-    border-radius: var(--radius-sm);
-    padding: 20px 24px;
-    margin: 16px 0;
-    border-left: 3px solid;
-  }
-
-  .highlight-cyan {
-    background: rgba(0, 206, 201, 0.06);
-    border-color: var(--cyan);
-  }
-
-  .highlight-accent {
-    background: rgba(108, 92, 231, 0.06);
-    border-color: var(--accent-light);
-  }
-
-  .highlight-green {
-    background: rgba(0, 184, 148, 0.06);
-    border-color: var(--green);
-  }
-
-  .highlight-yellow {
-    background: rgba(253, 203, 110, 0.06);
-    border-color: var(--yellow);
-  }
-
-  .highlight-pink {
-    background: rgba(253, 121, 168, 0.06);
-    border-color: var(--pink);
-  }
-
-  .highlight-box p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .highlight-box strong {
-    color: #fff;
-  }
-
-  /* Two Column Layout */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  @media (max-width: 768px) {
-    .two-col { grid-template-columns: 1fr; }
-    .hero-stats { gap: 24px; }
-    .phase-header { flex-direction: column; gap: 16px; }
-  }
-
-  /* Flow Connector */
-  .flow-connector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 0;
-    position: relative;
-  }
-
-  .flow-connector::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-    opacity: 0.3;
-  }
-
-  .flow-connector .arrow {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--bg-card);
-    border: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    color: var(--accent-light);
-    font-size: 18px;
-  }
-
-  /* Goal banner */
-  .goal-banner {
-    background: linear-gradient(135deg, rgba(0, 184, 148, 0.1), rgba(108, 92, 231, 0.1));
-    border: 1px solid rgba(0, 184, 148, 0.2);
-    border-radius: var(--radius);
-    padding: 24px 32px;
-    margin-top: 24px;
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .goal-banner .icon {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: rgba(0, 184, 148, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--green-light);
-    font-weight: 800;
-    font-size: 14px;
-  }
-
-  .goal-banner .goal-text h4 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--green-light);
-    margin-bottom: 4px;
-  }
-
-  .goal-banner .goal-text p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.7;
-  }
-
-  /* Output banner */
-  .output-banner {
-    background: rgba(253, 203, 110, 0.05);
-    border: 1px solid rgba(253, 203, 110, 0.15);
-    border-radius: var(--radius-sm);
-    padding: 16px 20px;
-    margin-top: 16px;
-  }
-
-  .output-banner h4 {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--yellow);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .output-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .output-tag {
-    padding: 4px 12px;
-    border-radius: 6px;
-    background: rgba(253, 203, 110, 0.1);
-    border: 1px solid rgba(253, 203, 110, 0.2);
-    font-size: 12px;
-    color: var(--yellow);
-    font-weight: 500;
-  }
-
-  /* Message section */
-  .message-section {
-    padding: 100px 24px;
-    text-align: center;
-    position: relative;
-  }
-
-  .message-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 600px 400px at 50% 50%, rgba(108, 92, 231, 0.08), transparent);
-  }
-
-  .message-content {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .message-content blockquote {
-    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-    font-weight: 600;
-    color: #fff;
-    line-height: 1.8;
-    margin-bottom: 32px;
-    padding: 0;
-    border: none;
-  }
-
-  .message-content .attribution {
-    font-size: 14px;
-    color: var(--text-dim);
-  }
-
-  /* Footer */
-  footer {
-    padding: 60px 24px 40px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-
-  footer p {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.8;
-  }
-
-  /* Utility */
-  .mt-0 { margin-top: 0; }
-  .mb-0 { margin-bottom: 0; }
-  .mb-8 { margin-bottom: 8px; }
-  .mb-16 { margin-bottom: 16px; }
-  .mb-24 { margin-bottom: 24px; }
-  .mb-32 { margin-bottom: 32px; }
-
-  /* Process Step (mini) */
-  .process-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 16px 0;
-  }
-
-  .process-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 16px;
-    border-radius: var(--radius-sm);
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-  }
-
-  .process-step .step-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    color: #fff;
-  }
-
-  .process-step .step-text {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  .process-step .step-text strong {
-    color: var(--text);
-  }
-
-  .bg-cyan { background: rgba(0, 206, 201, 0.25); }
-  .bg-accent { background: rgba(108, 92, 231, 0.3); }
-  .bg-green { background: rgba(0, 184, 148, 0.25); }
-  .bg-yellow { background: rgba(253, 203, 110, 0.25); }
-  .bg-pink { background: rgba(253, 121, 168, 0.25); }
-  .bg-orange { background: rgba(225, 112, 85, 0.25); }
-  .bg-blue { background: rgba(116, 185, 255, 0.25); }
-
-  /* Divider with label */
-  .labeled-divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 32px 0;
-    color: var(--text-dim);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .labeled-divider::before,
-  .labeled-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* KPI boxes */
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
-  }
-
-  .kpi-box {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 20px;
-    text-align: center;
-  }
-
-  .kpi-box .kpi-val {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
-
-  .kpi-box .kpi-label {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  .text-cyan { color: var(--cyan); }
-  .text-accent { color: var(--accent-light); }
-  .text-green { color: var(--green-light); }
-  .text-yellow { color: var(--yellow); }
-  .text-pink { color: var(--pink); }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #ffffff;
+  --bg-gray: #f7f8fa;
+  --bg-warm: #faf9f7;
+  --text: #1a1a2e;
+  --text-body: #3a3a52;
+  --text-muted: #6b7280;
+  --text-dim: #9ca3af;
+  --accent: #4f46e5;
+  --accent-light: #6366f1;
+  --accent-bg: #eef2ff;
+  --accent-border: #c7d2fe;
+  --sales: #0891b2;
+  --sales-bg: #ecfeff;
+  --sales-border: #a5f3fc;
+  --sales-dark: #0e7490;
+  --ai: #7c3aed;
+  --ai-bg: #f5f3ff;
+  --ai-border: #ddd6fe;
+  --ai-dark: #6d28d9;
+  --green: #059669;
+  --green-bg: #ecfdf5;
+  --green-border: #a7f3d0;
+  --orange: #ea580c;
+  --orange-bg: #fff7ed;
+  --orange-border: #fed7aa;
+  --yellow: #ca8a04;
+  --yellow-bg: #fefce8;
+  --yellow-border: #fde68a;
+  --pink: #db2777;
+  --pink-bg: #fdf2f8;
+  --pink-border: #fbcfe8;
+  --blue: #2563eb;
+  --blue-bg: #eff6ff;
+  --blue-border: #bfdbfe;
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --radius: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 16px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-body);
+  line-height: 1.85;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+  color: #fff;
+  padding: clamp(60px, 12vw, 120px) 24px clamp(50px, 10vw, 100px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 80% at 20% 50%, rgba(99,102,241,0.3), transparent),
+    radial-gradient(ellipse 40% 60% at 80% 30%, rgba(139,92,246,0.2), transparent);
+}
+.hero-content { position: relative; max-width: 820px; margin: 0 auto; }
+.hero-badge {
+  display: inline-block;
+  padding: 6px 18px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 28px;
+  color: rgba(255,255,255,0.9);
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+.hero p {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  color: rgba(255,255,255,0.75);
+  max-width: 640px;
+  margin: 0 auto 36px;
+  line-height: 1.9;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.hero-stat .label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* ===== STICKY NAV ===== */
+.toc {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.toc::-webkit-scrollbar { display: none; }
+.toc-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2px;
+  padding: 10px 0;
+  min-width: max-content;
+}
+.toc a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.toc a:hover, .toc a.active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+.toc .step-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+/* ===== CONTAINER ===== */
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+/* ===== CONCEPT ===== */
+.concept-section {
+  padding: 72px 20px 64px;
+  background: var(--bg-gray);
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.section-desc {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.concept-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.concept-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.concept-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.concept-card h3 .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.concept-card p {
+  font-size: 14px;
+  color: var(--text-body);
+  line-height: 1.85;
+}
+.foundation-box {
+  max-width: 900px;
+  margin: 28px auto 0;
+  background: #fff;
+  border: 2px solid var(--green-border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+}
+.foundation-box .icon-circle {
+  flex-shrink: 0;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-bg);
+  color: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 16px;
+}
+.foundation-box h4 { font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.foundation-box p { font-size: 14px; color: var(--text-body); margin: 0; }
+
+/* ===== PHASE ===== */
+.phase {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--border);
+}
+.phase:last-of-type { border-bottom: none; }
+.phase-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.phase-num {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px; font-weight: 800; color: #fff;
+}
+.phase-head h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.phase-subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 32px;
+  padding-left: 64px;
+}
+@media (max-width: 600px) {
+  .phase-subtitle { padding-left: 0; }
+}
+
+/* ===== TIP CARD ===== */
+.tip {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.tip:hover { box-shadow: var(--shadow); }
+
+.tip-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.tip-badge {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.badge-sales { background: var(--sales-bg); color: var(--sales-dark); border: 1px solid var(--sales-border); }
+.badge-ai { background: var(--ai-bg); color: var(--ai-dark); border: 1px solid var(--ai-border); }
+.tip-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+}
+
+.tip-body { padding: 24px; }
+.tip-body p { margin-bottom: 16px; line-height: 1.9; }
+.tip-body p:last-child { margin-bottom: 0; }
+.tip-body strong { color: var(--text); font-weight: 600; }
+
+/* Objective mini-box within tip */
+.tip-objective {
+  background: var(--bg-gray);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 16px;
+  border-left: 3px solid var(--accent);
+}
+.tip-objective .obj-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.tip-objective p { font-size: 13px; color: var(--text-body); margin: 0; line-height: 1.8; }
+
+/* What you can do / output within tip */
+.tip-output {
+  background: var(--green-bg);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 16px;
+  border-left: 3px solid var(--green);
+}
+.tip-output .out-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.tip-output p { font-size: 13px; color: var(--text-body); margin: 0; line-height: 1.8; }
+
+/* Key insight box within tip */
+.tip-insight {
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-top: 16px;
+}
+.tip-insight.insight-sales { background: var(--sales-bg); border-left: 3px solid var(--sales); }
+.tip-insight.insight-ai { background: var(--ai-bg); border-left: 3px solid var(--ai); }
+.tip-insight.insight-warn { background: var(--orange-bg); border-left: 3px solid var(--orange); }
+.tip-insight p { font-size: 13px; margin: 0; line-height: 1.85; color: var(--text-body); }
+.tip-insight strong { color: var(--text); }
+
+/* Steps */
+.steps { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--bg-gray);
+  border: 1px solid var(--border);
+}
+.step-item .s-num {
+  flex-shrink: 0;
+  width: 24px; height: 24px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 800; color: #fff;
+}
+.s-num.s-sales { background: var(--sales); }
+.s-num.s-ai { background: var(--ai); }
+.s-num.s-green { background: var(--green); }
+.s-num.s-orange { background: var(--orange); }
+.s-num.s-blue { background: var(--blue); }
+.step-item .s-text { font-size: 13.5px; color: var(--text-body); line-height: 1.8; }
+.step-item .s-text strong { color: var(--text); }
+
+/* Bullet list */
+.blist {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.blist li {
+  position: relative;
+  padding: 8px 0 8px 22px;
+  font-size: 14px;
+  color: var(--text-body);
+  line-height: 1.85;
+  border-bottom: 1px solid #f3f4f6;
+}
+.blist li:last-child { border-bottom: none; }
+.blist li::before {
+  content: '';
+  position: absolute;
+  left: 2px; top: 16px;
+  width: 7px; height: 7px; border-radius: 2px;
+}
+.blist li strong { color: var(--text); font-weight: 600; }
+.blist.bl-sales li::before { background: var(--sales); opacity: 0.6; }
+.blist.bl-ai li::before { background: var(--ai); opacity: 0.6; }
+.blist.bl-green li::before { background: var(--green); opacity: 0.6; }
+.blist.bl-orange li::before { background: var(--orange); opacity: 0.6; }
+.blist.bl-blue li::before { background: var(--blue); opacity: 0.6; }
+.blist.bl-pink li::before { background: var(--pink); opacity: 0.6; }
+
+/* KPI */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.kpi {
+  background: var(--bg-gray);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+.kpi .val {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.kpi .lbl { font-size: 11px; color: var(--text-dim); }
+
+/* Phase output summary */
+.phase-output {
+  margin-top: 8px;
+  padding: 20px 24px;
+  background: var(--bg-gray);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.phase-output h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.output-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.otag {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+/* Phase goal */
+.phase-goal {
+  margin-top: 16px;
+  padding: 18px 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--green-border);
+  background: var(--green-bg);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.phase-goal .g-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+}
+.phase-goal h4 { font-size: 13px; font-weight: 700; color: var(--green); margin-bottom: 2px; }
+.phase-goal p { font-size: 13px; color: var(--text-body); margin: 0; line-height: 1.8; }
+
+/* ===== CLOSING ===== */
+.closing {
+  padding: 80px 20px;
+  background: var(--bg-gray);
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.closing blockquote {
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 2;
+  margin-bottom: 28px;
+  border: none;
+  padding: 0;
+}
+.closing .sub { font-size: 14px; color: var(--text-muted); max-width: 680px; margin: 0 auto 40px; line-height: 1.95; }
+.closing-actions {
+  max-width: 620px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+}
+.closing-actions h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+
+footer {
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+footer p { font-size: 12px; color: var(--text-dim); }
 </style>
 </head>
 <body>
 
 <!-- ==================== HERO ==================== -->
 <section class="hero">
-  <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge">CONSTRUCTION AI MANAGEMENT</div>
+    <div class="hero-badge">AI x HOUSING SALES WORKFLOW</div>
     <h1>AI × 住宅営業<br>完全業務フローガイド</h1>
-    <p>市場縮小・人手不足時代に、工務店が生き残るためのAI活用戦略。集客から納品後マーケティングまで、全12フェーズの営業プロセスにおけるAI実装を徹底解説。</p>
+    <p>市場縮小・人手不足時代に工務店が生き残るためのAI活用戦略。集客から納品後マーケティングまで、全12フェーズの営業プロセスにおけるAI実装を徹底解説。</p>
     <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="num">12</div>
-        <div class="label">業務フェーズ</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">4回</div>
-        <div class="label">理想の商談回数</div>
-      </div>
-      <div class="hero-stat">
-        <div class="num">3週間</div>
-        <div class="label">目標リードタイム</div>
-      </div>
+      <div class="hero-stat"><div class="num">12</div><div class="label">業務フェーズ</div></div>
+      <div class="hero-stat"><div class="num">4回</div><div class="label">理想の商談回数</div></div>
+      <div class="hero-stat"><div class="num">3週間</div><div class="label">目標リードタイム</div></div>
     </div>
   </div>
 </section>
@@ -894,1034 +584,1054 @@
 
 <!-- ==================== CONCEPT ==================== -->
 <section class="concept-section" id="concept">
-  <div class="container">
-    <div class="section-header">
-      <div class="overline">Core Philosophy</div>
-      <h2>AI活用の核心思想</h2>
-      <p>AIを導入する目的は「効率化」でも「残業削減」でもない。営業における本当のAI活用の目的は<strong style="color:#fff">制約率の向上</strong>である。</p>
+  <div style="text-align:center;">
+    <div class="section-label">Core Philosophy</div>
+    <div class="section-title">AI活用の核心思想</div>
+    <p class="section-desc">AIを導入する目的は「効率化」でも「残業削減」でもない。営業における本当のAI活用の目的は<strong style="color:var(--text)">制約率の向上</strong>である。</p>
+  </div>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <h3><span class="dot" style="background:var(--sales);"></span>うなぎ屋の法則</h3>
+      <p>電気コンロで早く安く焼けても、炭焼きでなければお客様は満足しない。営業も同じで、手間暇をかけないとお客様の信頼は得られない。AIは「手間暇の質」を飛躍的に高めるツールである。</p>
     </div>
-
-    <div class="concept-grid">
-      <div class="concept-card">
-        <div class="concept-icon" style="background: rgba(0, 206, 201, 0.15); color: var(--cyan);">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3>うなぎ屋の法則</h3>
-        <p>電気コンロで早く安く焼けても、炭焼きでなければお客様は満足しない。営業も同じで、手間暇をかけないとお客様の信頼は得られない。AIは「手間暇の質」を飛躍的に高めるツールである。</p>
-      </div>
-
-      <div class="concept-card">
-        <div class="concept-icon" style="background: rgba(108, 92, 231, 0.15); color: var(--accent-light);">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        </div>
-        <h3>投資対効果（ROI）</h3>
-        <p>生産性とは投資対効果。かけている労力が少ないのに最大の成果を生み出すこと。AIによって5分で作れる資料が、お客様には「夜遅くまで私たちのために作ってくれた」と映る。この非対称性こそがAI活用の本質。</p>
-      </div>
-
-      <div class="concept-card">
-        <div class="concept-icon" style="background: rgba(0, 184, 148, 0.15); color: var(--green-light);">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>泥臭さ × AI</h3>
-        <p>全部をAIに置き換える「魔法の杖」ではない。泥臭い現場の営業活動の中にAIを正しく落とし込み、業務フローとROIの両方を見ながら設計すること。AIリテラシーの高い人間が業務フローにAIを落とし込む必要がある。</p>
-      </div>
+    <div class="concept-card">
+      <h3><span class="dot" style="background:var(--ai);"></span>投資対効果（ROI）</h3>
+      <p>生産性とは投資対効果。かけている労力が少ないのに最大の成果を生み出すこと。AIで5分で作れる資料が、お客様には「夜遅くまで私たちのために作ってくれた」と映る。この非対称性こそAI活用の本質。</p>
     </div>
-
-    <div class="goal-banner" style="max-width:1000px; margin: 40px auto 0;">
-      <div class="icon">!</div>
-      <div class="goal-text">
-        <h4>全社共通の基盤：全商談の録音徹底</h4>
-        <p>どの会社でも今日からやれることは、全社員にスマホを配布し、全ての商談・打ち合わせを録音するという指示の徹底である。録音データ（一次情報）の蓄積が、以降の全てのAI活用の基盤となる。</p>
-      </div>
+    <div class="concept-card">
+      <h3><span class="dot" style="background:var(--green);"></span>泥臭さ × AI</h3>
+      <p>全部をAIに置き換える「魔法の杖」ではない。泥臭い現場の営業活動の中にAIを正しく落とし込み、業務フローとROIの両方を見ながら設計すること。AIリテラシーの高い人間が業務フローに落とし込む必要がある。</p>
+    </div>
+  </div>
+  <div class="foundation-box">
+    <div class="icon-circle">!</div>
+    <div>
+      <h4>全社共通の基盤：全商談の録音徹底</h4>
+      <p>どの会社でも今日からやれることは、全社員にスマホを配布し、全ての商談・打ち合わせを録音するという指示の徹底。録音データ（一次情報）の蓄積が、以降の全てのAI活用の基盤となる。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 1: 集客 ==================== -->
+<!-- ================================================================ -->
+<!--  PHASE 01 : 集客・リード獲得                                      -->
+<!-- ================================================================ -->
 <div class="container">
-<section class="phase-section" id="phase1">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(0,206,201,0.3), rgba(0,206,201,0.1)); color: var(--cyan);">
-      01
-      <style>.phase-number:nth-of-type(1)::after { border-color: var(--cyan); }</style>
-    </div>
-    <div class="phase-title">
-      <h2>集客・リード獲得フェーズ</h2>
-      <div class="subtitle">YouTube・SNS・Webコンテンツによるリード獲得</div>
-    </div>
+<section class="phase" id="phase1">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--sales);">01</div>
+    <h2>集客・リード獲得フェーズ</h2>
   </div>
+  <p class="phase-subtitle">YouTube・SNS・Webコンテンツによるリード獲得と、その裏側にあるAI活用</p>
 
-  <!-- YouTube企画 -->
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>YouTube企画・台本設計</h3>
+  <!-- TIP 1-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>YouTube企画・台本をAIで設計する方法</h3>
     </div>
-    <div class="block-body">
-      <p>ルームツアーなどのYouTube動画を企画・制作するプロセスにAIを組み込む。過去の全YouTube動画をAIのナレッジベースに蓄積し、それをソースデータとして活用することで、一貫性のある企画立案と台本設計を行う。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-cyan">1</div>
-          <div class="step-text"><strong>過去動画の蓄積：</strong>自社のYouTubeチャンネルの過去動画を全てAIナレッジベースに投入し、コンテンツの傾向・反応・テーマを学習させる</div>
+    <div class="tip-body">
+      <p>ルームツアーなどのYouTube動画を企画するとき、過去の全動画をAIのナレッジベース（知識データベース）に蓄積し、それをソースにしてAIで企画立案と台本設計を行う。過去の成功パターンを踏まえた一貫性のあるコンテンツが作れる。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>過去動画の蓄積：</strong>自社チャンネルの過去動画を全てAIナレッジベースに投入し、テーマ・構成・反応の傾向を学習させる</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">2</div>
-          <div class="step-text"><strong>企画立案：</strong>蓄積したナレッジベースをソースデータとしてAIに設定し、過去の成功パターンを踏まえた新規企画を立案する</div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>企画立案：</strong>蓄積データをソースに設定したAIに「次の動画企画を考えて」と指示し、過去の傾向を踏まえた新規企画を立案させる</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">3</div>
-          <div class="step-text"><strong>台本設計：</strong>AIが企画内容に基づいて、ルームツアーの台本・進行構成を設計する</div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>台本設計：</strong>AIが企画内容に基づいてルームツアーの台本・進行構成を設計。ナレーションのセリフまで含めた台本が生成される</div>
         </div>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>YouTube企画書 / 動画台本（ナレーション・進行構成含む）</p>
       </div>
     </div>
   </div>
 
-  <!-- コンテンツのリファレンス -->
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>一次情報ファーストのコンテンツ制作</h3>
+  <!-- TIP 1-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>「一次情報ファースト」でコンテンツを作る</h3>
     </div>
-    <div class="block-body">
-      <p>リード獲得のためのコンテンツ作成において、最も重要なのは<strong>一次情報（顧客の声・社内専門職のナレッジ）</strong>を起点にすること。AIだけでコンテンツを作るのではなく、必ず生のリファレンスデータを最初の引用として設定する。</p>
-      <ul class="detail-list list-cyan">
-        <li><strong>顧客VOC（Voice of Customer）：</strong>顧客へのインタビューを定期的に実施し、全て録音・文字起こしを行い、AIナレッジベースに蓄積。これをブログ、Webコンテンツ、SNSの素材として転換していく</li>
-        <li><strong>社内専門職ヒアリング：</strong>設計士・インテリアコーディネーター・現場監督など、社内の専門家へのヒアリングも全て録音・文字起こしし、コンテンツの専門的裏付けとする</li>
-        <li><strong>動画の二次利用：</strong>撮影した全ての動画は文字起こしし、テキストコンテンツ（ブログ・SNS投稿・Webサイト）に流用する。1つの動画素材から複数のコンテンツを生み出す</li>
+    <div class="tip-body">
+      <p>リード獲得のためのコンテンツ制作で最も重要なのは、<strong>一次情報（顧客の声・社内専門職のナレッジ）を起点にすること</strong>。AIだけでコンテンツを作ると中身のない記事になる。必ず生のリファレンスデータを最初の引用として設定してからAIに加工させる。</p>
+      <ul class="blist bl-sales">
+        <li><strong>顧客VOC（Voice of Customer）の蓄積：</strong>顧客へのインタビューを定期的に実施し、全て録音→文字起こし→AIナレッジベースに蓄積。これがブログ・Web・SNSの全素材の源泉になる</li>
+        <li><strong>社内専門職ヒアリング：</strong>設計士・IC・現場監督など社内専門家へのヒアリングも全て録音・文字起こし。コンテンツの専門的裏付けとする</li>
+        <li><strong>動画の二次利用：</strong>撮影した全動画を文字起こしし、テキストコンテンツ（ブログ・SNS投稿・Webサイト）に流用。1つの動画素材→複数コンテンツのマルチユース</li>
       </ul>
+      <div class="tip-objective">
+        <div class="obj-label">なぜこうするのか</div>
+        <p>AIが生成するコンテンツの品質は「入力データの品質」で決まる。自社固有の一次情報（顧客の生の声・専門家の知見）を起点にすることで、他社には作れない独自性のあるコンテンツが量産できる。</p>
+      </div>
     </div>
   </div>
 
-  <!-- バナー・SNS -->
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>バナー画像・SNSコンテンツ制作</h3>
+  <!-- TIP 1-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>バナー画像・SNSコンテンツをAIで内製する</h3>
     </div>
-    <div class="block-body">
-      <p>バナー画像の作成やSNSに投稿する画像・動画の制作にもAI画像生成ツールを活用する。デザイナーに依頼する必要なく、社内で迅速にクリエイティブを制作できる体制を構築する。</p>
-    </div>
-  </div>
-
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">YouTube企画書・台本</span>
-      <span class="output-tag">ルームツアー動画</span>
-      <span class="output-tag">SNSバナー画像</span>
-      <span class="output-tag">ブログ記事</span>
-      <span class="output-tag">Webサイトコンテンツ</span>
-      <span class="output-tag">顧客VOCデータベース</span>
+    <div class="tip-body">
+      <p>バナー画像やSNS投稿用の画像・動画もAI画像生成ツールで制作する。デザイナーへの外注なしで社内から迅速にクリエイティブを出せる体制を構築する。外注コストの削減と、スピードの向上を同時に実現できる。</p>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>SNSバナー画像 / Instagram投稿画像 / 動画コンテンツ</p>
+      </div>
     </div>
   </div>
 
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(0, 206, 201, 0.2); color: var(--cyan);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--cyan);">目的</h4>
-      <p>一次情報を起点とした質の高いコンテンツを量産し、来場予約（リード）を安定的に獲得する。1つの素材から複数チャネルに展開するマルチユース戦略で、投入リソース対比のリード獲得効率を最大化する。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>一次情報を起点とした質の高いコンテンツを量産し、来場予約（リード）を安定的に獲得する。1素材→複数チャネル展開のマルチユース戦略で、投入リソースあたりのリード獲得効率を最大化。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 2: 0次接客 ==================== -->
-<section class="phase-section" id="phase2">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(108,92,231,0.3), rgba(108,92,231,0.1));">02</div>
-    <div class="phase-title">
-      <h2>0次接客（来場予約〜来場前）</h2>
-      <div class="subtitle">AI分析による事前準備とSNSを活用したエンゲージメント構築</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 02 : 0次接客                                              -->
+<!-- ================================================================ -->
+<section class="phase" id="phase2">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--ai);">02</div>
+    <h2>0次接客（来場予約〜来場前）</h2>
   </div>
+  <p class="phase-subtitle">AI分析による事前準備とSNSを活用した来場前エンゲージメント構築</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>事前アンケートのAI分析</h3>
+  <!-- TIP 2-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>事前アンケートをAIで分析し、架電前に顧客を理解する</h3>
     </div>
-    <div class="block-body">
-      <p>来場予約時にお客様に事前アンケートを記入してもらい、そのアンケートデータをAIで分析する。お客様の状況整理と課題の抽出を自動で行い、アドバイザーが架電前に把握すべきポイントを明確にする。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-accent">1</div>
-          <div class="step-text"><strong>事前アンケート回収：</strong>来場予約申し込み時に、家づくりの要望・予算・家族構成・土地の有無などの事前アンケートを記入してもらう</div>
+    <div class="tip-body">
+      <p>来場予約時にお客様が記入した事前アンケート（家づくりの要望・予算・家族構成・土地の有無など）をAIに投入する。AIが自動で「この顧客の状況整理」「想定される課題」「アドバイザーへの対応アドバイス」を出力するので、架電前にお客様のことを深く理解した状態を作れる。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>事前アンケート回収：</strong>来場予約の申込フォームで事前アンケートを記入してもらう</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">2</div>
-          <div class="step-text"><strong>AI分析：</strong>回収したアンケートをAIに投入し、お客様の状況整理、想定される課題、注目すべきポイント、アドバイザーへの対応アドバイスを出力させる</div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>AI分析：</strong>回収データをAIに投入し、顧客の状況整理・課題抽出・対応アドバイスを自動出力させる</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">3</div>
-          <div class="step-text"><strong>0次接客（架電）：</strong>AI分析結果をもとにアドバイザーが来場前に架電。お客様の状況に合わせたトークを展開し、来場予約キャンセルを防止する</div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>0次接客（架電）：</strong>AI分析結果をもとにアドバイザーが来場前に架電。お客様の状況に合わせたトークを展開し、来場予約キャンセルを防止する</div>
         </div>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>顧客状況AI分析レポート / 架電用トークポイント</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>個人Instagram戦略によるエンゲージメント構築</h3>
+  <!-- TIP 2-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>個人Instagram戦略で「会う前から関係構築」を始める</h3>
     </div>
-    <div class="block-body">
-      <p>0次接客の架電直後に、アドバイザーが自身の営業用個人Instagramをお客様に送付する。ここから来場前の段階でエンゲージメントを構築していく。</p>
-      <ul class="detail-list list-accent">
-        <li><strong>自己紹介の事前共有：</strong>Instagramの固定投稿に自己紹介を設定し、お客様に必ず見てもらう。「どういう人が対応するのか」を事前に知ってもらうことで、アポイントキャンセル率を下げる</li>
-        <li><strong>フォロー獲得：</strong>お客様にInstagramをフォローしてもらい、継続的な接点を作る</li>
-        <li><strong>顧客の個人Instagram特定：</strong>お客様にInstagramを送付した直後にストーリーを1本投稿する。投稿直後にストーリーを閲覧した足跡は、0次接客した（=Instagram送付直後の）お客様の可能性が高い。これにより、<strong>会う前から顧客の個人Instagramを特定</strong>できる</li>
-        <li><strong>趣味嗜好の事前調査：</strong>特定した顧客のInstagramから趣味・嗜好・ライフスタイルを調査し、初回商談に活かす</li>
+    <div class="tip-body">
+      <p>0次接客の架電直後に、アドバイザーが自身の営業用個人Instagramをお客様に送付する。ここから来場前の段階で「どんな人が対応するのか」をお客様に知ってもらい、エンゲージメントを構築する。</p>
+      <ul class="blist bl-sales">
+        <li><strong>自己紹介の事前共有：</strong>Instagramの固定投稿に自己紹介を設定し、お客様に「必ずこれだけは見てください」と伝える。どういう人が対応するのかを事前に知ってもらうことで、アポイントキャンセル率を下げる</li>
+        <li><strong>フォロー獲得：</strong>お客様にInstagramをフォローしてもらい、継続的な接点を確保する</li>
+        <li><strong>顧客の個人Instagram特定テクニック：</strong>Instagram送付の直後にストーリーを1本投稿する。投稿直後のストーリー閲覧者（足跡）は、たった今Instagramを送ったお客様の可能性が非常に高い。これにより<strong>会う前から顧客の個人Instagramが特定できる</strong></li>
+        <li><strong>趣味嗜好の事前調査：</strong>特定した顧客のInstagramから趣味・嗜好・ライフスタイルを調査し、初回商談のトークに活かす</li>
       </ul>
+      <div class="tip-objective">
+        <div class="obj-label">なぜこうするのか</div>
+        <p>来場予約のキャンセル防止が第一の目的。加えて、「会う前から人となりがわかっている」状態を作ることで、初回面談のエンゲージメントが格段に上がる。さらに顧客のSNSから趣味嗜好を事前把握することで、初回から的を射た提案・雑談が可能になる。</p>
+      </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">AI分析レポート（顧客状況・課題）</span>
-      <span class="output-tag">0次架電トークスクリプト</span>
-      <span class="output-tag">顧客プロファイル（Instagram調査）</span>
-    </div>
-  </div>
-
-  <div class="goal-banner">
-    <div class="icon">G</div>
-    <div class="goal-text">
-      <h4>目的</h4>
-      <p>来場予約キャンセルの防止、来場前からのエンゲージメント構築、顧客情報の事前収集。「会う前から関係構築が始まっている」状態を作り、初回面談の成功率を高める。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>来場予約キャンセルの防止、来場前からのエンゲージメント構築、顧客情報の事前収集。「会う前から関係構築が始まっている」状態を作り、初回面談の成功確率を高める。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 3: 第1面談 ==================== -->
-<section class="phase-section" id="phase3">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(0,184,148,0.3), rgba(0,184,148,0.1)); color: var(--green-light);">03</div>
-    <div class="phase-title">
-      <h2>第1面談（初回来場）</h2>
-      <div class="subtitle">全商談録音体制の構築と顧客情報の一元管理</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 03 : 第1面談                                              -->
+<!-- ================================================================ -->
+<section class="phase" id="phase3">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green);">03</div>
+    <h2>第1面談（初回来場）</h2>
   </div>
+  <p class="phase-subtitle">全商談録音体制の構築と「1顧客1ナレッジベース」による情報一元管理</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>商談録音 → AI文字起こし → 議事録自動生成</h3>
+  <!-- TIP 3-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>商談を録音してAIで文字起こし・議事録を自動生成する</h3>
     </div>
-    <div class="block-body">
-      <p>全ての商談はスマホの録音機能を使って録音する。録音データはAIに直接入力し、文字起こしと議事録を自動生成する。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-green">1</div>
-          <div class="step-text"><strong>録音：</strong>スマホで全商談を録音。Androidの場合はそのままクラウドドライブにアップロード可能</div>
+    <div class="tip-body">
+      <p>全ての商談をスマホの録音機能で録音し、AIに直接音声データを入力する。AIのマルチモーダル機能（音声を直接理解する機能）により、文字起こしと議事録が同時に自動生成される。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>全商談録音：</strong>スマホで全商談を録音する。社員にAndroidスマホを支給している場合、録音後そのままクラウドドライブにアップロード可能</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-green">2</div>
-          <div class="step-text"><strong>AI投入：</strong>専用に作成したAIアプリ（プロンプトテンプレート）に音声データを直接入力。マルチモーダル機能により音声から直接処理できる</div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>AIアプリに音声投入：</strong>あらかじめ議事録生成用のプロンプトテンプレート（AIアプリ）を作成しておき、音声データを直接入力。マルチモーダル対応のAI（例：Gemini）なら音声ファイルをそのまま処理できる</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-green">3</div>
-          <div class="step-text"><strong>文字起こし＋議事録自動生成：</strong>AIが文字起こしデータと議事録を同時に出力。議事録は「自分用（記憶・備忘）」と「上司フィードバック用（制約率向上）」の2パターンを別々のプロンプトで作成</div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>2種類の議事録を自動生成：</strong>「自分用議事録（言った言わない防止・記憶整理）」と「上司フィードバック用議事録（制約率向上のための構造化フォーマット）」を別々のプロンプトで自動生成する</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-green">4</div>
-          <div class="step-text"><strong>ナレッジベース蓄積：</strong>1顧客につき1つのAIナレッジベースを作成し、全商談の録音・文字起こし・議事録を蓄積していく</div>
+        <div class="step-item">
+          <div class="s-num s-ai">4</div>
+          <div class="s-text"><strong>1顧客1ナレッジベース：</strong>1顧客につき1つのAIナレッジベースを作成し、全商談の録音・文字起こし・議事録を蓄積していく。これが以降の全フェーズの情報基盤になる</div>
         </div>
+      </div>
+      <div class="tip-insight insight-ai">
+        <p><strong>ポイント：</strong>スマホ1本で完結する運用設計が重要。録音が終わったらそのままAIアプリに音声データを送信するだけで議事録が出力される状態を作っておく。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>商談録音データ / AI文字起こしデータ / 自分用議事録 / 上司FB用議事録 / 顧客専用ナレッジベース</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>部署間情報共有の基盤構築</h3>
+  <!-- TIP 3-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>部署間の「申し送り事故」をナレッジベース共有で防止する</h3>
     </div>
-    <div class="block-body">
-      <p>建築業界では、<strong>営業→設計→インテリアコーディネーター→現場監督</strong>という申し送りの過程で事故が多発する。これは情報の不足とキャッチアップ能力の低さが原因。</p>
-      <div class="highlight-box highlight-green">
-        <p>顧客ごとのAIナレッジベースを全部署で社内共有することで、クラウドサーバー上のファイル共有に加えて、<strong>全トーク履歴のAI付きナレッジベース</strong>が共有される。各専門職はAIを通じて顧客情報に正確にアクセスでき、情報の正確な伝達が可能になる。</p>
+    <div class="tip-body">
+      <p>建築業界では<strong>営業→設計→IC→設計（戻り）→現場監督</strong>という申し送りの過程で事故が多発する。原因は情報の不足とキャッチアップ能力の低さ。顧客ごとのAIナレッジベースを全部署に共有することで、この問題を解決する。</p>
+      <p>クラウドサーバー上のファイル共有に加えて、全商談トーク履歴のAI付きナレッジベースが共有される。各専門職はAIに質問する形で顧客情報に正確にアクセスでき、従来の「制約報告書」「申し送り書」のような曖昧な情報伝達から脱却できる。</p>
+      <div class="tip-objective">
+        <div class="obj-label">自社で実践するには</div>
+        <p>クラウド型のワークスペース（Google Workspace等）を利用していれば、ナレッジベースの社内共有は簡単。担当の設計・IC・現場監督をアサインし、参加権限を付与するだけ。</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>LINE交換とハイタッチ戦略の起点</h3>
+  <!-- TIP 3-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>第1面談の終わりに必ずLINE交換する</h3>
     </div>
-    <div class="block-body">
-      <p>第1面談の終わりに必ずLINEの交換を行う（お客様は個人LINE、自社はLINE WORKS）。このLINEが今後の全てのハイタッチコミュニケーションの起点となる。</p>
-    </div>
-  </div>
-
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">商談録音データ</span>
-      <span class="output-tag">AI文字起こしデータ</span>
-      <span class="output-tag">自分用議事録</span>
-      <span class="output-tag">上司FB用議事録</span>
-      <span class="output-tag">顧客専用ナレッジベース</span>
-      <span class="output-tag">LINE接続</span>
+    <div class="tip-body">
+      <p>第1面談の終わりに必ずLINEの交換を行う（お客様は個人LINE、自社側はLINE WORKS）。このLINEが以降の全てのハイタッチコミュニケーションの起点になる。後述するLINEハイタッチ戦略の第一歩であり、ここを逃すと以降の営業戦略が成立しなくなる。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 4: LINEハイタッチ ==================== -->
-<section class="phase-section" id="phase4">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(253,121,168,0.3), rgba(253,121,168,0.1)); color: var(--pink);">04</div>
-    <div class="phase-title">
-      <h2>面談間のLINEハイタッチ戦略</h2>
-      <div class="subtitle">日々のタッチポイントでエンゲージメントを構築し、リードタイム短縮と競合排除を実現</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 04 : LINEハイタッチ                                        -->
+<!-- ================================================================ -->
+<section class="phase" id="phase4">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--pink);">04</div>
+    <h2>面談間のLINEハイタッチ戦略</h2>
   </div>
+  <p class="phase-subtitle">日々のタッチポイントで競合に先んじたエンゲージメント構築を実現する</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>ハイタッチ営業の基本原則</h3>
+  <!-- TIP 4-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>ハイタッチ営業の原則：LINEで毎日タッチポイントを作る</h3>
     </div>
-    <div class="block-body">
-      <p>今のハイパフォーマー住宅営業の営業手法は、<strong>LINEで日々タッチポイントを作り、ハイタッチでお客様との関係構築を他社に先駆けて行い、結果的に競合が入る前にリードタイムを短く、早期にクロージングをかけていく</strong>というやり方。</p>
-      <div class="highlight-box highlight-pink">
-        <p>従来は「週に1回しかお客様と連絡を取らない」営業が多かったが、今のハイパフォーマーはLINEで毎日のようにタッチポイントを作る。営業のノーバック作業としてLINEのやりとりが増えているが、ここにこそAIを活用する余地がある。</p>
+    <div class="tip-body">
+      <p>今のハイパフォーマー住宅営業の手法は、<strong>LINEで日々タッチポイントを作り、ハイタッチで関係構築を他社に先駆けて行い、競合が入る前にリードタイムを短く、早期にクロージングをかけていく</strong>というやり方。</p>
+      <p>従来は「週に1回しかお客様と連絡を取らない」営業が多かったが、今のハイパフォーマーはLINEで毎日のようにタッチポイントを作る。営業のノーバック作業としてLINEのやりとりが大幅に増えている。</p>
+      <div class="tip-insight insight-sales">
+        <p><strong>重要な考え方：</strong>昔の営業マンは「情報は先出ししちゃうとクロージングできない」と考えていたが、今は情報を先出ししないと負ける。競合より先んじて情報を出し、エンゲージメントを上げ、リードタイムを短く、早期クロージングするのが鉄板パターン。だからLINEを使う。</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>LINE返信文のAI自動生成</h3>
+  <!-- TIP 4-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>「AIっぽくない」LINE返信文をAIで自動生成する</h3>
     </div>
-    <div class="block-body">
-      <p>LINEでの返信文作成をAIで効率化する。ただし、AIっぽい文章の特徴（丁寧すぎる・テンプレート的・不自然な表現）が出ないように、プロンプトを入念に設計する。</p>
-      <ul class="detail-list list-pink">
-        <li><strong>専用プロンプト設計：</strong>AIっぽい文章の特徴（過度な敬語、リスト形式の回答、感情のない文章等）が一切入らないようなプロンプトを事前に作成し、AIアプリ化しておく</li>
-        <li><strong>品質とエンゲージメントの両立：</strong>AIによる文章生成で生産性を上げつつ、文章の品質（温かみ・人間味）を維持し、お客様のエンゲージメントを向上させる</li>
-        <li><strong>スマホワンタップ運用：</strong>AIアプリを作成しておけば、移動中でもスマホから即座に高品質な返信文が作成できる</li>
+    <div class="tip-body">
+      <p>LINEでの返信文作成をAIで効率化するが、最大の注意点は<strong>「AIっぽい文章」が出ないようにすること</strong>。AIっぽい文章の特徴（過度な敬語・リスト形式の回答・感情のない文章・テンプレート的な表現）が一切入らないように、プロンプトを入念に設計してAIアプリ化しておく。</p>
+      <ul class="blist bl-ai">
+        <li><strong>専用プロンプトの設計：</strong>「丁寧すぎない口語調で」「箇条書きは使わない」「相手の名前を呼ぶ」「感情を込めた表現を使う」等、AIっぽさを排除する指示をプロンプトに組み込む</li>
+        <li><strong>AIアプリ化：</strong>プロンプトをアプリ（Gem等）にしておけば、移動中でもスマホからお客様のLINEメッセージを貼り付けるだけで、自然な返信文が即座に生成される</li>
+        <li><strong>品質×速度×量の同時達成：</strong>AIで生産性を上げつつ、文章の温かみ・人間味は維持。返信の速度・質・量を同時に高め、お客様のエンゲージメントを向上させる</li>
       </ul>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>AIっぽさのない高品質なLINE返信文（即時生成）</p>
+      </div>
     </div>
   </div>
 
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(253,121,168,0.2); color: var(--pink);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--pink);">目的</h4>
-      <p>日々のLINEタッチポイントで顧客エンゲージメントを向上させ、競合他社に先んじてリードタイムを短縮する。AIの活用で、返信の速度・質・量を同時に高め、営業ノーバック作業の負荷を軽減する。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>LINEの日々のタッチポイントで顧客エンゲージメントを向上させ、競合他社に先んじてリードタイムを短縮する。営業ノーバック作業の負荷をAIで軽減しつつ、コミュニケーションの質と量を高める。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 5: 競合分析 ==================== -->
-<section class="phase-section" id="phase5">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(225,112,85,0.3), rgba(225,112,85,0.1)); color: var(--orange-light);">05</div>
-    <div class="phase-title">
-      <h2>第2面談 ─ 事前審査・競合把握・競合分析</h2>
-      <div class="subtitle">AIによる徹底的な競合調査と、組織的な競合ナレッジの構築</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 05 : 競合分析                                              -->
+<!-- ================================================================ -->
+<section class="phase" id="phase5">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--orange);">05</div>
+    <h2>第2面談 ─ 事前審査・競合把握・競合分析</h2>
   </div>
+  <p class="phase-subtitle">AIによる徹底的な競合調査と、組織的な競合ナレッジの構築</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>住宅ローン・予算シミュレーション</h3>
+  <!-- TIP 5-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>住宅ローン・予算シミュレーションをAIアプリで自動化する</h3>
     </div>
-    <div class="block-body">
-      <p>銀行借入、年収、単独・連帯、既存借入などの住宅ローン・予算組に関わる情報は、AIであらかじめアプリを作成しておき、Python等で自動計算させる。特殊なFPソフトや金融電卓が不要になる。</p>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>競合把握の必要性</h3>
-    </div>
-    <div class="block-body">
-      <p>第2面談くらいまでには、少なからず競合を排除するか、自社が第1候補というレベルに持ち込まなければならない。しかし、<strong>営業職は競合に関しての知識が薄かったり、詳しく知らなかったりして、お客様の方が詳しいケースも多い</strong>。競合調査と、競合と自社の比較、それをお客様にどうプレゼンテーションするか、ここにAIが活用できる。</p>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>AIによる競合情報の徹底収集</h3>
-    </div>
-    <div class="block-body">
-      <p>競合他社ごとにAIナレッジベースを1つずつ作成し、あらゆる情報を集約する。</p>
-      <ul class="detail-list list-accent">
-        <li><strong>ヒアリング文字起こし：</strong>お客様からの競合に関するヒアリング内容を録音・文字起こしし、コンテキストデータとして蓄積</li>
-        <li><strong>AIディープリサーチ：</strong>AIのリサーチ機能で競合企業の情報を徹底的に調査。YouTube、Webページ、その建築会社で家を建てたオーナーのブログなど、指定したソースからファーストリサーチ・ワイドリサーチ・ディープリサーチをかけていく</li>
-        <li><strong>顧客提供資料の蓄積：</strong>お客様から得た競合他社のパンフレット、資金計画、見積もり、図面なども全てナレッジベースに投入。会社名ごとにフォルダ分けして保管</li>
-        <li><strong>1競合＝1ナレッジベース：</strong>競合企業ごとにナレッジベースを作成し、その企業に関する全情報を一元集約する</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>AIガイド付き学習で競合知識を習得</h3>
-    </div>
-    <div class="block-body">
-      <p>特に新人営業の場合、競合に関して勉強する必要がある。AIのガイド付き学習機能を使えば、<strong>AIが絶対に答えを言わない中で、教育的なチャットのやりとり</strong>が可能。20〜30分の壁打ちだけで、競合に関して非常に詳しくなれる。</p>
-      <div class="highlight-box highlight-accent">
-        <p>方法：競合のナレッジベースをAIのソースデータに設定し、ガイド付き学習モードを起動する。AIが質問を投げかけ、営業マンが答え、フィードバックを受けるという対話形式で、能動的な学習ができる。</p>
+    <div class="tip-body">
+      <p>銀行借入・年収・単独/連帯・既存借入などの住宅ローン・予算組に関わる計算は、AIであらかじめPython等を使った計算アプリを作成しておく。お客様の情報を入力するだけで、複数パターンのシミュレーション結果が即座に出力される。特殊なFPソフトや金融電卓は不要になる。</p>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>住宅ローンシミュレーション結果（複数パターン） / 予算概算書</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>社内研修資料の自動作成</h3>
+  <!-- TIP 5-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>第2面談までに競合を把握し、自社を第1候補に持ち込む</h3>
     </div>
-    <div class="block-body">
-      <ul class="detail-list list-accent">
-        <li><strong>スライド作成：</strong>ナレッジベースからそのままスライドを作成し、社内研修資料として使用</li>
-        <li><strong>ポッドキャスト化：</strong>ナレッジベースからラジオ（ポッドキャスト）を作成し、通勤時間の自主学習に活用</li>
-        <li><strong>シート作成：</strong>商品ラインナップ、商品の性能値に関する表やリストをナレッジベースから自動作成</li>
-      </ul>
+    <div class="tip-body">
+      <p>第2面談くらいまでには、少なからず競合を排除するか、自社が第1候補というレベルに持ち込まなければならない。しかし現実には、<strong>営業職は競合に関しての知識が薄く、お客様の方が競合に詳しいケースも多い</strong>。競合調査・競合と自社の比較・お客様へのプレゼンテーション、この3つにAIが活用できる。</p>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>複数競合の同時比較分析</h3>
+  <!-- TIP 5-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>競合企業ごとにAIナレッジベースを構築する</h3>
     </div>
-    <div class="block-body">
-      <p>例えば3社で競合した場合、3社それぞれのナレッジベースを全てAIのソースに設定する。さらにお客様専用のナレッジベースもソースに追加すると、<strong>最大4つのナレッジベース</strong>を同時に参照させることができる。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-orange">1</div>
-          <div class="step-text"><strong>ソース設定：</strong>競合A社・B社のナレッジベース + 自社情報 + 顧客ナレッジベースをAIに同時設定</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-orange">2</div>
-          <div class="step-text"><strong>優位性・弱点分析：</strong>AIに「この商談で自社が競合に勝つための優位性と弱点」を分析させる</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-orange">3</div>
-          <div class="step-text"><strong>トーク事例・企画作成：</strong>顧客の状況を踏まえた、自社が勝つための具体的なトーク事例やプレゼン企画をAIに作成させる</div>
-        </div>
+    <div class="tip-body">
+      <p>競合他社1社につき1つのAIナレッジベースを作成し、あらゆる情報を集約する。情報が蓄積されるほどAIの分析精度が上がり、競合対策の質が飛躍的に向上する。</p>
+      <ul class="blist bl-ai">
+        <li><strong>ヒアリング文字起こし：</strong>お客様や社内からの競合に関するヒアリング内容を全て録音→文字起こし→ナレッジベースに蓄積</li>
+        <li><strong>AIディープリサーチ：</strong>AIのリサーチ機能で競合企業を徹底調査。YouTube・Webページ・その会社で建てたオーナーのブログなどを指定し、ファーストリサーチ→ワイドリサーチ→ディープリサーチと段階的に深掘り</li>
+        <li><strong>顧客提供資料の蓄積：</strong>お客様から得た競合他社のパンフレット・資金計画・見積もり・図面なども全てナレッジベースに投入。会社名ごとにフォルダ分けして管理する</li>
+        <li><strong>1競合＝1ナレッジベースの原則：</strong>競合企業ごとにナレッジベースを作成し、その企業に関する全ての情報を一元集約する。これにより、いつでもAIに「この競合の特徴は？」「弱点は？」と聞ける状態になる</li>
+      </ul>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>競合企業別AIナレッジベース（随時更新）</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">住宅ローンシミュレーション</span>
-      <span class="output-tag">競合別ナレッジベース</span>
-      <span class="output-tag">競合比較分析レポート</span>
-      <span class="output-tag">自社優位性トークスクリプト</span>
-      <span class="output-tag">社内研修スライド</span>
-      <span class="output-tag">学習用ポッドキャスト</span>
-      <span class="output-tag">商品比較シート</span>
+  <!-- TIP 5-4 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>AIの「ガイド付き学習」で競合知識を短時間で習得する</h3>
+    </div>
+    <div class="tip-body">
+      <p>特に新人営業は競合知識が不足している。AIの「ガイド付き学習」機能を使えば、<strong>AIが絶対に答えを教えない対話形式</strong>で、教育的なチャットのやりとりができる。20〜30分の壁打ちだけで競合に非常に詳しくなれる。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>ソース設定：</strong>対象競合のナレッジベースをAIのソースデータに登録する</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>ガイド付き学習モード起動：</strong>AIのガイド付き学習モード（Geminiの場合プロモード等）を起動</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>対話で学習：</strong>AIが質問を投げかけ→営業マンが回答→AIがフィードバック、という能動的な学習を20〜30分繰り返す</div>
+        </div>
+      </div>
+      <div class="tip-objective">
+        <div class="obj-label">自社で実践するには</div>
+        <p>競合のナレッジベースさえ作ってあれば、AIのソースに設定してガイド付き学習モードを起動するだけ。新人でも30分で競合の主要な特徴・強み・弱みを把握できるようになる。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP 5-5 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>ナレッジベースから研修資料・ポッドキャスト・比較シートを自動生成する</h3>
+    </div>
+    <div class="tip-body">
+      <p>競合のナレッジベースが構築できれば、そこからさまざまな社内研修コンテンツをAIで自動作成できる。</p>
+      <ul class="blist bl-ai">
+        <li><strong>スライド自動作成：</strong>ナレッジベースから研修用スライドを自動生成し、社内勉強会の資料として使用</li>
+        <li><strong>ポッドキャスト化：</strong>AIのラジオ生成機能（NotebookLMのAudio Overview等）でポッドキャストを作成。通勤時間の自主学習に最適</li>
+        <li><strong>比較シート作成：</strong>商品ラインナップ・性能値の表やリストをナレッジベースから自動作成。商談中の参照資料としても使える</li>
+      </ul>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>社内研修スライド / 学習用ポッドキャスト / 商品比較シート</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIP 5-6 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>複数の競合+顧客データを同時にAIに読み込ませ、勝ち筋を見つける</h3>
+    </div>
+    <div class="tip-body">
+      <p>例えば自社・競合A社・競合B社の3社で競合した場合、3社それぞれのナレッジベースに加えて、お客様専用のナレッジベースも全てAIに同時設定する。<strong>最大4つのナレッジベースを同時に参照させる</strong>ことで、その商談に特化した勝ち筋が見える。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-orange">1</div>
+          <div class="s-text"><strong>ソース設定：</strong>自社情報 + 競合A社 + 競合B社 + 当該顧客のナレッジベースを全てAIに同時設定する</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-orange">2</div>
+          <div class="s-text"><strong>優位性・弱点分析：</strong>「この商談で自社が競合に勝つための優位性と弱点は何か」をAIに分析させる</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-orange">3</div>
+          <div class="s-text"><strong>トーク事例・企画作成：</strong>顧客の状況を踏まえた「この顧客に対して自社が勝つための具体的なトーク事例やプレゼン企画」をAIに作成させる</div>
+        </div>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>競合比較分析レポート / 自社優位性トークスクリプト / 顧客別プレゼン企画</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>第2面談までに競合を把握し、自社を第1候補に持ち込む。AIによる徹底的な競合調査と、顧客×競合の掛け合わせ分析で、商談ごとに最適化された勝ち筋を見つける。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 6: 議事録・フィードバック ==================== -->
-<section class="phase-section" id="phase6">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(253,203,110,0.3), rgba(253,203,110,0.1)); color: var(--yellow);">06</div>
-    <div class="phase-title">
-      <h2>商談後の議事録作成とAIフィードバック</h2>
-      <div class="subtitle">トップセールスのナレッジをAIに集約し、全営業の制約率を底上げする</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 06 : 議事録・フィードバック                                   -->
+<!-- ================================================================ -->
+<section class="phase" id="phase6">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--yellow);">06</div>
+    <h2>商談後の議事録作成とAIフィードバック</h2>
   </div>
+  <p class="phase-subtitle">トップセールスのナレッジをAIに集約し、全営業の制約率を底上げする</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>2種類の議事録自動生成</h3>
+  <!-- TIP 6-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>2種類の議事録をAIで自動生成する仕組みを作る</h3>
     </div>
-    <div class="block-body">
-      <p>商談終わりに毎回作成する議事録には2パターンあり、それぞれ専用のAIアプリ（プロンプトテンプレート）を作成しておく。</p>
-      <div class="two-col">
-        <div class="highlight-box highlight-yellow">
-          <p><strong>自分用議事録</strong><br>お客様との「言った・言わない」防止、自分の記憶の整理・備忘のための議事録。商談の内容を時系列でまとめ、次回商談の準備に活かす。</p>
+    <div class="tip-body">
+      <p>商談終わりの議事録には2パターンあり、それぞれ専用のAIアプリ（プロンプトテンプレート）を作成しておく。商談が終わったらスマホから音声データを送信するだけで、両方の議事録が自動生成される。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num" style="background:var(--yellow); color:#fff;">A</div>
+          <div class="s-text"><strong>自分用議事録：</strong>お客様との「言った・言わない」防止、自分の記憶の整理・備忘のための議事録。商談の内容を時系列でまとめ、次回商談の準備に活かす</div>
         </div>
-        <div class="highlight-box highlight-yellow">
-          <p><strong>上司フィードバック用議事録</strong><br>上司がフィードバックをかけやすい形式にまとめた議事録。制約率を上げるために、商談の改善点を特定しやすい構造化されたフォーマット。</p>
+        <div class="step-item">
+          <div class="s-num" style="background:var(--yellow); color:#fff;">B</div>
+          <div class="s-text"><strong>上司フィードバック用議事録：</strong>上司がフィードバックをかけやすい形式にまとめた議事録。商談の改善点を特定しやすい構造化されたフォーマットで、制約率向上を目的とする</div>
         </div>
       </div>
-      <p style="margin-top:16px;">音声データをAIアプリに投入するだけで自動生成される。スマホ1本から完結可能。</p>
+      <div class="tip-insight insight-ai">
+        <p><strong>運用のコツ：</strong>音声データはマルチモーダル対応のAI（Gemini等）なら直接処理できる。AIアプリ（Gem）化しておけば、スマホから音声をアップロード→1タップで議事録出力まで完了。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>自分用議事録（自動生成） / 上司FB用議事録（自動生成）</p>
+      </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>トップセールスAIフィードバックシステムの構築</h3>
+  <!-- TIP 6-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>「トップセールスAI」を構築し、全営業にフィードバックを提供する</h3>
     </div>
-    <div class="block-body">
-      <p><strong>制約率向上の原則は「質の高いフィードバックの総量」</strong>。しかし、トップセールスがいい上司とは限らない。そこで、トップセールスのノウハウを学習したAIを作成し、全営業に対して一貫した高品質なフィードバックを提供する。</p>
+    <div class="tip-body">
+      <p>制約率向上の原則は<strong>「質の高いフィードバックの総量」</strong>。しかし、トップセールスがいい上司とは限らないし、一人の上司が全営業にフィードバックし続けるのは物理的に不可能。そこで、トップセールスの全ナレッジを学習したAIを作り、全営業に一貫した高品質フィードバックを提供する。</p>
 
-      <div class="labeled-divider">ナレッジベース構築の手順</div>
-
-      <ul class="detail-list list-yellow">
-        <li><strong>トップセールスの商談音声：</strong>社内で最も制約率の高い人材（社長・店長クラス含む）の商談音声のうち、制約につながったものだけを抽出してナレッジベースに投入</li>
-        <li><strong>営業研修・育成マニュアル：</strong>社内で実施する営業研修、育成マニュアル、社長研修なども全て録音・データ化して蓄積</li>
-        <li><strong>上司→部下フィードバック：</strong>日々の上司から部下へのフィードバックも録音・蓄積</li>
-        <li><strong>外部コンサル研修：</strong>元トップセールスのコンサル等に依頼した研修も録音してナレッジベースに投入</li>
-        <li><strong>ロープレイ：</strong>社内ロープレイの音声データも蓄積</li>
-        <li><strong>競合対策ノウハウ：</strong>トップセールスが特定の競合と戦う時のトーク・自社優位性の説明方法もヒアリング・録音して蓄積</li>
+      <p><strong>-- ナレッジベース構築の手順 --</strong></p>
+      <ul class="blist bl-ai">
+        <li><strong>トップセールスの商談音声：</strong>社内で最も制約率の高い人材（社長・店長クラス含む）の商談音声のうち、<strong>制約につながったものだけ</strong>を抽出してナレッジベースに投入</li>
+        <li><strong>営業研修・育成マニュアル：</strong>社内の営業研修、育成マニュアル、社長研修も全て録音→データ化して蓄積</li>
+        <li><strong>上司→部下フィードバック：</strong>日々の上司から部下へのフィードバックの録音も蓄積</li>
+        <li><strong>外部コンサル研修：</strong>元トップセールスのコンサル等に依頼した研修内容も録音して投入</li>
+        <li><strong>ロープレイ：</strong>社内ロープレの音声データも蓄積</li>
+        <li><strong>競合対策ノウハウ：</strong>トップセールスが特定の競合と戦う時のトーク・自社優位性の説明方法もヒアリング→録音→蓄積</li>
       </ul>
 
-      <div class="labeled-divider">AIフィードバックの仕組み</div>
-
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-yellow">1</div>
-          <div class="step-text"><strong>ナレッジベース完成：</strong>トップセールスの全知見が集約されたナレッジベースが完成</div>
+      <p><strong>-- AIフィードバックシステムの作り方 --</strong></p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>ナレッジベース完成：</strong>上記データを全て投入し、トップセールスの全知見が集約されたナレッジベースを作る</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-yellow">2</div>
-          <div class="step-text"><strong>AIアプリ（議事録作成＋FB）を構築：</strong>AIアプリの知識登録にナレッジベースを設定。プロンプトには「営業マンの商談音声に対して、知識に設定したトップセールスのノウハウからフィードバックをかけ、制約率向上につながるアドバイスを出力する」と設計</div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>AIアプリ構築：</strong>AIアプリの知識登録にナレッジベースを設定。プロンプトには「この営業マンの商談音声に対して、知識に設定したトップセールスのノウハウをもとにフィードバックをかけ、制約率向上につながるアドバイスを出力せよ」と設計</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-yellow">3</div>
-          <div class="step-text"><strong>運用：</strong>商談終了後、スマホからAIアプリに音声データを送信するだけで、トップセールスの視点からのフィードバックが自動生成される</div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>運用開始：</strong>商談終了後、スマホからAIアプリに音声データを送信するだけで、トップセールスの視点からのフィードバックが自動生成される</div>
         </div>
+      </div>
+      <div class="tip-insight insight-ai">
+        <p><strong>社内にトップセールスがいない場合：</strong>元トップセールスのコンサルタントに依頼して研修を実施してもらい（費用目安：約50万円程度）、その研修の全録音データをナレッジベースに投入すれば、外部知見を組織の資産に変換できる。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>トップセールスナレッジベース / AIフィードバックレポート（商談ごとに自動生成）</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">自分用議事録（自動生成）</span>
-      <span class="output-tag">上司FB用議事録（自動生成）</span>
-      <span class="output-tag">AIフィードバックレポート</span>
-      <span class="output-tag">トップセールスナレッジベース</span>
-    </div>
-  </div>
-
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(253,203,110,0.2); color: var(--yellow);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--yellow);">目的</h4>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
       <p>議事録作成の工数を限りなくゼロに近づけると同時に、トップセールスの暗黙知を組織知化する。「いい上司がいなくても成長できる」環境をAIで構築し、全営業の制約率を底上げする。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 7: リアルタイム支援 ==================== -->
-<section class="phase-section" id="phase7">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(116,185,255,0.3), rgba(116,185,255,0.1)); color: var(--blue);">07</div>
-    <div class="phase-title">
-      <h2>リアルタイム商談支援</h2>
-      <div class="subtitle">商談中にAIがリアルタイムでアドバイスを提供</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 07 : リアルタイム支援                                       -->
+<!-- ================================================================ -->
+<section class="phase" id="phase7">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--blue);">07</div>
+    <h2>リアルタイム商談支援</h2>
   </div>
+  <p class="phase-subtitle">商談中にAIがリアルタイムでアドバイスを提供する仕組みの構築</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>リアルタイム音声認識 × AI即時フィードバック</h3>
+  <!-- TIP 7-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>リアルタイム音声認識 × AI即時フィードバックで商談中にサポートを受ける</h3>
     </div>
-    <div class="block-body">
-      <p>音声入力アプリ（リアルタイム文字起こしツール）をPCで起動し、お客様の発言をリアルタイムで文字起こしする。その文字データをAIの高速モードに入力し、即座に対応アドバイスを得る。</p>
-      <ul class="detail-list list-blue">
-        <li><strong>ソース設定：</strong>AIアプリにトップセールスの知見ナレッジベース＋競合情報ナレッジベースを事前に設定しておく</li>
-        <li><strong>リアルタイム入力：</strong>PCの音声入力アプリがお客様の発言をリアルタイムで文字起こし。その文字データをAIに入力</li>
-        <li><strong>即時レスポンス：</strong>AIの高速モードにより、「今こう言った方がいい」「こういう提案をすべき」といったリアルタイムアドバイスが表示される</li>
-        <li><strong>簡易的な活用：</strong>タイピングが速い人であれば、お客様から聞かれて困った質問をメモしているふりをしてAIに聞くという使い方も可能</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">リアルタイム商談アドバイス</span>
-      <span class="output-tag">商談中の質疑応答サポート</span>
+    <div class="tip-body">
+      <p>PCで音声入力アプリ（リアルタイム文字起こしツール：AquaVoice等）を起動しておき、お客様の発言をリアルタイムで文字化する。その文字データをAIの高速モードに入力し、即座に対応アドバイスを得る。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-blue">1</div>
+          <div class="s-text"><strong>事前準備（ソース設定）：</strong>AIアプリにトップセールスの知見ナレッジベース + 競合情報ナレッジベースを事前に設定しておく</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-blue">2</div>
+          <div class="s-text"><strong>リアルタイム文字起こし：</strong>PC上の音声入力アプリがお客様の発言をリアルタイムで文字起こしする</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-blue">3</div>
+          <div class="s-text"><strong>AIに投入→即レスポンス：</strong>文字データをAI高速モードに入力すると、「今こう言った方がいい」「こういう切り返しをすべき」等のリアルタイムアドバイスが表示される</div>
+        </div>
+      </div>
+      <div class="tip-insight insight-ai">
+        <p><strong>簡易的な活用法：</strong>ここまで本格的に構築しなくても、タイピングが速い人であれば、お客様から聞かれて困った質問を「メモしているふり」をしてAIに入力し、回答を得るだけでも十分効果がある。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>リアルタイム商談アドバイス / 商談中の質疑応答サポート</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 8: 土地提案 ==================== -->
-<section class="phase-section" id="phase8">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(0,206,201,0.3), rgba(0,206,201,0.1)); color: var(--cyan);">08</div>
-    <div class="phase-title">
-      <h2>土地ヒアリング・提案準備</h2>
-      <div class="subtitle">AI活用によるヒアリング品質の担保、現地調査のコンテンツ化、近隣ヒアリング調査</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 08 : 土地提案                                              -->
+<!-- ================================================================ -->
+<section class="phase" id="phase8">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--sales);">08</div>
+    <h2>土地ヒアリング・提案準備</h2>
   </div>
+  <p class="phase-subtitle">AI活用によるヒアリング品質の担保、現地動画のコンテンツ化、近隣ヒアリング調査</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>リードタイム短縮の重要性</h3>
+  <!-- TIP 8-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>リードタイム短縮が制約率に直結する理由</h3>
     </div>
-    <div class="block-body">
-      <p>営業戦略として、<strong>リードタイムを短くすることは制約率に直結する</strong>最重要事項。</p>
-      <ul class="detail-list list-cyan">
+    <div class="tip-body">
+      <p>営業戦略として<strong>リードタイムを短くすることは制約率に直結する最重要事項</strong>。</p>
+      <ul class="blist bl-sales">
         <li>リードタイムが長くなるほど、お客様の熱が冷め、競合がクロージングをかけるチャンスが広がり、制約率が下降する</li>
         <li>1件ごとの商談回数やリードタイムが伸びると、次回アポイントが入りづらくなり、さらにリードタイムが長期化する「負の連鎖」に陥る</li>
-        <li><strong>少ない回数・少ない時間・少ない意思決定期間</strong>の中で、お客様の「御社で建てます」という意思決定をどれだけ早く作れるかが、制約率に直結する</li>
+        <li><strong>少ない回数・少ない時間・少ない意思決定期間</strong>の中で、お客様の意思決定をどれだけ早く作れるかが制約率に直結する</li>
       </ul>
       <div class="kpi-row">
-        <div class="kpi-box">
-          <div class="kpi-val text-cyan">4回</div>
-          <div class="kpi-label">理想の商談回数</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-val text-cyan">3週間</div>
-          <div class="kpi-label">理想のリードタイム</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-val text-cyan">中1週間</div>
-          <div class="kpi-label">面談間隔</div>
-        </div>
+        <div class="kpi"><div class="val" style="color:var(--sales);">4回</div><div class="lbl">理想の商談回数</div></div>
+        <div class="kpi"><div class="val" style="color:var(--sales);">3週間</div><div class="lbl">理想のリードタイム</div></div>
+        <div class="kpi"><div class="val" style="color:var(--sales);">中1週間</div><div class="lbl">面談間隔</div></div>
+      </div>
+      <div class="tip-insight insight-sales">
+        <p><strong>核心：</strong>土地を紹介して土地で決められれば、建物の受注確率は一気に上がる。だからこそ第3〜4面談までに土地の提案までかけていきたい。それを可能にするのが以降のAI活用テクニック。</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>ヒアリング品質の向上</h3>
+  <!-- TIP 8-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>AIで「何をヒアリングすべきか」を網羅的に洗い出す</h3>
     </div>
-    <div class="block-body">
-      <p>制約率の低い営業や新人は、ヒアリングの品質が低いため提案のレベルも低くなる。AIを使ってヒアリングの質を底上げする。</p>
-      <ul class="detail-list list-cyan">
-        <li><strong>質問リスト作成：</strong>「土地の提案をするために何をヒアリングすべきか」をAIに質問するだけで、網羅的な質問リストが作成される</li>
-        <li><strong>既存ツールのスクリプト化：</strong>社内にヒアリングノート等のツールがある場合、PDF・写真・動画でAIに読み込ませ、「このヒアリングブックの通りにヒアリングするためのスクリプト」を作成させると、質問文まで全て考えてくれる</li>
-        <li><strong>録音→文字起こし→蓄積：</strong>ヒアリング中は全て録音し、文字起こしデータをナレッジベースに蓄積。新人でもヒアリングの品質を担保でき、提案のレベルも維持できる</li>
+    <div class="tip-body">
+      <p>制約率の低い営業や新人はヒアリング品質が低く、提案のレベルも低くなる。AIを使ってヒアリングの質を底上げする。</p>
+      <ul class="blist bl-ai">
+        <li><strong>質問リスト自動作成：</strong>「土地の提案をするために顧客に何をヒアリングすべきか」とAIに質問するだけで、網羅的な質問リストが生成される</li>
+        <li><strong>既存ヒアリングツールのスクリプト化：</strong>社内にヒアリングノート等のツールがある場合、PDF・写真・動画でAIに読み込ませ「このヒアリングブックの通りにヒアリングするためのスクリプトを作って」と指示すれば、質問の文章まで全て考えてくれる</li>
+        <li><strong>録音→文字起こし→蓄積：</strong>ヒアリング中は全て録音→文字起こし→ナレッジベースに蓄積。新人でもヒアリング品質を担保でき、上司やAIがデータをもとに提案の準備を支援できる</li>
       </ul>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>現地動画撮影 → LINEリアルタイム共有 → AI提案資料</h3>
-    </div>
-    <div class="block-body">
-      <p><strong>情報は先出ししていかなければならない。</strong>昔の「先出ししちゃうとクロージングできない」という考えは通用しない。競合よりも先んじて情報を出し、エンゲージメントを上げ、早期クロージングしてリードタイムを短くすることが鉄板パターン。</p>
-
-      <div class="labeled-divider">プロセス</div>
-
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-cyan">1</div>
-          <div class="step-text"><strong>土地の絞り込み：</strong>ヒアリング内容からAIと壁打ちし、不動産会社や上司と相談して提案する土地を3つ程度に絞る</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">2</div>
-          <div class="step-text"><strong>現地動画撮影：</strong>現地でスマホ動画を撮りながら一人でボソボソ実況する。「生活道路なので車通りは少ないですね」「今●時ぐらいですが日当たりがすごくいいですね」「ゴミ捨て場まで歩いてみたんですが50秒くらいでした」等。<strong>大事なのは「ここまでしてくれるんだ」をお客様に見せること</strong></div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">3</div>
-          <div class="step-text"><strong>動画をLINEで即送信：</strong>撮影した動画をそのままLINEでお客様に送信。「こんなことまでしてくれてるんですね、ありがとうございます」という反応が返ってくる</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">4</div>
-          <div class="step-text"><strong>動画→AIで提案資料作成：</strong>撮影動画をAIに入力すると、ボソボソ喋った内容を全てデータとして認識。AIのスライド作成機能で提案資料を自動生成。敷地面積・方位・価格・周辺施設との距離感、複数土地の比較表・ランキング・考察パラメータ等が全て含まれた資料になる</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-cyan">5</div>
-          <div class="step-text"><strong>当日夜にAI資料を送付：</strong>動画を送った後、その夜にAIで作成したスライド資料を追加送付。お客様からは「夜遅くまでこんな私たちのために…」という反応が返るが、<strong>実際にはAIで5分程度で作成</strong>。投資対効果が極めて高い</div>
-        </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>土地ヒアリング質問リスト / ヒアリングスクリプト（質問文付き）</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>近隣ヒアリング調査 → AI調査レポート</h3>
+  <!-- TIP 8-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>現地動画を撮影→LINE即送信→AIで提案資料を自動作成する</h3>
     </div>
-    <div class="block-body">
-      <p>注文住宅では土地と住宅会社は選べるが、<strong>周辺に住む人の人柄は選べない</strong>。建設会社がこの「選べない部分」を事前に調査してデータとして渡すことは、非常に高い価値がある。不動産会社も他の建築会社もここまでやらない。</p>
+    <div class="tip-body">
+      <p>土地の提案前にどれだけお客様にリアルタイムで「実況中継」できるかが重要。多くのしょぼい営業マンは土日の面談日に全ての成果を披露しようとするが、ハイパフォーマーは<strong>自分が今日あなたのために何をしたかをリアルタイムで伝える</strong>。</p>
 
-      <div class="labeled-divider">調査方法</div>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-sales">1</div>
+          <div class="s-text"><strong>土地の絞り込み：</strong>ヒアリング内容をAIと壁打ちし、不動産会社や上司と相談して提案候補を3つ程度に絞る</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">2</div>
+          <div class="s-text"><strong>現地で動画撮影（ボソボソ実況）：</strong>現地をスマホで撮影しながら一人でボソボソ実況する。「生活道路なので車通りは少ないですね」「今●時ですが日当たりがすごくいいですね」「ゴミ捨て場まで歩いてみたら50秒でした」等。<strong>大事なのは「ここまでやってくれるんだ」をお客様に見せること</strong></div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">3</div>
+          <div class="s-text"><strong>動画をLINEで即送信：</strong>撮影した動画をそのままLINEでお客様に送る。「こんなことまでしてくれてるんですね、ありがとうございます」という反応が必ず返ってくる</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">4</div>
+          <div class="s-text"><strong>動画→AIでスライド資料を自動作成：</strong>撮影動画をAIに入力すると、ボソボソ喋った内容を全てデータ認識。AIのスライド作成機能で「敷地面積・方位・価格・周辺施設との距離感・複数土地の比較表・ランキング・考察パラメータ」が含まれた提案資料が自動生成される</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">5</div>
+          <div class="s-text"><strong>当日夜にAI資料をLINEで追加送付：</strong>お客様からは「夜遅くまで私たちのためにありがとうございます」という反応が返る。<strong>実際にはAIで5分程度で作成したもの</strong>。投資対効果が極めて高い</div>
+        </div>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>現地動画（LINE送付用） / AI土地提案スライド / 土地比較表・ランキング・考察パラメータ</p>
+      </div>
+    </div>
+  </div>
 
-      <ul class="detail-list list-cyan">
-        <li><strong>近隣訪問（ピンポン）：</strong>提案候補の土地周辺の住宅を訪問し、住民にヒアリング。全て録音する</li>
-        <li><strong>口に出す癖をつける：</strong>文字起こし前提で、心の中で思うことも全て口に出す。「お隣の方がこれだけ人柄良さそうで安心しました」等、感想も全て音声に残す</li>
-        <li><strong>ヒアリング項目：</strong>居住年数、住み心地、過去の災害履歴、治安、お祭り・自治会・子ども会の有無、近隣の住民情報、最近建てた人には地盤補強の有無</li>
-        <li><strong>プロファイリング：</strong>各家を訪問した後、移動中に相手の姿形・家族構成・家の古さ・雰囲気をボソボソ録音。30分程度の音声で3件分のインタビュー＋プロファイリングが完成</li>
-        <li><strong>AI調査レポート作成：</strong>全音声データをAIに投入し、スライド形式の「近隣ヒアリング調査レポート」を自動作成。こんなレポートを送る不動産会社も建築会社もないので、エンゲージメントが大幅に向上する</li>
+  <!-- TIP 8-4 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>近隣ヒアリング調査でエンゲージメントを圧倒的に高める</h3>
+    </div>
+    <div class="tip-body">
+      <p>注文住宅では土地と住宅会社は選べるが、<strong>周辺に住む人の人柄は選べない</strong>。建設会社がこの「選べない部分」を事前に調査してデータとして渡すことは、非常に高い価値がある。不動産会社も他の建築会社もここまでやらないので、圧倒的な差別化になる。</p>
+
+      <p><strong>-- 調査方法 --</strong></p>
+      <ul class="blist bl-sales">
+        <li><strong>近隣訪問（ピンポン）：</strong>提案候補の土地周辺の住宅を訪問し、住民にヒアリングする。全て録音する</li>
+        <li><strong>口に出す癖をつける：</strong>文字起こし前提で、心の中で思うことも全て口に出す。「お隣の方がこれだけ人柄良さそうで安心しました」等の感想も全て音声に残す</li>
+        <li><strong>ヒアリング項目：</strong>居住年数 / 住み心地 / 過去の災害履歴 / 治安 / 自治会・子ども会の有無 / 近隣住民の情報 / 最近建てた人がいれば地盤補強の有無</li>
+        <li><strong>移動中のプロファイリング：</strong>各家を訪問した後、次の家に移動する間に、訪問した住民の姿形・家族構成・家の古さ・雰囲気をボソボソ録音しておく</li>
+        <li><strong>効率：</strong>約30分の音声で3件分のインタビュー＋プロファイリングが完成する</li>
       </ul>
-    </div>
-  </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>お客様の声のレバレッジ活用</h3>
-    </div>
-    <div class="block-body">
-      <p>LINEでお客様からお褒めの言葉が返ってきたら、全てスクショを撮り、許可をもらってInstagramのストーリーに投稿する。</p>
-      <div class="highlight-box highlight-cyan">
-        <p>ストーリーに「お客様からこんな嬉しい言葉をいただきました」と載せるだけで、Instagramを見ている他の見込み客に「この人はここまでやってくれるんだ」「お客様にここまで真摯に向き合っているんだ」ということが伝わる。<strong>1人のお客様への行動が、他の見込み客へのレバレッジ</strong>として機能し、リードタイム短縮と制約率向上に貢献する。</p>
+      <p><strong>-- AI活用 --</strong></p>
+      <p>全音声データをAIに投入し、スライド形式の<strong>「近隣ヒアリング調査レポート」</strong>を自動作成する。こんなレポートを送る不動産会社も建築会社もないので、エンゲージメントが大幅に向上し、土地の決定率も上がる。</p>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>近隣ヒアリング調査レポート（AIスライド）</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">ヒアリングスクリプト</span>
-      <span class="output-tag">土地候補リスト</span>
-      <span class="output-tag">現地動画</span>
-      <span class="output-tag">AI土地提案スライド</span>
-      <span class="output-tag">土地比較表・ランキング</span>
-      <span class="output-tag">近隣調査レポート</span>
-      <span class="output-tag">お客様の声（Instagram素材）</span>
+  <!-- TIP 8-5 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>お客様のお褒めの言葉をInstagramでレバレッジする</h3>
+    </div>
+    <div class="tip-body">
+      <p>LINEでお客様からお褒めの言葉が返ってきたら、全てスクリーンショットを撮り、お客様に許可を取った上でInstagramのストーリーに投稿する。</p>
+      <p>ストーリーに「お客様からこんな嬉しい言葉をいただきました」と載せるだけで、Instagramを見ている<strong>他の見込み客</strong>に「この人はここまでやってくれるんだ」「お客様にここまで真摯に向き合っているんだ」と伝わる。1人のお客様への行動が、他の見込み客へのレバレッジとして機能する。</p>
+      <div class="tip-objective">
+        <div class="obj-label">なぜこうするのか</div>
+        <p>第1面談でInstagramを交換済みなので、「嬉しい言葉なので思い出に載せてもいいですか？」と許可を取るだけ。大体OKがもらえる。これをリードタイム短縮と制約率向上の両方に効かせる。</p>
+      </div>
     </div>
   </div>
 
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(0,206,201,0.2); color: var(--cyan);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--cyan);">目的</h4>
-      <p>第3面談（初回来場から約2週間以内）までに土地の決定まで持っていく。土地が決まれば建物の受注確率は一気に上がる。AIで提案資料を即座に作成し、リアルタイムの情報共有とエンゲージメント向上で、最短でのクロージングを実現する。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>第3面談（初回来場から約2週間以内）までに土地の決定まで持っていく。土地が決まれば建物の受注確率は一気に上がる。AIによる即時の提案資料作成と、リアルタイム情報共有・近隣調査で、最短でのクロージングを実現する。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 9: プラン提案 ==================== -->
-<section class="phase-section" id="phase9">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(108,92,231,0.3), rgba(108,92,231,0.1));">09</div>
-    <div class="phase-title">
-      <h2>プランヒアリング・提案準備</h2>
-      <div class="subtitle">AIによるヒアリング品質担保と、オンライン事前共有でクロージング精度を高める</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 09 : プラン提案準備                                         -->
+<!-- ================================================================ -->
+<section class="phase" id="phase9">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--ai);">09</div>
+    <h2>プランヒアリング・提案準備</h2>
   </div>
+  <p class="phase-subtitle">AIでヒアリング品質を担保し、オンライン事前共有でクロージング精度を高める</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>設計ヒアリング要望の整理</h3>
+  <!-- TIP 9-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>設計ヒアリングの要望をAIで整理・構造化する</h3>
     </div>
-    <div class="block-body">
-      <p>設計ヒアリングは全て録音し、ナレッジベースに蓄積している。AIを使って「どんな提案が刺さるか」「お客様の要望のまとめ」を自動で整理する。また、プランヒアリング用の質問リストやヒアリングスクリプトもAIで事前作成し、ヒアリングの品質を担保する。</p>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>オンライン事前共有（プラン小出し戦略）</h3>
-    </div>
-    <div class="block-body">
-      <p>従来のように「次の土日まで待ってサプライズで出す」のではなく、<strong>途中でオンラインミーティングを挟んで小出しにする</strong>方が絶対にいい。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-accent">1</div>
-          <div class="step-text"><strong>AIでヒアリング整理：</strong>日曜日のプランヒアリング後、すぐにAIのジェム等でヒアリング内容を整理。要望をまとめたレポートを作成</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">2</div>
-          <div class="step-text"><strong>プラン候補選定：</strong>3Dソフトやプラン提案AIツール等を使って、要望に該当しそうなプランを選定</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">3</div>
-          <div class="step-text"><strong>平日夜にオンラインMTG設定（20分）：</strong>「認識に違いがないか確認したい。プランと土地について考えてみたので、方向性のすり合わせのために20分だけ時間をもらえないか」と提案。プランヒアリング日にあらかじめ切っておく</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">4</div>
-          <div class="step-text"><strong>ダメ出しをもらう：</strong>何もないところからヒアリングするよりも、出した図面に対してダメ出ししてもらう方が、お客様は具体的な要望を出せる。あえてこの場でダメ出しをもらうことが目的</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-accent">5</div>
-          <div class="step-text"><strong>テストクロージング：</strong>「今日ダメ出ししてもらった部分がクリアになって、予算もこれまでの打ち合わせの範囲に収まって、プランも出せたら、うちを家づくりのパートナーとして決断してもらえそうですか？」→「日曜日は全力で行くので、建てる・建てないの意思決定を聞かせてください。約束です」と事前に握っておく</div>
-        </div>
+    <div class="tip-body">
+      <p>設計ヒアリングは全て録音し、ナレッジベースに蓄積している。AIに「お客様のヒアリング要望をまとめて」と指示するだけで、要望の整理・優先順位付け・「刺さりそうな提案ポイント」の提示が自動で行われる。また、プランヒアリング用の質問リストやスクリプトもAIで事前作成し、ヒアリング自体の品質を担保する。</p>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>ヒアリング要望整理レポート / プランヒアリング用質問スクリプト</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">ヒアリング要望整理レポート</span>
-      <span class="output-tag">基本プラン候補</span>
-      <span class="output-tag">オンラインMTGでのダメ出し記録</span>
-      <span class="output-tag">テストクロージングの合意</span>
+  <!-- TIP 9-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>平日夜のオンラインMTGで「プラン小出し＋ダメ出し収集＋テストクロージング」を実行する</h3>
+    </div>
+    <div class="tip-body">
+      <p>従来のように「次の土日まで待ってサプライズで出す」のではなく、<strong>途中でオンラインミーティングを挟んで小出しにする</strong>。これがリードタイム短縮と大ズレ防止の鍵。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-sales">1</div>
+          <div class="s-text"><strong>AIで即日整理：</strong>日曜日のプランヒアリング後、すぐにAIでヒアリング内容を整理。要望まとめレポートを作成する</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">2</div>
+          <div class="s-text"><strong>プラン候補を選定：</strong>3Dソフトやプラン作成ツールで、要望に合いそうなプランを選んでおく</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">3</div>
+          <div class="s-text"><strong>平日夜にオンラインMTG（20分）：</strong>「認識のすり合わせがしたい。プランと土地について考えてみたので方向性を確認させてほしい」と提案し、プランヒアリングの日にあらかじめ平日夜の予定を切っておく</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">4</div>
+          <div class="s-text"><strong>あえてダメ出しをもらう：</strong>何もないところからヒアリングするよりも、出した図面に対してダメ出ししてもらう方がお客様は具体的な要望を出せる。ダメ出しをもらうことが目的</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-sales">5</div>
+          <div class="s-text"><strong>テストクロージング：</strong>「今日ダメ出ししてもらった部分がクリアになって、予算も打ち合わせした範囲に収まって、プランも出せたら、うちを家づくりのパートナーとして決断してもらえそうですか？」→「日曜日は全力で行きます。建てる・建てないの意思決定を聞かせてください。約束です」と事前に握っておく</div>
+        </div>
+      </div>
+      <div class="tip-insight insight-sales">
+        <p><strong>核心：</strong>テストクロージングは「しょぼい営業マンにはできない」が、できる営業なら「フェアな約束として当日に意思決定してくれ」と言い切る。これを事前に握っておくかどうかで、クロージング当日の成功率が大きく変わる。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>ダメ出し記録（反映すべき修正リスト） / テストクロージングの合意</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 10: クロージング ==================== -->
-<section class="phase-section" id="phase10">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(0,184,148,0.3), rgba(0,184,148,0.1)); color: var(--green-light);">10</div>
-    <div class="phase-title">
-      <h2>プラン提案・クロージング</h2>
-      <div class="subtitle">AIによるフォトリアルパースと動画で圧倒的なプレゼンテーションを実現</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 10 : クロージング                                           -->
+<!-- ================================================================ -->
+<section class="phase" id="phase10">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--green);">10</div>
+    <h2>プラン提案・クロージング</h2>
   </div>
+  <p class="phase-subtitle">AIフォトリアルパースと動画で圧倒的なプレゼンテーションを実現し、4回目で契約を取る</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>フォトリアルパースのAI生成</h3>
+  <!-- TIP 10-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>フォトリアルパースをAIで1分で生成し、他社と圧倒的な差を作る</h3>
     </div>
-    <div class="block-body">
-      <p>3Dソフトで作成した外観・内観パースをAIでフォトリアルにレンダリングする。地方の工務店や昔ながらの建築会社のプレゼン資料は、平面図・立面図とちょっとした水彩画風パース程度。<strong>AIを活用することで圧倒的なクオリティの差を見せつけられる。</strong></p>
-
-      <ul class="detail-list list-green">
-        <li><strong>昼・夜バージョンの外観パース：</strong>AIアプリで専用プロンプトを作成し、昼間と夜のバージョンの外観をきちんと出す</li>
-        <li><strong>動画化：</strong>AIで生成したフォトリアルパースをさらに動画化。背景が動いたり、木々が風で揺れたり、車が動いたり、人が生活しているような動画も作成可能</li>
-        <li><strong>内観の生活シーン：</strong>ソファに人が座って日常生活を送っているような内観動画など、お客様が実際の暮らしをイメージできる素材を提供</li>
-        <li><strong>コスト・時間の大幅削減：</strong>従来はベトナム等に外注して1カット2〜3万円・リードタイム10日。年間50件なら200万円以上の経費。AIなら<strong>1分程度で作成可能</strong></li>
+    <div class="tip-body">
+      <p>3Dソフトで作成した外観・内観パースをAIでフォトリアルにレンダリングする。地方の工務店のプレゼン資料は平面図と水彩画風パース程度。<strong>AIを活用すれば圧倒的なクオリティの差を見せつけられる。</strong></p>
+      <ul class="blist bl-ai">
+        <li><strong>昼・夜バージョンの外観パース：</strong>AIアプリに専用プロンプトを設計し、昼間の明るい外観と夜のライトアップされた外観の2パターンを出力する</li>
+        <li><strong>動画化：</strong>生成したフォトリアルパースをさらにAI動画化ツールで動画にする。背景が動く、木々が風で揺れる、車が動く、人が生活している等のリアルな動画が作成可能</li>
+        <li><strong>内観の生活シーン：</strong>ソファに人が座って日常生活を送っているような内観動画も作成できる。お客様が「実際の暮らし」をイメージしやすくなる</li>
       </ul>
-
       <div class="kpi-row">
-        <div class="kpi-box">
-          <div class="kpi-val text-green">約1分</div>
-          <div class="kpi-label">AI生成時間</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-val text-green">約10日→1分</div>
-          <div class="kpi-label">リードタイム短縮</div>
-        </div>
-        <div class="kpi-box">
-          <div class="kpi-val text-green">年200万円+</div>
-          <div class="kpi-label">経費削減効果</div>
-        </div>
+        <div class="kpi"><div class="val" style="color:var(--green);">約1分</div><div class="lbl">AI生成時間</div></div>
+        <div class="kpi"><div class="val" style="color:var(--green);">10日→1分</div><div class="lbl">リードタイム削減</div></div>
+        <div class="kpi"><div class="val" style="color:var(--green);">年200万+</div><div class="lbl">外注費削減</div></div>
+      </div>
+      <div class="tip-insight insight-ai">
+        <p><strong>コスト比較：</strong>従来はベトナム等に外注して1カット2〜3万円・リードタイム10日。年間50件・2カットずつ発注すれば年200万円以上。AIなら約1分で生成でき、コストはほぼゼロ。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>フォトリアル外観パース（昼・夜） / フォトリアル内観パース / パース動画</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>手書きコメント付きパースのプレゼンテーション</h3>
+  <!-- TIP 10-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>手書きコメント付きパースで提案に「温度」を加える</h3>
     </div>
-    <div class="block-body">
-      <p>ハイパフォーマー系の営業はリアルフォトの外観図に手書きで線を引いてコメントを書き、プレゼンしている。AIを使えばこのプロセスも効率化できる。</p>
-      <ul class="detail-list list-green">
-        <li><strong>AIオーバーレイ：</strong>AIに画像を入力し、オーバーレイ（レイヤー分け）で手書き風の線とコメントを自動で入れさせることが可能</li>
-        <li><strong>コメント文のAI作成：</strong>手書きする場合でも、限られた文字数でお客様に魅力的に伝わるコメント文はAIに考えさせる。営業は「書くだけ」</li>
-        <li><strong>トップセールス×新人の分業：</strong>トップセールスがAIと壁打ちして「どこにどんなコメントを入れるか」を決定。AIが新人への指示書を自動生成。新人はその指示に従って手書きで書き込む。ベテランのセンスと新人の作業を分業させ、全体の品質と効率を両立</li>
+    <div class="tip-body">
+      <p>ハイパフォーマー系の営業は、リアルフォトの外観図に手書きで線を引いてコメントを書き込み、プレゼンしている。この「手間暇感」がエンゲージメントを高める。AIを使えばこのプロセスも効率化できる。</p>
+      <ul class="blist bl-ai">
+        <li><strong>AIオーバーレイ：</strong>AIに画像を入力し、オーバーレイ（レイヤー分け）で手書き風の線とコメントを自動で入れさせることも可能</li>
+        <li><strong>コメント文のAI作成：</strong>自分で手書きする場合でも、限られた文字数でお客様に魅力的に伝わるコメント文はAIに考えさせ、営業は「書くだけ」にする</li>
+        <li><strong>トップセールス×新人の分業：</strong>トップセールスがAIと壁打ちし「どこにどんなコメントを入れるか」を決定。AIが新人への指示書を作成。新人はその指示通りに手書きで書き込む。ベテランのセンスと新人の作業を効率的に分業できる</li>
       </ul>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>クロージング当日の流れ</h3>
-    </div>
-    <div class="block-body">
-      <p>オンラインMTGでのダメ出しを反映したプランを提示するため、当日は大きなズレがない。土地の買い付けとプランの基本承認を一発で取りにいく。</p>
-      <div class="highlight-box highlight-green">
-        <p>ここまでで基本<strong>4回の商談</strong>。中1週間で見ていけば<strong>出会いから3週間で契約</strong>。今のハイパフォーマーの住宅営業は、4回の商談・3週間で意思決定を取るのが理想形。ただし、これを実現するためにはAIの活用・AIリテラシーが必須になる。</p>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>手書きコメント付きプレゼンパース / 新人向け作業指示書</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">フォトリアル外観パース（昼・夜）</span>
-      <span class="output-tag">フォトリアル内観パース</span>
-      <span class="output-tag">パース動画</span>
-      <span class="output-tag">手書きコメント付きプレゼン資料</span>
-      <span class="output-tag">土地買い付け合意</span>
-      <span class="output-tag">プラン基本承認</span>
+  <!-- TIP 10-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>4回目の商談で契約を取る ─ クロージング当日の設計</h3>
+    </div>
+    <div class="tip-body">
+      <p>オンラインMTGでダメ出しを収集し、テストクロージングの合意も取ってあるので、当日は大きなズレがない状態でプレゼンに臨める。<strong>土地の買い付け + プランの基本承認</strong>を一発で取りにいく。</p>
+      <div class="tip-insight insight-sales">
+        <p><strong>目標数値：</strong>ここまでで基本<strong>4回の商談</strong>。中1週間で見ていけば<strong>出会いから3週間で契約</strong>。今のハイパフォーマーの住宅営業は、4回・3週間で意思決定を取るのが理想形。ただしこれを実現するにはAI活用とAIリテラシーが必須。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>土地買い付け合意 / プラン基本承認 / 契約</p>
+      </div>
     </div>
   </div>
 
-  <div class="goal-banner">
-    <div class="icon">G</div>
-    <div class="goal-text">
-      <h4>目的</h4>
-      <p>4回目の商談で契約（意思決定）を取る。AIで作成した圧倒的なクオリティのプレゼン資料と、事前のテストクロージングにより、スムーズな意思決定を実現。リードタイム3週間で制約率を最大化する。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>4回目の商談で契約を取る。AIで作成した圧倒的なプレゼン資料と、事前のテストクロージングで、スムーズな意思決定を実現。リードタイム3週間で制約率を最大化する。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 11: 部署連携 ==================== -->
-<section class="phase-section" id="phase11">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(253,121,168,0.3), rgba(253,121,168,0.1)); color: var(--pink);">11</div>
-    <div class="phase-title">
-      <h2>契約後 ─ 設計・IC・施工の部署間連携</h2>
-      <div class="subtitle">AIナレッジベースの全社共有で、情報の橋渡しと申し送り事故を防止</div>
-    </div>
+<!-- ================================================================ -->
+<!--  PHASE 11 : 部署連携                                              -->
+<!-- ================================================================ -->
+<section class="phase" id="phase11">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--pink);">11</div>
+    <h2>契約後 ─ 設計・IC・施工の部署間連携</h2>
   </div>
+  <p class="phase-subtitle">AIナレッジベースの全社共有で申し送り事故を防止し、一気通貫の情報連携を実現</p>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>顧客ナレッジベースの全社展開</h3>
+  <!-- TIP 11-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>顧客ナレッジベースを後工程の全部署に展開する</h3>
     </div>
-    <div class="block-body">
-      <p>契約後、顧客の全商談データが蓄積されたナレッジベースを、後工程の全部署に共有する。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-pink">1</div>
-          <div class="step-text"><strong>担当者アサイン：</strong>設計士・インテリアコーディネーター・現場監督をアサインし、顧客ナレッジベースへの参加権限を付与。クラウド型のワークスペースを利用している場合、社内共有が容易</div>
+    <div class="tip-body">
+      <p>契約後、営業フェーズで蓄積した顧客の全商談データ（ナレッジベース）を、後工程の全部署に共有する。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>担当者アサイン：</strong>設計士・インテリアコーディネーター・現場監督をアサインし、顧客ナレッジベースへの参加権限を付与する。クラウド型ワークスペース利用なら社内共有は容易</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-pink">2</div>
-          <div class="step-text"><strong>一次情報の生データ移管：</strong>従来の「制約報告書」「申し送り書」のような曖昧な情報ではなく、全商談の音声データ・文字起こし・議事録がそのまま移管される</div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>一次情報の生データ移管：</strong>従来の「制約報告書」「申し送り書」のような曖昧な情報ではなく、全商談の音声・文字起こし・議事録がそのまま移管される</div>
         </div>
-        <div class="process-step">
-          <div class="step-icon bg-pink">3</div>
-          <div class="step-text"><strong>各専門職のAI活用：</strong>例えばスタイリスト（IC）が「お客様の本当の要望は何だったか」を知りたい時、プランヒアリングの音声コンテキストやプラン提案時のお客様の反応データに直接アクセスし、一次情報をもとに提案できる</div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>各専門職がAIで情報アクセス：</strong>例えばIC（スタイリスト）が「この顧客の本当の要望は？」を知りたい時、プランヒアリングの音声データやプラン提案時のお客様の反応に直接アクセスし、一次情報をもとに提案できる</div>
         </div>
       </div>
-
-      <div class="highlight-box highlight-pink">
-        <p>建築業界は<strong>営業→設計→IC→設計（戻り）→現場監督</strong>という流れの中の「つなぎ目」で事故が起きやすい。情報の不足とキャッチアップ能力の低さが原因だが、ナレッジベースの全社共有+AI検索により、この問題をクリアする。営業から現場監督まで一気通貫でのAI情報共有が可能になる。</p>
+      <div class="tip-insight insight-ai">
+        <p><strong>解決される問題：</strong>建築業界は「営業→設計→IC→設計（戻り）→現場監督」の<strong>つなぎ目で事故が起きやすい</strong>。情報不足とキャッチアップ能力の低さが原因だが、ナレッジベースの全社共有+AI検索でこの問題をクリアする。営業から現場監督まで一気通貫での情報共有が可能になる。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>全社共有ナレッジベース / 部署間申し送りデータ（生データベース）</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">全社共有ナレッジベース</span>
-      <span class="output-tag">部署間申し送りデータ</span>
-      <span class="output-tag">一次情報アーカイブ</span>
-    </div>
-  </div>
-
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(253,121,168,0.2); color: var(--pink);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--pink);">目的</h4>
-      <p>部署間の情報断絶による「申し送り事故」を撲滅する。従来の書類ベースの引き継ぎからAIナレッジベースベースの引き継ぎに転換し、各専門職が一次情報に直接アクセスできる環境を構築する。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>部署間の情報断絶による「申し送り事故」の撲滅。書類ベースからAIナレッジベースベースへの引き継ぎ方法の転換。各専門職が一次情報に直接アクセスできる環境の構築。</p>
     </div>
   </div>
 </section>
 
-<!-- ==================== PHASE 12: 納品後マーケティング ==================== -->
-<section class="phase-section" id="phase12">
-  <div class="phase-header">
-    <div class="phase-number" style="background: linear-gradient(135deg, rgba(253,203,110,0.3), rgba(253,203,110,0.1)); color: var(--yellow);">12</div>
-    <div class="phase-title">
-      <h2>納品後マーケティング</h2>
-      <div class="subtitle">ユーザーの声から逆算するマーケティングの本質をAIで実現</div>
+<!-- ================================================================ -->
+<!--  PHASE 12 : 納品後マーケティング                                    -->
+<!-- ================================================================ -->
+<section class="phase" id="phase12">
+  <div class="phase-head">
+    <div class="phase-num" style="background:var(--yellow);">12</div>
+    <h2>納品後マーケティング</h2>
+  </div>
+  <p class="phase-subtitle">ユーザーの声から逆算するマーケティングの本質をAIで実現する</p>
+
+  <!-- TIP 12-1 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>「納品の後にマーケティングが始まる」という本質を理解する</h3>
+    </div>
+    <div class="tip-body">
+      <p>通常の業務フローでは「営業の前に集客がある」と考えがちだが、<strong>本当の生産活動のフローは「納品の後にマーケティングが存在する」</strong>。納品してお客様を「ユーザー（利用者）」にし、ユーザーの声をもとにプロモーション・マーケティングを行う。これがマーケティングの本質。</p>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>マーケティングの本質：納品後にマーケティングが始まる</h3>
+  <!-- TIP 12-2 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-sales">営業 Tips</span>
+      <h3>営業とマーケの「分断問題」をAIで解消する</h3>
     </div>
-    <div class="block-body">
-      <p>通常の業務フローでは「営業の前に集客がある」と考えがちだが、<strong>本当の生産活動のフローは「納品の後にマーケティングが存在する」</strong>。</p>
-      <div class="highlight-box highlight-yellow">
-        <p>納品してお客様を「ユーザー（利用者）」にする。ユーザーの声を元にプロモーション・マーケティングを行うのが本来のマーケティングの本質。したがって、ユーザーの一次情報を起点としたマーケティング設計が重要になる。</p>
+    <div class="tip-body">
+      <p>多くの建築会社では、<strong>顧客の一次情報を持っているのは営業</strong>だが、営業はその情報を社内に共有する文化がない。結果、マーケ担当はお客様が来場前に持っている偏見・不安・疑問を知らないまま、WebサイトやSNSのコンテンツを作っている。<strong>だから刺さらない。</strong></p>
+      <p>この「営業とマーケの分断」という組織構造の問題は、営業フェーズで蓄積したナレッジベースをマーケ部門にも共有し、AIで分析することで解消できる。</p>
+    </div>
+  </div>
+
+  <!-- TIP 12-3 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>複数の顧客データを横断分析し、マーケティングインサイトを抽出する</h3>
+    </div>
+    <div class="tip-body">
+      <p>AIには複数のナレッジベースを同時にソースとして設定できる。これを活用して、大手マーケティング会社のサーベイ調査と同等の分析を社内で実行する。</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="s-num s-ai">1</div>
+          <div class="s-text"><strong>複数顧客のナレッジベースを設定：</strong>例えば10件の顧客のナレッジベースを全てAIのソースに同時設定する</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">2</div>
+          <div class="s-text"><strong>共通インサイト抽出：</strong>「この10件のお客様が共通して持っていた、自社に来る前の偏見・不安・疑問は何か」をAIに質問する</div>
+        </div>
+        <div class="step-item">
+          <div class="s-num s-ai">3</div>
+          <div class="s-text"><strong>コンテンツ企画への反映：</strong>抽出したインサイトをもとに、本当に顧客に刺さるWebコンテンツ・SNS企画・広告を設計する</div>
+        </div>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>顧客インサイト分析レポート / 共通の偏見・不安・疑問リスト / コンテンツ企画案</p>
       </div>
     </div>
   </div>
 
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-sales">営業Tips</span>
-      <h3>営業とマーケの分断問題</h3>
+  <!-- TIP 12-4 -->
+  <div class="tip">
+    <div class="tip-header">
+      <span class="tip-badge badge-ai">AI Tips</span>
+      <h3>AIの中に仮想人格を作り、商品やコンテンツの反応をシミュレーションする</h3>
     </div>
-    <div class="block-body">
-      <p>多くの建築会社では、<strong>顧客の一次情報を持っているのは営業</strong>だが、営業はその情報を社内共有する文化がない。結果、マーケ担当はお客様が来場前に持っている偏見・不安・疑問を知らないまま、Webサイトやコンテンツ、SNSを作っている。だから刺さらない。</p>
-      <p><strong>営業とマーケの分断</strong>という建築会社の組織構造の問題をAIでクリアする。</p>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>複数顧客データの横断分析</h3>
-    </div>
-    <div class="block-body">
-      <p>AIには複数のナレッジベースを同時にソースとして設定できる。これを活用して、マーケティングインサイトを抽出する。</p>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-icon bg-yellow">1</div>
-          <div class="step-text"><strong>複数顧客のナレッジベースを設定：</strong>例えば10件の顧客のナレッジベースを全てAIのソースに設定する</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-yellow">2</div>
-          <div class="step-text"><strong>共通インサイト抽出：</strong>「この10件のお客様が共通して持っていた、自社に来る前の偏見・不安・疑問は何か」をAIに質問する。大手マーケティング会社が実施するサーベイ調査と同等の分析が社内で可能に</div>
-        </div>
-        <div class="process-step">
-          <div class="step-icon bg-yellow">3</div>
-          <div class="step-text"><strong>コンテンツ・SNS企画への反映：</strong>抽出したインサイトをもとに、本当に顧客に刺さるWebコンテンツ・SNS企画・広告を設計する</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="content-block">
-    <div class="block-header">
-      <span class="block-tag tag-ai">AI活用</span>
-      <h3>仮想人格によるマーケティングディスカッション</h3>
-    </div>
-    <div class="block-body">
-      <p>顧客データの蓄積が十分にあれば、AIの中に<strong>仮想人格（ペルソナ）</strong>を作成してマーケティング判断に活用できる。</p>
-      <ul class="detail-list list-yellow">
-        <li><strong>仮想人格作成：</strong>顧客情報のナレッジベースから5人分の仮想人格をAI内に生成する。それぞれが実在の顧客データに基づいたリアルなペルソナになる</li>
-        <li><strong>ディスカッション実施：</strong>例えば新商品A vs Bの比較や、コンテンツ案の良し悪しについて、5人の仮想人格にディスカッションさせる</li>
-        <li><strong>新商品開発にも活用：</strong>どういう商品が顧客にとって価値があるのか、仮想人格によるフィードバックをもとに商品企画を行える</li>
-        <li><strong>本来の代替コスト：</strong>このレベルの分析は、通常マーケティング調査で数百万円の費用がかかる。一次情報の蓄積があれば、AIで同等のことが社内で実現可能</li>
+    <div class="tip-body">
+      <p>顧客データの蓄積が十分にあれば、AIの中に<strong>仮想人格（ペルソナ）を複数作成</strong>し、マーケティング判断や商品開発の意思決定に活用できる。</p>
+      <ul class="blist bl-ai">
+        <li><strong>仮想人格作成：</strong>顧客ナレッジベースから5人分の仮想人格をAI内に生成する。それぞれが実在の顧客データに基づいたリアルなペルソナになる</li>
+        <li><strong>ディスカッション実施：</strong>新商品A vs Bの比較や、コンテンツ案の良し悪しについて、5人の仮想人格にディスカッションさせる</li>
+        <li><strong>新商品開発への活用：</strong>「どういう商品が顧客にとって価値があるか」を仮想人格のフィードバックで判断できる</li>
+        <li><strong>本来のコスト：</strong>このレベルの分析は通常、マーケティング調査で数百万円かかる。一次情報の蓄積さえあれば、AIで社内完結できる</li>
       </ul>
-
-      <div class="highlight-box highlight-yellow">
-        <p><strong>ポイント：</strong>全ての出発点は「一次情報（顧客の生データ）をどれだけ蓄積しているか」に尽きる。全社員にスマホを配布し、全商談・全打ち合わせの録音を徹底する。この一次情報の蓄積量が、AI活用の成果を決定する。</p>
+      <div class="tip-insight insight-ai">
+        <p><strong>全ての出発点：</strong>一次情報（顧客の生データ）をどれだけ蓄積しているかに全てがかかっている。全社員にスマホを配布し、全商談の録音を徹底する。この蓄積量がAI活用の成果の天井を決める。</p>
+      </div>
+      <div class="tip-output">
+        <div class="out-label">生産物</div>
+        <p>仮想人格フィードバック結果 / 新商品企画参考データ / マーケティング判断材料</p>
       </div>
     </div>
   </div>
 
-  <div class="output-banner">
-    <h4>このフェーズの生産物</h4>
-    <div class="output-tags">
-      <span class="output-tag">顧客インサイト分析レポート</span>
-      <span class="output-tag">顧客共通の偏見・不安・疑問リスト</span>
-      <span class="output-tag">マーケティングコンテンツ企画</span>
-      <span class="output-tag">仮想人格フィードバック結果</span>
-      <span class="output-tag">新商品企画参考データ</span>
-    </div>
-  </div>
-
-  <div class="goal-banner">
-    <div class="icon" style="background: rgba(253,203,110,0.2); color: var(--yellow);">G</div>
-    <div class="goal-text">
-      <h4 style="color: var(--yellow);">目的</h4>
-      <p>営業が持つ顧客の一次情報をAIで全社に還元し、マーケティングの精度を飛躍的に高める。「ユーザーの声」を起点としたコンテンツ制作と、仮想人格によるマーケティング判断で、集客の質と量を同時に向上させる。</p>
+  <div class="phase-goal">
+    <div class="g-icon">G</div>
+    <div>
+      <h4>このフェーズのゴール</h4>
+      <p>営業が持つ顧客の一次情報をAIで全社に還元し、マーケティング精度を飛躍的に高める。「ユーザーの声」起点のコンテンツ制作と仮想人格による判断で、集客の質と量を同時に向上させる。</p>
     </div>
   </div>
 </section>
 </div>
 
-<!-- ==================== CLOSING MESSAGE ==================== -->
-<section class="message-section">
-  <div class="message-content">
-    <div class="section-header">
-      <div class="overline">Final Message</div>
-      <h2>AI活用の本質</h2>
-    </div>
+<!-- ==================== CLOSING ==================== -->
+<section class="closing">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="section-label" style="text-align:center;">Final Message</div>
+    <div class="section-title" style="text-align:center;">AI活用の本質</div>
     <blockquote>
       AIは「効率化」のためのツールではない。<br>
       手間暇かけた営業の「質と速度」を同時に引き上げ、<br>
       制約率を向上させるための経営戦略である。
     </blockquote>
-    <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 2;">
-      AIを全てに置き換える魔法の杖ではなく、泥臭い現場の営業活動の中にAIを正しく落とし込むこと。業務フローとROIの両方を見ながら設計すること。一次情報の蓄積を全社で徹底すること。これが、住宅営業におけるAI活用の本質であり、スキル・経験・能力によらずに成果を出せる仕組みの基盤となる。
-    </p>
-
-    <div style="margin-top: 48px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); text-align: left; max-width: 700px; margin-left: auto; margin-right: auto;">
-      <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 16px;">今日から始められること</h3>
-      <ul class="detail-list list-green">
+    <p class="sub">AIを全てに置き換える魔法の杖ではなく、泥臭い現場の営業活動の中にAIを正しく落とし込むこと。業務フローとROIの両方を見ながら設計すること。一次情報の蓄積を全社で徹底すること。これが住宅営業におけるAI活用の本質であり、スキル・経験・能力によらずに成果を出せる仕組みの基盤となる。</p>
+    <div class="closing-actions">
+      <h3>今日から始められること</h3>
+      <ul class="blist bl-green">
         <li><strong>全社員にスマホを配布</strong>し、全商談・打ち合わせの録音を徹底する</li>
-        <li>録音データをAIで文字起こし・議事録化する仕組みを構築する</li>
+        <li>録音データをAIで文字起こし・議事録化する仕組み（AIアプリ）を構築する</li>
         <li>1顧客1ナレッジベースの運用を開始し、一次情報を蓄積していく</li>
         <li>LINEによるハイタッチ営業を実践し、リードタイム短縮を図る</li>
         <li>トップセールスの知見をナレッジベース化し、AIフィードバック体制を構築する</li>
@@ -1930,13 +1640,11 @@
   </div>
 </section>
 
-<!-- ==================== FOOTER ==================== -->
 <footer>
   <p>AI × 住宅営業 完全業務フローガイド</p>
 </footer>
 
 <script>
-// Smooth scroll for TOC links
 document.querySelectorAll('.toc a').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -1948,26 +1656,20 @@ document.querySelectorAll('.toc a').forEach(a => {
     }
   });
 });
-
-// Intersection Observer for active nav
-const sections = document.querySelectorAll('.phase-section, .concept-section');
+const sections = document.querySelectorAll('.phase, .concept-section');
 const navLinks = document.querySelectorAll('.toc a');
-
-const observer = new IntersectionObserver(entries => {
+const obs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const id = entry.target.id;
-      navLinks.forEach(link => {
-        link.style.background = link.getAttribute('href') === '#' + id
-          ? 'rgba(108, 92, 231, 0.15)' : '';
-        link.style.color = link.getAttribute('href') === '#' + id
-          ? 'var(--accent-light)' : '';
+      navLinks.forEach(l => {
+        const match = l.getAttribute('href') === '#' + id;
+        l.classList.toggle('active', match);
       });
     }
   });
-}, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
-
-sections.forEach(s => observer.observe(s));
+}, { threshold: 0.15, rootMargin: '-80px 0px -50% 0px' });
+sections.forEach(s => obs.observe(s));
 </script>
 </body>
 </html>
