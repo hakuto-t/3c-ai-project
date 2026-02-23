@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>外構事業 課題と今後の方針 MTG 議事録</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --indigo-50: #eef2ff;
+            --indigo-100: #e0e7ff;
+            --indigo-200: #c7d2fe;
+            --indigo-300: #a5b4fc;
+            --indigo-400: #818cf8;
+            --indigo-500: #6366f1;
+            --indigo-600: #4f46e5;
+            --indigo-700: #4338ca;
+            --indigo-800: #3730a3;
+            --indigo-900: #312e81;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--white);
+            color: var(--gray-800);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 32px;
+            border-bottom: 2px solid var(--indigo-100);
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: var(--indigo-50);
+            color: var(--indigo-700);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .header-meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .header-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .header-meta-item .icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--indigo-500);
+        }
+
+        .header-meta-item .icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--indigo-800);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--indigo-200);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .title-number {
+            background: var(--indigo-600);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Card */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .card-icon.structure { background: var(--indigo-50); color: var(--indigo-600); }
+        .card-icon.flow { background: #f0fdf4; color: #16a34a; }
+        .card-icon.budget { background: #fefce8; color: #ca8a04; }
+        .card-icon.cost { background: #fef2f2; color: #dc2626; }
+        .card-icon.design { background: #faf5ff; color: #9333ea; }
+        .card-icon.hire { background: #ecfeff; color: #0891b2; }
+        .card-icon.process { background: #fff7ed; color: #ea580c; }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--gray-500);
+            margin-top: 2px;
+        }
+
+        /* Problem Block */
+        .problem-block {
+            background: var(--gray-50);
+            border-left: 3px solid var(--gray-300);
+            border-radius: 0 8px 8px 0;
+            padding: 14px 18px;
+            margin-bottom: 18px;
+        }
+
+        .problem-block-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .problem-block ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .problem-block ul li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .problem-block ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gray-400);
+        }
+
+        /* Decision List */
+        .decision-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .decision-list > li {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-100);
+            line-height: 1.7;
+        }
+
+        .decision-list > li:last-child {
+            border-bottom: none;
+        }
+
+        .decision-number {
+            background: var(--indigo-600);
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 700;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .decision-text {
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .decision-text strong {
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        /* Handoff Badge */
+        .handoff {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--indigo-50);
+            color: var(--indigo-700);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 1px solid var(--indigo-200);
+        }
+
+        .handoff svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Action Items Table */
+        .action-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
+        }
+
+        .action-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .action-table thead {
+            background: var(--indigo-600);
+            color: var(--white);
+        }
+
+        .action-table thead th {
+            padding: 12px 16px;
+            font-weight: 600;
+            text-align: left;
+            font-size: 13px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .action-table thead th:first-child {
+            border-radius: 11px 0 0 0;
+        }
+
+        .action-table thead th:last-child {
+            border-radius: 0 11px 0 0;
+        }
+
+        .action-table tbody tr {
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .action-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .action-table tbody tr:hover {
+            background: var(--gray-50);
+        }
+
+        .action-table tbody td {
+            padding: 12px 16px;
+            vertical-align: top;
+            color: var(--gray-700);
+        }
+
+        .action-table tbody td:first-child {
+            text-align: center;
+            font-weight: 700;
+            color: var(--indigo-600);
+        }
+
+        .action-table .badge-person {
+            display: inline-block;
+            background: var(--indigo-50);
+            color: var(--indigo-700);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .action-table .badge-deadline {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-deadline.immediate {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .badge-deadline.month {
+            background: #fefce8;
+            color: #ca8a04;
+        }
+
+        .badge-deadline.quarter {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .badge-deadline.week {
+            background: #fff7ed;
+            color: #ea580c;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-400);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                font-size: 12px;
+                line-height: 1.5;
+                color: #000;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .card:hover {
+                box-shadow: none;
+            }
+
+            .action-table-wrapper {
+                box-shadow: none;
+            }
+
+            .header {
+                margin-bottom: 24px;
+                padding-bottom: 16px;
+            }
+
+            .section {
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 16px;
+                margin-bottom: 12px;
+            }
+
+            .action-table thead {
+                background: var(--indigo-600) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .decision-number, .title-number {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .badge-person, .badge-deadline {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .header-meta {
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .action-table {
+                font-size: 12px;
+            }
+
+            .action-table thead th,
+            .action-table tbody td {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-badge">Meeting Minutes</div>
+            <h1>外構事業 課題と今後の方針<br>MTG 議事録</h1>
+            <div class="header-meta">
+                <div class="header-meta-item">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+                    </span>
+                    <span>2026年2月23日</span>
+                </div>
+                <div class="header-meta-item">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+                    </span>
+                    <span>白都、倉田、佐藤</span>
+                </div>
+                <div class="header-meta-item">
+                    <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </span>
+                    <span>約65分</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 議題ごとの決定事項 -->
+        <div class="section">
+            <h2 class="section-title">議題ごとの決定事項</h2>
+
+            <!-- 議題1: 体制 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon structure">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題1: 体制 &mdash; キャパと業務分担</div>
+                        <div class="card-subtitle">リソース配分と外注ルールの明確化</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>佐藤さんが全件を自分で受けており、外注への振り分けルールが機能していなかった</li>
+                        <li>打合せが重なり、リードタイムが延伸。引き渡し2日後に外構が完了していないケースも発生</li>
+                        <li>平準化されておらず、月によって3件〜8件とバラつきがある</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text">佐藤さんの自社キャパ上限を<strong>月6件（新規設計着手）</strong>と確定</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">佐藤さん自身が外構打合せの平準化を行う（建物の設計スケジュールと連動させず、独自に月6件ペースでコントロール）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">月6件を超過した分は即座に<strong>グリーンライフ・ユナイテッドグリーンに外注</strong></span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text"><strong>アンドパッドの工程表に外構業者を全て紐付ける</strong>（現在未実施 → 佐藤さんが即対応）</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- 議題1追加: 工程管理 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon process">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題1追加: 工程管理と建設課連携</div>
+                        <div class="card-subtitle">監督との情報共有と工期設定の適正化</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>外構の工程管理が佐藤さん個人に閉じており、監督が把握できていない</li>
+                        <li>工期が一律16日で設定されており、ボリュームの大きい現場でも同じ</li>
+                        <li>引き渡し遅延が発生している</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text"><strong>生産打合せ前に、監督と佐藤さんが必ず工程確認の打合せを行う</strong>（これを生産打合せに入るトリガーとする）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">4者の時点で、外構の適切な工期が確保された状態で工程表をお客様に提示する</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">外構工期は現場ボリュームに応じて佐藤さんが必要日数を発信し、監督と合意する</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">アンドパッドに業者を紐付け、<strong>監督も工程を把握・管理できる状態にする</strong></span>
+                    </li>
+                </ol>
+
+                <div class="handoff">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    申し送り先: 建設課（監督） ※別途指示資料あり
+                </div>
+            </div>
+
+            <!-- 議題2: フロー -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon flow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題2: フロー &mdash; 打合せタイミングの再設計</div>
+                        <div class="card-subtitle">設計打合せ同席ルールとスケジュール最適化</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>建物の設計打合せに佐藤さんが同席するフローだが、スケジュールが考慮されず参加できないことが多い</li>
+                        <li>結果、個別アポイントで対応するが、打合せ間隔が1か月空くケースが発生</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text"><strong>ARRCH初回の設計打合せ（建築家開示/ファーストプラン）だけは佐藤さん同席必須</strong>（成約率に直結するため）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">それ以降は佐藤さんが独自にお客様とアポイントを切り出す（初回同席時に3回分のアポを決める）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">ARRCHの初回設計打合せのスケジューリング時に、<strong>アドバイザーが佐藤さんの予定を必ず考慮する</strong> → 白都からアドバイザー課に通達</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">PG HOUSEは初回同席不要（成約率に影響なし）。アドバイザーが良きタイミングで打合せを入れる</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">5</span>
+                        <span class="decision-text"><strong>オンライン打合せ（Google Meet）を試験的に導入</strong> → 平日夜間枠の活用、佐藤さんの稼働平準化</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">6</span>
+                        <span class="decision-text">外構の打合せ回数: <strong>基本3回</strong>（初回提案 → 修正 → 確定契約）。4者までにFIXが基本、デッドラインは上棟</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- 議題3: 予算 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon budget">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題3: 予算 &mdash; 予算取りルール</div>
+                        <div class="card-subtitle">予算設定ルールの遵守と中庭補正</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>既にルール（敷地面積×単価）があるが、遵守されていないケースがある</li>
+                        <li>中庭のある物件で予算が足りなくなる</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text"><strong>既存の予算取りルールの遵守をアドバイザーに徹底通達</strong> → 白都から指示</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text"><strong>中庭がある場合の補正予算: 四畳半（約7.4㎡）あたり30万円をベースに上乗せ</strong>（6畳なら45万、8畳なら60万）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">中庭は金額が上がりやすいことをアドバイザーからお客様に前振りしておく</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">完全クローズ中庭は「自社で工事中に中に入れる」メリット → 受注率向上の営業トークとして活用</span>
+                    </li>
+                </ol>
+
+                <div class="handoff">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+                    申し送り先: アドバイザー課 ※別途指示資料あり
+                </div>
+            </div>
+
+            <!-- 議題4: コスト -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon cost">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題4: コスト &mdash; 掛け率交渉と粗利確保</div>
+                        <div class="card-subtitle">メーカー単価取り決めと会社としての交渉体制</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>1年間、都度見積もりで走っており、単価取り決めができていない</li>
+                        <li>金物掛け率が高い</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text"><strong>倉田さんと佐藤さんの共同プロジェクトで単価取り決めを進める</strong></span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">主要取引先: <strong>LIXIL（金物）、タカショー（照明）</strong></span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">ライフファンドとして年間交渉を行う（佐藤さん個人ではなく会社として）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">倉田さんがメーカーとの交渉に同席し、会社としての取引を明確にする</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">5</span>
+                        <span class="decision-text"><strong>期限: 第2クォーター末（6月末）を目標に段階的に構築</strong>、年間通してコスト最適化を継続</span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- 議題5: 提案力 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon design">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題5: 提案力 &mdash; デザイン品質の底上げ</div>
+                        <div class="card-subtitle">植栽提案の強化とAIパース活用</div>
+                    </div>
+                </div>
+
+                <div class="problem-block">
+                    <div class="problem-block-title">現状の問題</div>
+                    <ul>
+                        <li>シンボルツリー（植栽）が入っていない物件が増えてきている</li>
+                        <li>お客様の「下げたい」に対して押し切れず、植栽が削られる</li>
+                        <li>ARRCH施工事例という無形資産の劣化リスク（全社問題）</li>
+                        <li>RICCADの低レンダリングパースでは心が踊らない</li>
+                    </ul>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text"><strong>植栽あり/なしのビジュアル比較をAIパースで作成</strong> → 白都が佐藤さんからRICCAD提案資料5件分を受領し、AIパースの見本を作成</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">RICCADで作成 → AIでレンダリング強化 のワークフローを確立する</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">お客様への提案時に<strong>「植栽ありなし」の2パターンを見せ、価値を視覚的に伝える</strong></span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">価格差を月々/日割りで伝えるトーク（例: 60万差 = 月1,600円 = 1日50円）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">5</span>
+                        <span class="decision-text">シンボルツリーは原価1.5〜3万円でROI最高の施策。<strong>佐藤さんはお客様にもっと強く推す</strong></span>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- 議題6: 内製化・採用 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon hire">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
+                    </div>
+                    <div>
+                        <div class="card-title">議題6: 内製化・採用</div>
+                        <div class="card-subtitle">外構プランナーの採用計画</div>
+                    </div>
+                </div>
+
+                <ol class="decision-list">
+                    <li>
+                        <span class="decision-number">1</span>
+                        <span class="decision-text">外構プランナーを<strong>1名採用する</strong> → 白都から人事（川島さん）に指示</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">2</span>
+                        <span class="decision-text">採用条件: <strong>エクステリアプランニング経験者</strong>（素人は不可）</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">3</span>
+                        <span class="decision-text">PG HOUSE専属、または佐藤さんの助手的役割</span>
+                    </li>
+                    <li>
+                        <span class="decision-number">4</span>
+                        <span class="decision-text">設計・打合せができる人が理想。経験が浅くても経験者であればPG対応は可能</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ACTION ITEMS -->
+        <div class="section">
+            <h2 class="section-title">ACTION ITEMS</h2>
+
+            <div class="action-table-wrapper">
+                <table class="action-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>アクション</th>
+                            <th>担当</th>
+                            <th>期限</th>
+                            <th>備考</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>自社キャパ月6件の運用開始・平準化</td>
+                            <td><span class="badge-person">佐藤</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>超過分は即外注</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>アンドパッド工程表に外構業者を全紐付け</td>
+                            <td><span class="badge-person">佐藤</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>監督が見れる状態に</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>生産打合せ前の工程確認フロー構築</td>
+                            <td><span class="badge-person">倉田・佐藤</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>建設課への通達含む</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>初回設計打合せへの佐藤さんスケジュール考慮ルール通達</td>
+                            <td><span class="badge-person">白都</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>アドバイザー課へ</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>外構予算取りルール遵守の通達</td>
+                            <td><span class="badge-person">白都</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>アドバイザー課へ</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>中庭補正予算ルールの通達</td>
+                            <td><span class="badge-person">白都</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>四畳半30万ベース</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>オンライン打合せ（Meet）の試験導入</td>
+                            <td><span class="badge-person">佐藤</span></td>
+                            <td><span class="badge-deadline month">3月中</span></td>
+                            <td>まず1件試す</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>LIXIL・タカショー等の単価取り決めプロジェクト開始</td>
+                            <td><span class="badge-person">倉田・佐藤</span></td>
+                            <td><span class="badge-deadline quarter">6月末目標</span></td>
+                            <td>会社として年間交渉</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>RICCAD提案資料5件分を白都に送付</td>
+                            <td><span class="badge-person">佐藤</span></td>
+                            <td><span class="badge-deadline week">1週間以内</span></td>
+                            <td>AIパース見本作成用</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>外構プランナー採用の指示</td>
+                            <td><span class="badge-person">白都→川島</span></td>
+                            <td><span class="badge-deadline immediate">即時</span></td>
+                            <td>経験者、PG専属想定</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>外構事業 課題と今後の方針 MTG 議事録 &mdash; 2026年2月23日 &mdash; 作成: 白都</p>
+        </footer>
+
+    </div>
+</body>
+</html>

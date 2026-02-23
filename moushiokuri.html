@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>外構事業 改善施策に伴う 各部署への指示事項</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo-50: #eef2ff;
+    --indigo-100: #e0e7ff;
+    --indigo-200: #c7d2fe;
+    --indigo-300: #a5b4fc;
+    --indigo-400: #818cf8;
+    --indigo-500: #6366f1;
+    --indigo-600: #4f46e5;
+    --indigo-700: #4338ca;
+    --indigo-800: #3730a3;
+    --indigo-900: #312e81;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+    --red-50: #fef2f2;
+    --red-100: #fee2e2;
+    --red-500: #ef4444;
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+    --red-800: #991b1b;
+    --amber-50: #fffbeb;
+    --amber-100: #fef3c7;
+    --amber-500: #f59e0b;
+    --amber-600: #d97706;
+    --amber-700: #b45309;
+    --amber-800: #92400e;
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-800: #1e40af;
+    --emerald-50: #ecfdf5;
+    --emerald-600: #059669;
+    --emerald-700: #047857;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #ffffff;
+    color: var(--slate-800);
+    line-height: 1.8;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px 60px;
+  }
+
+  /* ===== HEADER ===== */
+  .document-header {
+    text-align: center;
+    padding: 56px 40px 48px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--indigo-600) 0%, var(--indigo-800) 100%);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .document-header::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    right: -20%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .document-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .document-header h1 {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .document-header .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .document-header .from-line {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== OVERVIEW ===== */
+  .overview-card {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .overview-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--indigo-500);
+    border-radius: 12px 0 0 12px;
+  }
+
+  .overview-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--indigo-600);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .overview-card p {
+    font-size: 15px;
+    color: var(--slate-700);
+    line-height: 2;
+  }
+
+  /* ===== DEPARTMENT SECTIONS ===== */
+  .department-section {
+    margin-bottom: 56px;
+  }
+
+  .department-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--indigo-200);
+  }
+
+  .department-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--indigo-600);
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .department-title-group {
+    flex: 1;
+  }
+
+  .department-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--slate-900);
+    letter-spacing: 0.01em;
+  }
+
+  .department-count {
+    font-size: 13px;
+    color: var(--slate-500);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* ===== INSTRUCTION CARD ===== */
+  .instruction-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: 14px;
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+    transition: box-shadow 0.2s ease;
+  }
+
+  .instruction-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .instruction-title-bar {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 24px 28px 20px;
+    background: var(--indigo-50);
+    border-bottom: 1px solid var(--indigo-100);
+  }
+
+  .instruction-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    background: var(--indigo-600);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .instruction-title {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--slate-900);
+    line-height: 1.6;
+  }
+
+  .new-badge {
+    display: inline-block;
+    background: var(--red-600);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .instruction-body {
+    padding: 0 28px 28px;
+  }
+
+  /* ===== CONTENT BLOCKS ===== */
+  .content-block {
+    margin-top: 24px;
+  }
+
+  .block-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+  }
+
+  .block-label .label-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Background block */
+  .block-background .block-label {
+    color: var(--slate-600);
+  }
+  .block-background .label-icon {
+    background: var(--slate-200);
+    color: var(--slate-600);
+  }
+  .block-background .block-content {
+    background: var(--slate-50);
+    border: 1px solid var(--slate-200);
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: var(--slate-600);
+    font-size: 14px;
+    line-height: 2;
+  }
+
+  /* Action block */
+  .block-action .block-label {
+    color: var(--blue-700);
+  }
+  .block-action .label-icon {
+    background: var(--blue-100);
+    color: var(--blue-700);
+  }
+  .block-action .block-content {
+    background: var(--blue-50);
+    border: 1px solid #c1d9f5;
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: var(--blue-800);
+    font-size: 14.5px;
+    line-height: 2;
+  }
+
+  .block-action .block-content ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .block-action .block-content ul li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 6px;
+  }
+
+  .block-action .block-content ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--blue-500);
+  }
+
+  .block-action .block-content ul li ul {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .block-action .block-content ul li ul li::before {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue-400);
+    top: 13px;
+  }
+
+  .block-action .block-content strong {
+    color: var(--blue-800);
+    font-weight: 700;
+  }
+
+  /* Importance block */
+  .block-importance .block-label {
+    color: var(--red-700);
+  }
+  .block-importance .label-icon {
+    background: var(--red-100);
+    color: var(--red-700);
+  }
+  .block-importance .block-content {
+    background: var(--red-50);
+    border: 1px solid #f5c6c6;
+    border-left: 4px solid var(--red-500);
+    border-radius: 10px;
+    padding: 20px 24px;
+    color: var(--red-800);
+    font-size: 14.5px;
+    line-height: 2;
+    font-weight: 500;
+  }
+
+  /* ===== BUDGET TABLE ===== */
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 8px;
+    font-size: 14px;
+  }
+
+  .budget-table th,
+  .budget-table td {
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(37, 99, 235, 0.15);
+  }
+
+  .budget-table th {
+    background: rgba(37, 99, 235, 0.08);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--blue-700);
+  }
+
+  .budget-table td {
+    color: var(--blue-800);
+  }
+
+  .budget-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ===== HIGHLIGHT CALLOUT ===== */
+  .highlight-callout {
+    background: linear-gradient(135deg, var(--indigo-50), #f0edff);
+    border: 1px solid var(--indigo-200);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--indigo-800);
+  }
+
+  .highlight-callout strong {
+    color: var(--indigo-700);
+  }
+
+  /* ===== FOOTER ===== */
+  .document-footer {
+    margin-top: 56px;
+    padding-top: 28px;
+    border-top: 2px solid var(--slate-200);
+    text-align: center;
+  }
+
+  .footer-divider-line {
+    width: 48px;
+    height: 3px;
+    background: var(--indigo-500);
+    margin: 0 auto 24px;
+    border-radius: 2px;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--slate-500);
+    line-height: 2;
+  }
+
+  .footer-text strong {
+    color: var(--slate-700);
+  }
+
+  .footer-formal {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--slate-400);
+    line-height: 1.9;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body {
+      font-size: 13px;
+      background: #fff;
+    }
+
+    .page-container {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .document-header {
+      background: var(--indigo-700) !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      page-break-after: avoid;
+    }
+
+    .department-section {
+      page-break-inside: avoid;
+    }
+
+    .instruction-card {
+      box-shadow: none;
+      border: 1px solid #ddd;
+      page-break-inside: avoid;
+    }
+
+    .instruction-card:hover {
+      box-shadow: none;
+    }
+
+    .block-content {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .page-container {
+      padding: 20px 16px 40px;
+    }
+
+    .document-header {
+      padding: 36px 24px 32px;
+      border-radius: 12px;
+    }
+
+    .document-header h1 {
+      font-size: 22px;
+    }
+
+    .instruction-title-bar,
+    .instruction-body {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .overview-card {
+      padding: 24px 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-container">
+
+  <!-- ===== HEADER ===== -->
+  <header class="document-header">
+    <div class="header-label">Official Directive</div>
+    <h1>外構事業 改善施策に伴う<br>各部署への指示事項</h1>
+    <div class="subtitle">2026年2月23日 外構事業MTGでの決定事項に基づく</div>
+    <div class="from-line">発行者: 白都</div>
+  </header>
+
+  <!-- ===== OVERVIEW ===== -->
+  <div class="overview-card">
+    <div class="overview-label">Overview</div>
+    <p>
+      外構事業の1年間の振り返りを行い、体制・フロー・予算・工程管理について課題と解決策を協議しました。以下は各部署に対して実行をお願いする事項です。単なる業務変更ではなく、<strong>事業全体の品質と成長に直結する重要な改善</strong>です。確実な実行をお願いします。
+    </p>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 1: アドバイザー課 -->
+  <!-- ============================================================ -->
+  <section class="department-section">
+    <div class="department-header">
+      <div class="department-number">1</div>
+      <div class="department-title-group">
+        <div class="department-title">アドバイザー課への指示</div>
+        <div class="department-count">3件の指示事項</div>
+      </div>
+    </div>
+
+    <!-- 指示① -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;1</div>
+        <div class="instruction-title">
+          ARRCH 初回設計打合せのスケジューリングに<br>佐藤のスケジュールを組み込むこと
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景（なぜ必要か）
+          </div>
+          <div class="block-content">
+            外構担当の佐藤がARRCHの初回設計打合せ（建築家開示／ファーストプラン）に同席することで、外構の成約率が大きく向上します。建築家と外構デザイナーが揃って顧客と対面することで「トータルで設計する」印象を与え、早期に外構もライフファンドに任せるという意思決定を促すことができます。<br><br>
+            しかし現状、初回設計打合せのスケジューリング時に佐藤の予定が一切考慮されておらず、同席できないケースが頻発しています。同席できないと、後から個別に打合せを設定することになり、リードタイムの延伸・成約率の低下に直結します。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <ul>
+              <li>ARRCHの<strong>建築家開示またはファーストプラン</strong>の日程を組む際に、<strong>佐藤のスケジュールを必ず確認</strong>し、同席可能な日程にすること</li>
+              <li>PG HOUSEに関してはこのルールの対象外（PGは佐藤が別途対応）</li>
+              <li>佐藤のスケジュールはアンドパッドまたは直接確認すること</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-block block-importance">
+          <div class="block-label">
+            <span class="label-icon">!</span>
+            この指示の重要性
+          </div>
+          <div class="block-content">
+            佐藤が初回に同席できるかどうかで、外構の受注率が変わります。これは外構事業単体の問題ではなく、ARRCHブランド全体の顧客体験に関わる問題です。佐藤は月6件のキャパで運用しているため、初回の同席を逃すとリカバリーが難しくなります。「できれば考慮する」ではなく<strong>「必ず考慮する」ルール</strong>として運用してください。
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 指示② -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;2</div>
+        <div class="instruction-title">
+          外構予算取りルールの厳格な遵守
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景（なぜ必要か）
+          </div>
+          <div class="block-content">
+            外構予算は「敷地面積×単価」で算出するルールが既に存在しますが、このルールが遵守されていない現場があります。予算が適切に取られていないと、佐藤が予算内で提案しているにも関わらず「高い」と感じられ、他社に流出するケースが発生しています。<br><br>
+            これは外構事業の売上損失だけでなく、佐藤の打合せ工数が無駄になる問題でもあります。適切な予算が取られていれば成約できたはずの案件を逃しています。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <ul>
+              <li><strong>資金計画書に外構予算を必ず組み込む</strong>こと。現行のルール（ARRCH: インデザイン4万/坪等）を100%遵守する</li>
+              <li>ルール通りの計算式で予算を取ること。<strong>独自判断で予算を減額しない</strong>こと</li>
+              <li>お客様に対して、外構予算は建物と一体で考える必要があることを初期段階から伝えること</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 指示③ -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;3</div>
+        <div class="instruction-title">
+          中庭がある場合の補正予算ルール<span class="new-badge">NEW</span>
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景（なぜ必要か）
+          </div>
+          <div class="block-content">
+            完全にクローズされた中庭がある物件では、外構工事のコストが通常より大きく上がります。搬入が困難（家の中を通して資材を入れる、ユニックで吊るなど）で、工事の難易度と工数が増加します。<br><br>
+            一方で、完全クローズ中庭は「工事中に中に入れる自社施工ならではのメリット」があり、受注率を高める武器にもなります。ただし、予算が適切に取られていなければ赤字リスクが出ます。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <p style="margin-bottom:12px;">中庭がある物件の場合、通常の外構予算に加えて以下の<strong>補正予算</strong>を取ること:</p>
+            <table class="budget-table">
+              <thead>
+                <tr>
+                  <th>中庭サイズ</th>
+                  <th>面積</th>
+                  <th>補正額</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>四畳半</td>
+                  <td>約 7.4 &#13217;</td>
+                  <td><strong>+30万円</strong></td>
+                </tr>
+                <tr>
+                  <td>六畳</td>
+                  <td>約 9.9 &#13217;</td>
+                  <td><strong>+45万円</strong></td>
+                </tr>
+                <tr>
+                  <td>八畳</td>
+                  <td>約 13.2 &#13217;</td>
+                  <td><strong>+60万円</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="font-size:13px; color:var(--blue-600); margin-bottom:16px;">※ 目安: 四畳半30万円をベースに面積比で算出</p>
+            <ul>
+              <li>お客様への前振り: 「<strong>中庭は仕上げによって金額が変動しやすい部分です。別途ご相談させていただきます</strong>」と伝えておくこと</li>
+              <li>中庭のある物件は「建築工事中に搬入できる自社施工のメリット」を営業トークとして積極活用すること（他社では竣工後に搬入できず対応困難）</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 2: 建設課（監督） -->
+  <!-- ============================================================ -->
+  <section class="department-section">
+    <div class="department-header">
+      <div class="department-number">2</div>
+      <div class="department-title-group">
+        <div class="department-title">建設課（監督）への指示</div>
+        <div class="department-count">2件の指示事項</div>
+      </div>
+    </div>
+
+    <!-- 指示① -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;1</div>
+        <div class="instruction-title">
+          生産打合せ前に佐藤と外構工程の確認打合せを必ず行うこと<span class="new-badge">NEW</span>
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景（なぜ必要か）
+          </div>
+          <div class="block-content">
+            現在、外構の工程管理が佐藤個人に閉じており、監督が外構の進捗を把握できていない状態が続いています。その結果、以下の問題が発生しています:
+            <ul style="margin:10px 0 10px 20px; list-style: disc;">
+              <li>引き渡し日に外構が完了していないケース（実際に引き渡し2日後に完了した事例あり）</li>
+              <li>外構の工期が一律（約16日）で設定されており、300万円のボリューム大きい現場でも同じ期間</li>
+              <li>建物工事の遅延（仮設撤去の遅れ等）が外構の乗り込みに影響し、さらに工期を圧迫</li>
+              <li>マーケティング撮影時に外構が未完了で撮影できない状態</li>
+            </ul>
+            来期から査定期間に入り、予実管理が厳格化されます。外構の工程ズレ＝予実のズレとなるため、これまで以上に工程遵守が重要になります。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <ul>
+              <li><strong>生産打合せに入る前に、佐藤と工程確認の打合せを必ず実施する。これを生産打合せに入るトリガーとする。</strong></li>
+              <li>打合せ内容: 外構のボリュームに対して必要な工期を佐藤が提示 → 監督と合意 → その工期を確保した工程表を作成</li>
+              <li>4者の時点（初期工程作成時）でも、外構工期が適切に確保されているか佐藤に確認すること</li>
+              <li>まとめて実施（月1回、翌月の乗り込み現場を一括確認）でも、個別実施でも可。運用しやすい方法で構わないが、<strong>漏れなく実施</strong>すること</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="content-block block-importance">
+          <div class="block-label">
+            <span class="label-icon">!</span>
+            この指示の重要性
+          </div>
+          <div class="block-content">
+            外構は工事の最後の工程であり、ここがズレると全てがズレます。引き渡し遅延、予実ズレ、顧客満足度低下、撮影スケジュール崩壊——全てが外構の工程管理に紐づいています。「佐藤さんがやっているから知りません」という状態は許容できません。<strong>建物の工程管理と同じレベルの意識で外構工程も管理</strong>してください。
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 指示② -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;2</div>
+        <div class="instruction-title">
+          アンドパッド上で外構工程を把握・管理できる状態にすること
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景
+          </div>
+          <div class="block-content">
+            佐藤がアンドパッドの工程表に外構業者の紐付けを完了させる予定です（佐藤が対応済みにする予定）。これにより、監督側でも外構の工程・業者の入退場スケジュールが確認可能になります。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <ul>
+              <li>佐藤が紐付けた外構工程を<strong>アンドパッド上で確認</strong>し、建物工程との整合性を確認すること</li>
+              <li>工程に遅れが発生した場合（天候、建物工事の遅延等）は、外構への影響を<strong>佐藤に連絡</strong>すること</li>
+              <li>外構を含めた全体工程の遵守が<strong>監督の責任範囲</strong>であることを認識すること</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SECTION 3: 人事（川島さん） -->
+  <!-- ============================================================ -->
+  <section class="department-section">
+    <div class="department-header">
+      <div class="department-number">3</div>
+      <div class="department-title-group">
+        <div class="department-title">人事（川島さん）への指示</div>
+        <div class="department-count">1件の指示事項</div>
+      </div>
+    </div>
+
+    <!-- 指示① -->
+    <div class="instruction-card">
+      <div class="instruction-title-bar">
+        <div class="instruction-badge">&numero;1</div>
+        <div class="instruction-title">
+          外構プランナーの採用を開始すること
+        </div>
+      </div>
+      <div class="instruction-body">
+
+        <div class="content-block block-background">
+          <div class="block-label">
+            <span class="label-icon">B</span>
+            背景（なぜ必要か）
+          </div>
+          <div class="block-content">
+            現在、外構事業は佐藤1名で設計・打合せ・現場管理の全てを担っています。ARRCHとPG HOUSE合わせて年間70件以上の外構案件があり、佐藤のキャパ上限（月6件の新規着手）を超える分は外注している状態です。<br><br>
+            今後、ライフファンドの棟数拡大に伴い外構の案件数も増加します。佐藤がARRCHの高単価・高デザイン案件に集中できるよう、PG HOUSEを中心に対応できるプランナーの採用が必要です。
+          </div>
+        </div>
+
+        <div class="content-block block-action">
+          <div class="block-label">
+            <span class="label-icon">A</span>
+            具体的な指示
+          </div>
+          <div class="block-content">
+            <ul>
+              <li>採用ポジション: <strong>外構プランナー（1名）</strong></li>
+              <li>必須条件: <strong>エクステリアのプランニング経験者</strong>（実務経験あり。素人・未経験者は不可）</li>
+              <li>経験の深さは問わない。経験が浅くても、基本的な設計・打合せができれば、PG HOUSE案件（仕様が標準化しやすい）から立ち上がれる</li>
+              <li>想定役割: PG HOUSE専属、または佐藤の助手として佐藤のキャパを拡大する役割</li>
+              <li>理想像: 設計・打合せ・現場対応ができるオールラウンダー（佐藤がもう一人いる状態がベスト）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-callout">
+          <strong>補足:</strong> 現在の外構事業は佐藤のキャパシティがそのまま事業の上限になっています。採用によるキャパ拡大は、事業成長の最大のボトルネック解消に直結します。早期の採用活動開始をお願いします。
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="document-footer">
+    <div class="footer-divider-line"></div>
+    <div class="footer-text">
+      発行: <strong>白都</strong><br>
+      日付: 2026年2月23日
+    </div>
+    <div class="footer-formal">
+      上記は外構事業MTG（2026/2/23 出席: 白都・倉田・佐藤）での決定事項に基づく正式な業務指示です。
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
