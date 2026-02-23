@@ -3,1878 +3,1125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3C AI推進プロジェクト | 第1回ミーティング資料</title>
+<title>外構事業MTG 進行資料</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
   :root {
-    --primary: #1a1a2e;
-    --primary-light: #16213e;
-    --accent: #e94560;
-    --accent-soft: #ff6b6b;
-    --accent-gradient: linear-gradient(135deg, #e94560, #ff6b6b);
-    --blue: #0f3460;
-    --blue-light: #4a90d9;
-    --blue-soft: #e8f4fd;
-    --green: #00b894;
-    --green-soft: #e6faf5;
-    --yellow: #fdcb6e;
-    --yellow-soft: #fef9e7;
-    --orange: #e17055;
-    --gray-50: #fafbfc;
-    --gray-100: #f0f2f5;
-    --gray-200: #e4e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
-    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
-    --shadow-xl: 0 16px 48px rgba(0,0,0,0.16);
-    --radius: 16px;
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface2: #f8f9fb;
+    --surface3: #f0f1f4;
+    --border: rgba(0,0,0,.06);
+    --border2: rgba(0,0,0,.1);
+    --text: #111827;
+    --text2: #6b7280;
+    --text3: #9ca3af;
+    --accent: #4f46e5;
+    --accent2: #6366f1;
+    --accent-glow: rgba(99,102,241,.1);
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --purple: #7c3aed;
+    --purple-bg: #f5f3ff;
+    --purple-border: #ddd6fe;
+    --blue: #2563eb;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --amber: #d97706;
+    --radius: 14px;
     --radius-sm: 10px;
     --radius-xs: 6px;
   }
 
+  @page { size: A4; margin: 10mm; }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
-
   body {
-    font-family: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--gray-50);
-    color: var(--gray-800);
-    line-height: 1.8;
+    font-family: "Inter", "Noto Sans JP", -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 14px;
     -webkit-font-smoothing: antialiased;
-    font-feature-settings: "palt";
   }
 
-  /* ===== HERO ===== */
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { padding: 0; }
+    .glow-orb { display: none; }
+    .step-section, .timetable-card { box-shadow: none; border: 1px solid #e5e7eb; }
+  }
+
+  /* ─── Hero ─── */
   .hero {
-    background: linear-gradient(165deg, #0f0c29 0%, #1a1a2e 30%, #302b63 70%, #24243e 100%);
-    color: #fff;
-    padding: 0;
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background: linear-gradient(145deg, #1e1b4b 0%, #1e1b4b 40%, #312e81 100%);
+    border: none;
+    border-radius: 20px;
+    padding: 56px 52px 48px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 32px rgba(30,27,75,.18), 0 1px 3px rgba(0,0,0,.06);
   }
-
-  .hero::before {
-    content: '';
+  .glow-orb {
     position: absolute;
-    top: -50%;
-    right: -30%;
-    width: 900px;
-    height: 900px;
-    background: radial-gradient(circle, rgba(233,69,96,0.15) 0%, transparent 70%);
     border-radius: 50%;
-    animation: float 8s ease-in-out infinite;
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: .25;
   }
-
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -40%;
-    left: -20%;
-    width: 700px;
-    height: 700px;
-    background: radial-gradient(circle, rgba(74,144,217,0.12) 0%, transparent 70%);
-    border-radius: 50%;
-    animation: float 10s ease-in-out infinite reverse;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-40px) rotate(3deg); }
-  }
-
-  .hero-inner {
+  .glow-orb.a { width: 300px; height: 300px; background: #818cf8; top: -80px; right: -60px; }
+  .glow-orb.b { width: 200px; height: 200px; background: #a78bfa; bottom: -60px; left: 40px; opacity: .15; }
+  .hero-label {
     position: relative;
-    z-index: 2;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 40px;
-  }
-
-  .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 100px;
-    padding: 8px 20px;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    margin-bottom: 32px;
-    color: rgba(255,255,255,0.8);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 20px;
   }
-
-  .hero-badge .dot {
-    width: 8px;
-    height: 8px;
-    background: var(--green);
+  .hero-label::before {
+    content: "";
+    width: 8px; height: 8px;
+    background: #a5b4fc;
     border-radius: 50%;
     animation: pulse 2s ease-in-out infinite;
   }
-
   @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.8); }
   }
-
   .hero h1 {
-    font-size: clamp(36px, 5vw, 56px);
+    position: relative;
+    font-size: 32px;
     font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -1px;
-    margin-bottom: 20px;
-  }
-
-  .hero h1 .gradient-text {
-    background: linear-gradient(135deg, #ff6b6b, #feca57, #ff9ff3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-subtitle {
-    font-size: 18px;
-    font-weight: 300;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 48px;
-    max-width: 600px;
-    line-height: 1.8;
-  }
-
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .hero-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-sm);
-    padding: 14px 22px;
-  }
-
-  .hero-meta-item .icon {
-    font-size: 20px;
-  }
-
-  .hero-meta-item .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(255,255,255,0.4);
-    display: block;
-  }
-
-  .hero-meta-item .value {
-    font-size: 15px;
-    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -.5px;
+    margin-bottom: 8px;
     color: #fff;
-    display: block;
   }
-
-  .hero-scroll {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 3;
+  .hero-sub {
+    position: relative;
+    font-size: 14px;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+  .hero-meta {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: rgba(255,255,255,0.3);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.3s;
+    gap: 12px;
+    flex-wrap: wrap;
   }
-
-  .hero-scroll:hover { color: rgba(255,255,255,0.6); }
-
-  .hero-scroll .arrow {
-    width: 24px;
-    height: 24px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-    animation: scrollBounce 2s ease-in-out infinite;
-  }
-
-  @keyframes scrollBounce {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(6px); }
-  }
-
-  /* ===== NAV ===== */
-  .sticky-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--gray-200);
-    padding: 0 40px;
-  }
-
-  .sticky-nav-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .sticky-nav-inner::-webkit-scrollbar { display: none; }
-
-  .sticky-nav a {
-    display: block;
-    padding: 16px 4px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--gray-400);
-    text-decoration: none;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-  }
-
-  .sticky-nav a:hover,
-  .sticky-nav a.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  /* ===== SECTIONS ===== */
-  .section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 80px 40px;
-  }
-
-  .section-header {
-    margin-bottom: 48px;
-  }
-
-  .section-number {
+  .meta-chip {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    background: var(--accent-gradient);
-    color: #fff;
-    font-size: 14px;
-    font-weight: 800;
-    border-radius: 10px;
-    margin-bottom: 16px;
+    gap: 7px;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 100px;
+    padding: 7px 16px;
+    font-size: 12.5px;
+    color: rgba(255,255,255,.6);
   }
+  .meta-chip .val { color: #fff; font-weight: 600; }
 
-  .section-title {
-    font-size: clamp(26px, 3.5vw, 36px);
-    font-weight: 800;
-    color: var(--gray-900);
-    line-height: 1.3;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
-  }
-
-  .section-lead {
-    font-size: 16px;
-    color: var(--gray-500);
-    max-width: 700px;
-    line-height: 1.8;
-  }
-
-  /* ===== DIVIDER ===== */
-  .divider {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-
-  .divider hr {
-    border: none;
-    height: 1px;
-    background: var(--gray-200);
-  }
-
-  /* ===== CARDS ===== */
-  .card {
-    background: #fff;
+  /* ─── Goal ─── */
+  .goal-card {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
     border-radius: var(--radius);
-    border: 1px solid var(--gray-200);
-    padding: 32px;
-    transition: all 0.3s;
-  }
-
-  .card:hover {
-    border-color: var(--gray-300);
-    box-shadow: var(--shadow-md);
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-
-  .card-grid-3 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-  }
-
-  .card-icon {
-    width: 48px;
-    height: 48px;
+    padding: 20px 28px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-size: 22px;
-    margin-bottom: 16px;
+    gap: 16px;
+    box-shadow: 0 4px 24px rgba(79,70,229,.2);
   }
-
-  .card-icon.red { background: #fef2f2; }
-  .card-icon.blue { background: var(--blue-soft); }
-  .card-icon.green { background: var(--green-soft); }
-  .card-icon.yellow { background: var(--yellow-soft); }
-  .card-icon.purple { background: #f3e8ff; }
-
-  .card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 10px;
+  .goal-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,.2);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
   }
-
-  .card p {
-    font-size: 14px;
-    color: var(--gray-500);
-    line-height: 1.8;
-  }
-
-  /* ===== EXECUTIVE SUMMARY ===== */
-  .exec-summary {
-    background: linear-gradient(135deg, #1a1a2e 0%, #302b63 100%);
-    border-radius: var(--radius);
-    padding: 48px;
-    color: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .exec-summary::before {
-    content: '';
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(233,69,96,0.3) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .exec-summary h3 {
-    font-size: 13px;
+  .goal-text {
+    font-size: 14.5px;
     font-weight: 600;
+    color: #fff;
+    line-height: 1.5;
+  }
+  .goal-text span { opacity: .75; font-weight: 400; }
+
+  /* ─── Timetable ─── */
+  .timetable-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+  }
+  .sec-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent-soft);
+    color: var(--text3);
+    margin-bottom: 18px;
+  }
+  .tt-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+  .tt-item:last-child { border-bottom: none; }
+  .tt-time {
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    width: 44px;
+    flex-shrink: 0;
+  }
+  .tt-dur {
+    font-size: 11px;
+    color: var(--text3);
+    width: 48px;
+    flex-shrink: 0;
+  }
+  .tt-bar {
+    width: 3px;
+    height: 20px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .tt-bar.share { background: var(--green); }
+  .tt-bar.decide { background: var(--accent2); }
+  .tt-name {
+    flex: 1;
+    font-size: 13.5px;
+    color: var(--text2);
+  }
+  .tt-name strong { color: var(--text); font-weight: 700; }
+  .tt-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    flex-shrink: 0;
+  }
+  .badge-share { background: var(--green-bg); color: var(--green); border: 1px solid rgba(74,222,128,.15); }
+  .badge-decide { background: var(--accent-glow); color: var(--accent2); border: 1px solid rgba(99,102,241,.15); }
+
+  /* ─── Step Section ─── */
+  .step-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.03);
+  }
+  .step-head {
+    padding: 28px 32px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
     margin-bottom: 20px;
   }
-
-  .exec-summary p {
-    font-size: 18px;
-    font-weight: 300;
-    line-height: 2;
-    color: rgba(255,255,255,0.85);
-    position: relative;
-    z-index: 1;
-  }
-
-  .exec-summary strong {
+  .step-badge {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent) 0%, #4f46e5 100%);
     color: #fff;
-    font-weight: 600;
+    box-shadow: 0 2px 12px rgba(99,102,241,.3);
   }
-
-  /* ===== KEY INSIGHT ===== */
-  .key-insight {
-    background: #fff;
-    border-left: 4px solid var(--accent);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    padding: 28px 32px;
-    margin: 32px 0;
-    box-shadow: var(--shadow-sm);
+  .step-badge.outline {
+    background: transparent;
+    border: 2px solid var(--border2);
+    color: var(--text2);
+    box-shadow: none;
   }
-
-  .key-insight .tag {
-    display: inline-block;
-    background: #fef2f2;
-    color: var(--accent);
+  .step-badge.done {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 2px 12px rgba(34,197,94,.3);
+  }
+  .step-info { flex: 1; }
+  .step-info h2 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .step-info .sub {
+    font-size: 12.5px;
+    color: var(--text3);
+  }
+  .step-time-chip {
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
+    color: var(--text3);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 4px;
   }
 
-  .key-insight p {
-    font-size: 15px;
-    color: var(--gray-700);
-    line-height: 1.9;
-  }
+  .step-body { padding: 0 32px 28px; }
 
-  /* ===== ROADMAP ===== */
-  .roadmap {
-    position: relative;
-    padding-left: 40px;
-  }
-
-  .roadmap::before {
-    content: '';
-    position: absolute;
-    left: 15px;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: linear-gradient(180deg, var(--accent), var(--blue-light), var(--green));
-  }
-
-  .roadmap-item {
-    position: relative;
-    margin-bottom: 40px;
-    padding: 28px 32px;
-    background: #fff;
-    border: 1px solid var(--gray-200);
+  /* Instruction */
+  .instruction {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
-    transition: all 0.3s;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.6;
   }
-
-  .roadmap-item:hover {
-    box-shadow: var(--shadow-md);
-    border-color: var(--gray-300);
-  }
-
-  .roadmap-item::before {
-    content: '';
-    position: absolute;
-    left: -33px;
-    top: 32px;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 3px solid var(--accent);
-    background: #fff;
-  }
-
-  .roadmap-item.current::before {
-    background: var(--accent);
-    box-shadow: 0 0 0 5px rgba(233,69,96,0.2);
-  }
-
-  .roadmap-item.future::before {
-    border-color: var(--gray-300);
-  }
-
-  .roadmap-item .phase-label {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-  }
-
-  .roadmap-item .phase-label.now {
-    background: #fef2f2;
-    color: var(--accent);
-  }
-
-  .roadmap-item .phase-label.next {
-    background: var(--blue-soft);
-    color: var(--blue-light);
-  }
-
-  .roadmap-item .phase-label.later {
-    background: var(--gray-100);
-    color: var(--gray-500);
-  }
-
-  .roadmap-item h4 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 8px;
-  }
-
-  .roadmap-item p {
-    font-size: 14px;
-    color: var(--gray-500);
-    line-height: 1.8;
-  }
-
-  .roadmap-item .tasks {
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .roadmap-item .task-tag {
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 12px;
-    border-radius: 6px;
-    background: var(--gray-100);
-    color: var(--gray-600);
-  }
-
-  .roadmap-item .task-tag.done {
-    background: var(--green-soft);
-    color: var(--green);
-  }
-
-  .roadmap-item .task-tag.doing {
-    background: #fff7ed;
-    color: var(--orange);
-  }
-
-  /* ===== LEVEL METER ===== */
-  .level-meter {
-    display: flex;
-    gap: 0;
-    margin: 32px 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
-  }
-
-  .level-step {
-    flex: 1;
-    padding: 24px 20px;
+  .instruction .inst-icon {
+    flex-shrink: 0;
+    width: 20px;
     text-align: center;
-    background: #fff;
-    border-right: 1px solid var(--gray-200);
-    position: relative;
-    transition: all 0.3s;
-  }
-
-  .level-step:last-child { border-right: none; }
-
-  .level-step.active {
-    background: linear-gradient(135deg, #1a1a2e, #302b63);
-    color: #fff;
-  }
-
-  .level-step.completed {
-    background: var(--green-soft);
-  }
-
-  .level-step .level-num {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--gray-300);
-    margin-bottom: 6px;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .level-step.active .level-num {
-    color: var(--accent-soft);
-  }
-
-  .level-step.completed .level-num {
-    color: var(--green);
-  }
-
-  .level-step .level-label {
     font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 4px;
+    margin-top: 1px;
+    opacity: .5;
   }
 
-  .level-step .level-desc {
-    font-size: 11px;
-    color: var(--gray-400);
-  }
-
-  .level-step.active .level-desc {
-    color: rgba(255,255,255,0.5);
-  }
-
-  .level-step.completed .level-desc {
-    color: var(--green);
-  }
-
-  /* ===== TOOL MATRIX ===== */
-  .tool-matrix {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
-    font-size: 14px;
-  }
-
-  .tool-matrix thead {
-    background: var(--primary);
-    color: #fff;
-  }
-
-  .tool-matrix th {
+  /* Issue Block */
+  .issue-block {
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    border-radius: var(--radius-sm);
     padding: 16px 20px;
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: left;
+    margin-bottom: 18px;
   }
-
-  .tool-matrix td {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--gray-100);
-    background: #fff;
-    vertical-align: middle;
-  }
-
-  .tool-matrix tr:last-child td { border-bottom: none; }
-
-  .tool-matrix tr:hover td { background: var(--gray-50); }
-
-  .tool-matrix .tool-name {
-    font-weight: 700;
-    color: var(--gray-900);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .status-badge {
+  .block-tag {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .block-tag.red { color: var(--red); }
+  .block-tag.purple { color: var(--purple); }
+  .block-tag.blue { color: var(--blue); }
+  .block-tag .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .block-tag.red .dot { background: var(--red); }
+  .block-tag.purple .dot { background: var(--purple); }
+  .block-tag.blue .dot { background: var(--blue); }
+  .issue-block p {
+    font-size: 13.5px;
+    color: #374151;
+    line-height: 1.75;
+  }
+  .issue-block strong { color: var(--red); font-weight: 700; }
+
+  /* Hear / Question Block */
+  .hear-block {
+    background: var(--purple-bg);
+    border: 1px solid var(--purple-border);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: 18px;
+  }
+  .q-list { list-style: none; }
+  .q-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #4b5563;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  .q-list li:last-child { margin-bottom: 0; }
+  .q-mark {
+    color: var(--purple);
+    font-weight: 800;
+    font-size: 13px;
+    flex-shrink: 0;
+    width: 18px;
+    margin-top: 1px;
+  }
+
+  /* Options Block */
+  .options-wrap {
+    margin-bottom: 18px;
+  }
+  .opt-card {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 14px;
+    transition: border-color .15s;
+  }
+  .opt-card:last-child { margin-bottom: 0; }
+  .opt-letter {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    flex-shrink: 0;
+    background: var(--blue-bg);
+    color: var(--blue);
+    border: 1px solid var(--blue-border);
+  }
+  .opt-content { flex: 1; }
+  .opt-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .opt-desc {
+    font-size: 12.5px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+  .opt-pro, .opt-con {
     font-size: 12px;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 100px;
+    margin-top: 3px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .opt-pro { color: var(--green); }
+  .opt-con { color: var(--red); }
+  .opt-pro::before { content: "+"; font-weight: 800; }
+  .opt-con::before { content: "−"; font-weight: 800; font-size: 14px; }
+
+  /* Decision Block */
+  .decision-block {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(30,27,75,.15);
+  }
+  .decision-block::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #818cf8, #a78bfa, #60a5fa);
+  }
+  .d-tag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #a5b4fc;
+    margin-bottom: 14px;
+  }
+  .d-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .d-row:last-child { margin-bottom: 0; }
+  .d-label {
+    font-size: 12.5px;
+    color: rgba(255,255,255,.55);
+    min-width: 155px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .d-input {
+    flex: 1;
+    height: 28px;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+    position: relative;
+  }
+  .d-input::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: #818cf8;
+    border-radius: 1px;
+    opacity: .5;
   }
 
-  .status-badge.new {
-    background: var(--blue-soft);
-    color: var(--blue-light);
+  /* ─── Connector ─── */
+  .connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6px;
+    position: relative;
+  }
+  .connector::before {
+    content: "";
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--border2), transparent);
   }
 
-  .status-badge.keep {
-    background: var(--green-soft);
-    color: var(--green);
+  /* ─── Data Grid ─── */
+  .data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .data-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+  }
+  .card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 14px;
+  }
+  .d-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .d-stat:last-child { border-bottom: none; }
+  .d-stat .label { color: var(--text2); }
+  .d-stat .value { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+  .d-stat .value.warn { color: var(--red); }
+  .data-note {
+    font-size: 12px;
+    color: var(--text3);
+    border-left: 2px solid var(--border2);
+    padding-left: 14px;
+    margin-top: 4px;
+    line-height: 1.7;
   }
 
-  .status-badge.change {
-    background: #fff7ed;
-    color: var(--orange);
-  }
-
-  .status-badge.remove {
-    background: #fef2f2;
-    color: var(--accent);
-  }
-
-  /* ===== ACTION TABLE ===== */
+  /* ─── Action Table ─── */
   .action-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--gray-200);
-    font-size: 14px;
+    font-size: 12.5px;
   }
-
-  .action-table thead {
-    background: var(--gray-800);
-    color: #fff;
-  }
-
-  .action-table th {
-    padding: 14px 20px;
-    font-weight: 600;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .action-table thead th {
+    background: #1e1b4b;
+    color: rgba(255,255,255,.7);
+    padding: 10px 14px;
     text-align: left;
-  }
-
-  .action-table td {
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--gray-100);
-    background: #fff;
-    vertical-align: middle;
-  }
-
-  .action-table tr:last-child td { border-bottom: none; }
-  .action-table tr:hover td { background: var(--gray-50); }
-
-  .priority {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 6px;
-  }
-
-  .priority.high { background: var(--accent); }
-  .priority.mid { background: var(--yellow); }
-  .priority.low { background: var(--green); }
-
-  .owner-tag {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 4px;
-  }
-
-  .owner-tag.yusuke { background: #ede9fe; color: #7c3aed; }
-  .owner-tag.fukumoto { background: #fce7f3; color: #db2777; }
-  .owner-tag.hakuto { background: #e0f2fe; color: #0284c7; }
-  .owner-tag.all { background: var(--gray-100); color: var(--gray-600); }
-
-  /* ===== PROGRESS BAR ===== */
-  .progress-wrapper {
-    margin: 20px 0;
-  }
-
-  .progress-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  .progress-bar {
-    height: 8px;
-    background: var(--gray-100);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    border-radius: 100px;
-    transition: width 1.5s ease-out;
-  }
-
-  .progress-fill.red { background: var(--accent-gradient); }
-  .progress-fill.blue { background: linear-gradient(90deg, var(--blue), var(--blue-light)); }
-  .progress-fill.green { background: linear-gradient(90deg, #00b894, #55efc4); }
-
-  /* ===== QUOTE ===== */
-  .quote-block {
-    background: linear-gradient(135deg, var(--gray-50), #fff);
-    border-radius: var(--radius);
-    padding: 36px 40px;
-    margin: 32px 0;
-    position: relative;
-    border: 1px solid var(--gray-200);
-  }
-
-  .quote-block::before {
-    content: '\201C';
-    font-size: 80px;
-    font-family: Georgia, serif;
-    color: var(--accent);
-    opacity: 0.2;
-    position: absolute;
-    top: -10px;
-    left: 24px;
-    line-height: 1;
-  }
-
-  .quote-block p {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--gray-700);
-    line-height: 2;
-    position: relative;
-    z-index: 1;
-  }
-
-  .quote-block .attribution {
-    margin-top: 16px;
-    font-size: 13px;
-    color: var(--gray-400);
-    font-weight: 400;
-  }
-
-  /* ===== AGENDA ===== */
-  .agenda-list {
-    list-style: none;
-    counter-reset: agenda;
-  }
-
-  .agenda-list li {
-    counter-increment: agenda;
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 24px 0;
-    border-bottom: 1px solid var(--gray-100);
-  }
-
-  .agenda-list li:last-child { border-bottom: none; }
-
-  .agenda-list li::before {
-    content: counter(agenda, decimal-leading-zero);
-    font-family: 'Inter', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--gray-200);
-    flex-shrink: 0;
-    width: 52px;
-    line-height: 1;
-    padding-top: 4px;
-  }
-
-  .agenda-list .agenda-content h4 {
-    font-size: 17px;
+    font-size: 10px;
     font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 4px;
-  }
-
-  .agenda-list .agenda-content p {
-    font-size: 13px;
-    color: var(--gray-500);
-  }
-
-  .agenda-list .agenda-time {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--gray-400);
-    background: var(--gray-100);
-    padding: 4px 10px;
-    border-radius: 4px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  /* ===== METRIC CARDS ===== */
-  .metric-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin: 32px 0;
-  }
-
-  .metric-card {
-    background: #fff;
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius-sm);
-    padding: 24px;
-    text-align: center;
-    transition: all 0.3s;
-  }
-
-  .metric-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-
-  .metric-card .metric-value {
-    font-family: 'Inter', sans-serif;
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--gray-900);
-    line-height: 1.1;
-  }
-
-  .metric-card .metric-unit {
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--gray-400);
-  }
-
-  .metric-card .metric-label {
-    font-size: 12px;
-    color: var(--gray-400);
-    margin-top: 4px;
-    font-weight: 500;
-  }
-
-  /* ===== CTA ===== */
-  .cta-section {
-    background: linear-gradient(135deg, #1a1a2e, #302b63);
-    border-radius: var(--radius);
-    padding: 56px 48px;
-    text-align: center;
-    color: #fff;
-    margin: 40px 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(233,69,96,0.2), transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-section h3 {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    position: relative;
-  }
-
-  .cta-section p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.6);
-    max-width: 500px;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  /* ===== COMPARISON ===== */
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: 1fr 48px 1fr;
-    align-items: stretch;
-    gap: 0;
-    margin: 32px 0;
-  }
-
-  .comparison-box {
-    padding: 32px;
-    border-radius: var(--radius);
-    border: 1px solid var(--gray-200);
-  }
-
-  .comparison-box.before {
-    background: #fef2f2;
-    border-color: #fecaca;
-  }
-
-  .comparison-box.after {
-    background: var(--green-soft);
-    border-color: #a7f3d0;
-  }
-
-  .comparison-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: var(--gray-300);
-  }
-
-  .comparison-box h4 {
-    font-size: 14px;
-    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
+    border-bottom: none;
   }
-
-  .comparison-box.before h4 { color: var(--accent); }
-  .comparison-box.after h4 { color: var(--green); }
-
-  .comparison-box ul {
-    list-style: none;
-    font-size: 14px;
-    line-height: 2;
+  .action-table thead th:first-child { border-radius: var(--radius-xs) 0 0 0; }
+  .action-table thead th:last-child { border-radius: 0 var(--radius-xs) 0 0; }
+  .action-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    height: 40px;
   }
+  .action-table tbody tr:last-child td:first-child { border-radius: 0 0 0 var(--radius-xs); }
+  .action-table tbody tr:last-child td:last-child { border-radius: 0 0 var(--radius-xs) 0; }
 
-  .comparison-box ul li::before {
-    margin-right: 8px;
-  }
-
-  .comparison-box.before ul li::before {
-    content: '✕';
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 12px;
-  }
-
-  .comparison-box.after ul li::before {
-    content: '✓';
-    color: var(--green);
-    font-weight: 700;
-  }
-
-  /* ===== FOOTER ===== */
-  .footer {
-    background: var(--primary);
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-    padding: 40px;
-    font-size: 13px;
-  }
-
-  .footer strong {
-    color: rgba(255,255,255,0.6);
-  }
-
-  /* ===== COST TABLE ===== */
-  .cost-highlight {
-    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-    border: 1px solid #bbf7d0;
-    border-radius: var(--radius);
-    padding: 32px;
-    margin: 24px 0;
-    text-align: center;
-  }
-
-  .cost-highlight .saving {
-    font-family: 'Inter', sans-serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: var(--green);
-    line-height: 1;
-  }
-
-  .cost-highlight .saving-label {
-    font-size: 14px;
-    color: var(--gray-500);
-    margin-top: 8px;
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 768px) {
-    .hero-inner { padding: 60px 24px; }
-    .section { padding: 48px 24px; }
-    .hero-meta { flex-direction: column; }
-    .card-grid, .card-grid-3 { grid-template-columns: 1fr; }
-    .level-meter { flex-direction: column; }
-    .level-step { border-right: none; border-bottom: 1px solid var(--gray-200); }
-    .comparison-grid { grid-template-columns: 1fr; gap: 16px; }
-    .comparison-arrow { transform: rotate(90deg); }
-    .tool-matrix, .action-table { display: block; overflow-x: auto; }
-    .exec-summary { padding: 32px 24px; }
-    .metric-row { grid-template-columns: 1fr 1fr; }
-    .sticky-nav { padding: 0 16px; }
-    .cta-section { padding: 40px 24px; }
-    .quote-block { padding: 28px 24px; }
-  }
-
-  @media print {
-    .hero { min-height: auto; }
-    .sticky-nav { display: none; }
-    .section { padding: 32px 20px; }
-    body { font-size: 12px; }
+  /* ─── Responsive ─── */
+  @media (max-width: 600px) {
+    .page { padding: 12px 12px 60px; }
+    .hero { padding: 32px 24px 28px; border-radius: 14px; }
+    .hero h1 { font-size: 22px; }
+    .hero-meta { gap: 8px; }
+    .step-head { padding: 20px 20px 0; }
+    .step-body { padding: 0 20px 20px; }
+    .timetable-card { padding: 20px; }
+    .data-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
+<div class="page">
 
-<!-- ===================== HERO ===================== -->
-<div class="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">
-      <span class="dot"></span>
-      AI Transformation Project
-    </div>
-    <h1>
-      3C AI推進プロジェクト<br>
-      <span class="gradient-text">第1回 ミーティング資料</span>
-    </h1>
-    <p class="hero-subtitle">
-      AI基盤の環境構築から<br>
-      品質向上を軸とした全社AI活用の実現へ。
-    </p>
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <div class="hero">
+    <div class="glow-orb a"></div>
+    <div class="glow-orb b"></div>
+    <div class="hero-label">Meeting Agenda</div>
+    <h1>外構事業<br>課題と解決策を決める会議</h1>
+    <p class="hero-sub">体制・フロー・予算・コスト・提案力・内製化方針</p>
     <div class="hero-meta">
-      <div class="hero-meta-item">
-        <span class="icon">📅</span>
-        <div>
-          <span class="label">Date</span>
-          <span class="value">2026.02.17 Tue 10:05 -</span>
+      <div class="meta-chip"><span>Date</span><span class="val">2026年 2月</span></div>
+      <div class="meta-chip"><span>Duration</span><span class="val">約 60 min</span></div>
+      <div class="meta-chip"><span>Members</span><span class="val">白都 ／ 倉田 ／ 佐藤</span></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ GOAL ═══════════════════ -->
+  <div class="goal-card">
+    <div class="goal-icon">!</div>
+    <div class="goal-text">
+      6つの議題すべてで「誰が・何を・いつまでに」を決めて終わる。<span>持ち帰りゼロが目標。</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ TIMETABLE ═══════════════════ -->
+  <div class="timetable-card">
+    <div class="sec-label">Timetable</div>
+
+    <div class="tt-item">
+      <span class="tt-time">0:00</span>
+      <span class="tt-dur">5 min</span>
+      <span class="tt-bar share"></span>
+      <span class="tt-name">現状の数字を共有</span>
+      <span class="tt-badge badge-share">共有</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:05</span>
+      <span class="tt-dur">10 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 1</strong> &mdash; 体制：キャパと業務分担</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:15</span>
+      <span class="tt-dur">10 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 2</strong> &mdash; フロー：打合せタイミング</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:25</span>
+      <span class="tt-dur">10 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 3</strong> &mdash; 予算：予算取りルール</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:35</span>
+      <span class="tt-dur">5 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 4</strong> &mdash; コスト：掛け率交渉</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:40</span>
+      <span class="tt-dur">5 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 5</strong> &mdash; 提案力：デザイン品質</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:45</span>
+      <span class="tt-dur">10 min</span>
+      <span class="tt-bar decide"></span>
+      <span class="tt-name"><strong>議題 6</strong> &mdash; 内製化：自社 or ハイブリッド</span>
+      <span class="tt-badge badge-decide">決定</span>
+    </div>
+    <div class="tt-item">
+      <span class="tt-time">0:55</span>
+      <span class="tt-dur">5 min</span>
+      <span class="tt-bar share"></span>
+      <span class="tt-name">まとめ &mdash; アクション一覧の確認</span>
+      <span class="tt-badge badge-share">確認</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ STEP 0 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge outline">0</div>
+      <div class="step-info">
+        <h2>現状の数字を共有する</h2>
+        <div class="sub">議論はしない。数字を揃えて共通認識をつくるだけ。</div>
+      </div>
+      <div class="step-time-chip">5 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>この数字をさっと読み上げて確認する。ここでの議論は不要。</div>
+      </div>
+
+      <div class="data-grid">
+        <div class="data-card">
+          <div class="card-label">1月 完工実績</div>
+          <div class="d-stat"><span class="label">ARRCH 自社</span><span class="value">8 件</span></div>
+          <div class="d-stat"><span class="label">ARRCH 外注</span><span class="value">5 件</span></div>
+          <div class="d-stat"><span class="label">PG HOUSE 自社</span><span class="value">4 件</span></div>
+          <div class="d-stat"><span class="label">PG HOUSE 外注</span><span class="value">4 件</span></div>
+          <div class="d-stat" style="border-top: 1px solid var(--border2); margin-top: 4px; padding-top: 8px;">
+            <span class="label">合計</span><span class="value">21 件</span>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="card-label">打合せの平均</div>
+          <div class="d-stat"><span class="label">ARRCH 期間</span><span class="value">88.3 日</span></div>
+          <div class="d-stat"><span class="label">ARRCH 回数</span><span class="value">4.0 回</span></div>
+          <div class="d-stat"><span class="label">ARRCH 平日率</span><span class="value warn">21.4%</span></div>
+          <div class="d-stat" style="border-top: 1px solid var(--border2); margin-top: 4px; padding-top: 8px;">
+            <span class="label">PG 期間</span><span class="value">63.5 日</span></div>
+          <div class="d-stat"><span class="label">PG 回数</span><span class="value">3.1 回</span></div>
+          <div class="d-stat"><span class="label">PG 平日率</span><span class="value">43.2%</span></div>
         </div>
       </div>
-      <div class="hero-meta-item">
-        <span class="icon">👥</span>
-        <div>
-          <span class="label">Members</span>
-          <span class="value">鈴木・福本・白都</span>
-        </div>
-      </div>
-      <div class="hero-meta-item">
-        <span class="icon">🎯</span>
-        <div>
-          <span class="label">Phase</span>
-          <span class="value">環境構築 → 基盤設計</span>
-        </div>
+      <div class="data-note">
+        佐藤さん入社前は全件外注。現在は内製化の移行期。「溢れた分が外注」ではなく「まだ内製化しきれていない残り」が正しい認識。
       </div>
     </div>
   </div>
-  <a href="#recap" class="hero-scroll">
-    SCROLL
-    <span class="arrow"></span>
-  </a>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 1 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">1</div>
+      <div class="step-info">
+        <h2>体制 ── キャパと業務分担</h2>
+        <div class="sub">佐藤さんの現状をヒアリングし、短期の打ち手を決める</div>
+      </div>
+      <div class="step-time-chip">10 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>まず佐藤さんに現状を聞く → 選択肢を確認 → 決定欄を埋める</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p>佐藤さん1人でARRCH＋PG HOUSEの全外構を担当。今期の棟数に対し<strong>ボトルネック化</strong>。打合せが重なり「4者までに確定」のフローが崩壊。次回まで<strong>1か月空く</strong>ケースが発生。</p>
+      </div>
+
+      <div class="hear-block">
+        <div class="block-tag purple"><span class="dot"></span>HEAR &mdash; 佐藤さんに聞くこと</div>
+        <ul class="q-list">
+          <li><span class="q-mark">Q</span><span>月あたり自社で回せる件数は、現実的に何件？</span></li>
+          <li><span class="q-mark">Q</span><span>「できるだけ自分で」と抱え込んでいないか？ キャパの判断基準は？</span></li>
+          <li><span class="q-mark">Q</span><span>現場管理（写真・寸法・発注）のうち、監督に渡せる業務はどれ？</span></li>
+        </ul>
+      </div>
+
+      <div class="options-wrap">
+        <div class="block-tag blue"><span class="dot"></span>OPTIONS &mdash; 短期でやれること</div>
+        <div class="opt-card">
+          <div class="opt-letter">A</div>
+          <div class="opt-content">
+            <div class="opt-name">PG HOUSE 設計テンプレート化（3〜5パターン）</div>
+            <div class="opt-desc">仕様が標準化しやすいPGを型化 → 佐藤さんの1件あたり工数を大幅削減</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">B</div>
+          <div class="opt-content">
+            <div class="opt-name">現場業務を建設課監督に移管</div>
+            <div class="opt-desc">写真撮影・寸法確認・発注業務を移管 → 佐藤さんは設計・打合せに専念</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">C</div>
+          <div class="opt-content">
+            <div class="opt-name">外注の振り分けルールを明文化</div>
+            <div class="opt-desc">キャパ上限を月○件と客観基準で設定 → 超過分は即グリーンライフ等へ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">実行する施策</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">自社キャパ上限</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">監督に移管する業務</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 2 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">2</div>
+      <div class="step-info">
+        <h2>フロー ── 打合せ参加タイミング</h2>
+        <div class="sub">A案 vs B案のメリデメを比較して決定する</div>
+      </div>
+      <div class="step-time-chip">10 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>A案・B案を比較 → どちらを採用するか決める → スケジュール運用も決める</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p>プラン未確定段階で外構打合せに入ると<strong>手戻りが発生</strong>。配置変更→外構やり直し＝「決められない打合せ」になっている。設計スケジュールに佐藤さんの予定が<strong>考慮されていない</strong>。</p>
+      </div>
+
+      <div class="options-wrap">
+        <div class="block-tag blue"><span class="dot"></span>OPTIONS &mdash; A案 vs B案</div>
+        <div class="opt-card">
+          <div class="opt-letter">A</div>
+          <div class="opt-content">
+            <div class="opt-name">プラン確定後に後ろ倒し</div>
+            <div class="opt-pro">手戻りゼロ。決定精度が上がる</div>
+            <div class="opt-con">「外構は後から」という印象を与えるリスク</div>
+            <div class="opt-desc" style="margin-top:4px;">対策：初回ヒアリング時にADVが外構シートを取得、佐藤さんは書面確認のみ</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">B</div>
+          <div class="opt-content">
+            <div class="opt-name">初回参加は「コンセプト共有のみ」に限定</div>
+            <div class="opt-pro">信頼構築・早期予算握りのメリットを維持</div>
+            <div class="opt-con">佐藤さんの出席工数は減らない</div>
+            <div class="opt-desc" style="margin-top:4px;">具体的な図面提案はプラン確定後</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hear-block">
+        <div class="block-tag purple"><span class="dot"></span>ALSO DECIDE</div>
+        <ul class="q-list">
+          <li><span class="q-mark">Q</span><span>設計スケジュール表に佐藤さんの予定をどう組み込むか？</span></li>
+          <li><span class="q-mark">Q</span><span>オンライン打合せ（平日夜間枠）を導入するか？ → ARRCH平日率の向上に効果あり</span></li>
+        </ul>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">採用するフロー</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">スケジュール反映方法</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">オンライン打合せ</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 3 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">3</div>
+      <div class="step-info">
+        <h2>予算 ── 予算取りルールの策定</h2>
+        <div class="sub">ブランドごとの最低予算ラインを具体的に決める</div>
+      </div>
+      <div class="step-time-chip">10 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>ブランド別の予算ライン → 中庭等の別枠ルール → ADVへの展開方法を順に決める</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p>「坪数×○万円」の予算取りがされていない現場があり、予算内の提案でも<strong>「高い」と感じられ他社へ流出</strong>。中庭など仕上げによって変わる部分の<strong>予算線引きが曖昧</strong>。</p>
+      </div>
+
+      <div class="options-wrap">
+        <div class="block-tag blue"><span class="dot"></span>OPTIONS &mdash; 予算の最低ライン</div>
+        <div class="opt-card">
+          <div class="opt-letter">A</div>
+          <div class="opt-content">
+            <div class="opt-name">ARRCH：建物本体の 8〜10% を外構予算に設定</div>
+            <div class="opt-desc">資金計画書に外構予算を必須項目として組み込む</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">B</div>
+          <div class="opt-content">
+            <div class="opt-name">PG HOUSE：坪数 × ○万円 で一律設定</div>
+            <div class="opt-desc">具体的な坪単価をこの場で決める</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">C</div>
+          <div class="opt-content">
+            <div class="opt-name">中庭・特殊仕上げは別枠予算</div>
+            <div class="opt-desc">「建物工事」と「外構工事」の線引きを明確化する</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hear-block">
+        <div class="block-tag purple"><span class="dot"></span>ALSO DECIDE</div>
+        <ul class="q-list">
+          <li><span class="q-mark">Q</span><span>ADVへの展開方法は？ → 勉強会 / チェックリスト配布 / その他</span></li>
+          <li><span class="q-mark">Q</span><span>お客様への外構予算の説明タイミングと伝え方は？</span></li>
+        </ul>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">ARRCH 予算ライン</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">PG HOUSE 予算ライン</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">中庭別枠ルール</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">ADV展開方法</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 4 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">4</div>
+      <div class="step-info">
+        <h2>コスト ── 掛け率交渉と粗利確保</h2>
+        <div class="sub">佐藤さんから情報共有 → 交渉方針を決定</div>
+      </div>
+      <div class="step-time-chip">5 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>佐藤さんから交渉対象メーカーと現状掛け率を共有 → 目標と進め方を決める</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p><strong>金物掛け率が高い</strong>。発注現場が増えてきた今が交渉のタイミング。粗利率を確保しつつ競合に勝てるコスト競争力があるか検証が必要。</p>
+      </div>
+
+      <div class="hear-block">
+        <div class="block-tag purple"><span class="dot"></span>HEAR &mdash; 佐藤さんに聞くこと</div>
+        <ul class="q-list">
+          <li><span class="q-mark">Q</span><span>交渉対象のメーカーはどこか？ 優先順位は？</span></li>
+          <li><span class="q-mark">Q</span><span>現状の掛け率と目標掛け率のギャップは？</span></li>
+          <li><span class="q-mark">Q</span><span>主要資材の年間契約（単価固定）は現実的か？</span></li>
+        </ul>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">交渉対象メーカー</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">目標掛け率</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">交渉の進め方</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 5 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">5</div>
+      <div class="step-info">
+        <h2>提案力 ── デザイン品質の底上げ</h2>
+        <div class="sub">3つの施策の採否を即決する</div>
+      </div>
+      <div class="step-time-chip">5 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>3つの施策それぞれ「やる / やらない」を即決。やるなら担当と期限もセット。</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p>広い敷地で<strong>全部作り込む提案になり金額が上がる</strong>。職人の施工精度の把握も途上。お客様の意思決定に時間がかかっている。</p>
+      </div>
+
+      <div class="options-wrap">
+        <div class="block-tag blue"><span class="dot"></span>OPTIONS &mdash; それぞれ採否を決める</div>
+        <div class="opt-card">
+          <div class="opt-letter">A</div>
+          <div class="opt-content">
+            <div class="opt-name">シンボルツリー（高木）を必ず入れるルール化</div>
+            <div class="opt-desc">原価1.5〜3万円で外構全体の印象が大きく変わる。ROIが非常に高い施策。</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">B</div>
+          <div class="opt-content">
+            <div class="opt-name">職人のランク分け</div>
+            <div class="opt-desc">A現場（高難度・デザイン重視）/ B現場（標準仕様）で割り振りルールを作る。</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">C</div>
+          <div class="opt-content">
+            <div class="opt-name">完工物件のポートフォリオ化</div>
+            <div class="opt-desc">「この中からイメージに近いものを」で打合せ回数短縮＋意思決定加速。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">A シンボルツリー</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">B 職人ランク分け</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">C ポートフォリオ</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ STEP 6 ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge">6</div>
+      <div class="step-info">
+        <h2>内製化の方針 ── 全件自社 or ハイブリッド</h2>
+        <div class="sub">最も重要な経営判断。方向性を決めると全てが決まる。</div>
+      </div>
+      <div class="step-time-chip">10 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>最重要議題。全員の意見を聞いてから決定する。採用計画と外注先の関係がこの方針で変わる。</div>
+      </div>
+
+      <div class="issue-block">
+        <div class="block-tag red"><span class="dot"></span>ISSUE</div>
+        <p>この方針で<strong>採用計画・外注先との関係性がすべて変わる</strong>。後回しにするほど手遅れになる。</p>
+      </div>
+
+      <div class="options-wrap">
+        <div class="block-tag blue"><span class="dot"></span>OPTIONS &mdash; 事業の最終形</div>
+        <div class="opt-card">
+          <div class="opt-letter">A</div>
+          <div class="opt-content">
+            <div class="opt-name">全件内製化</div>
+            <div class="opt-pro">粗利最大化</div>
+            <div class="opt-con">人員が天井になり、成長のボトルネックに</div>
+          </div>
+        </div>
+        <div class="opt-card">
+          <div class="opt-letter">B</div>
+          <div class="opt-content">
+            <div class="opt-name">ハイブリッド型</div>
+            <div class="opt-desc">ARRCH（高単価・高デザイン）→ 自社 ／ PG HOUSE（標準）→ 外注も活用</div>
+            <div class="opt-pro">スケーラブル。成長に対応しやすい</div>
+            <div class="opt-con">粗利率はやや下がる</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hear-block">
+        <div class="block-tag purple"><span class="dot"></span>LINKED DECISIONS &mdash; 方針に連動する判断</div>
+        <ul class="q-list">
+          <li><span class="q-mark">Q</span><span>PG HOUSE専属の外構プランナーを採用するか？ → タイミング・要件は？</span></li>
+          <li><span class="q-mark">Q</span><span>PG HOUSEパッケージプラン（150万/200万/250万の3段階）を作るか？</span></li>
+        </ul>
+      </div>
+
+      <div class="decision-block">
+        <div class="d-tag">DECISION &mdash; この場で決めること</div>
+        <div class="d-row"><span class="d-label">内製化の方針</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">PG専属プランナー採用</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">PGパッケージプラン</span><span class="d-input"></span></div>
+        <div class="d-row"><span class="d-label">担当 / 期限</span><span class="d-input"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"></div>
+
+  <!-- ═══════════════════ ACTION ITEMS ═══════════════════ -->
+  <div class="step-section">
+    <div class="step-head">
+      <div class="step-badge done">&#10003;</div>
+      <div class="step-info">
+        <h2>ACTION ITEMS</h2>
+        <div class="sub">決まったことを一覧に転記。全員で読み合わせて終了。</div>
+      </div>
+      <div class="step-time-chip">5 min</div>
+    </div>
+    <div class="step-body">
+      <div class="instruction">
+        <div class="inst-icon">&#9654;</div>
+        <div>議題1〜6の決定欄を振り返りながら転記する。漏れがないか全員で確認。</div>
+      </div>
+
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th style="width:4%">#</th>
+            <th style="width:10%">議題</th>
+            <th style="width:38%">アクション内容</th>
+            <th style="width:16%">担当</th>
+            <th style="width:14%">期限</th>
+            <th style="width:18%">備考</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>2</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>3</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>4</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>5</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>6</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>7</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>8</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>9</td><td></td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>10</td><td></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
-
-<!-- ===================== NAV ===================== -->
-<nav class="sticky-nav">
-  <div class="sticky-nav-inner">
-    <a href="#recap">議論の整理</a>
-    <a href="#progress">進捗確認</a>
-    <a href="#strategy">戦略方針</a>
-    <a href="#environment">環境設計</a>
-    <a href="#tools">ツール体系</a>
-    <a href="#roadmap">ロードマップ</a>
-    <a href="#actions">アクション</a>
-    <a href="#agenda">本日のアジェンダ</a>
-  </div>
-</nav>
-
-<!-- ===================== SECTION 1: RECAP ===================== -->
-<section class="section" id="recap">
-  <div class="section-header">
-    <div class="section-number">1</div>
-    <h2 class="section-title">議論の整理</h2>
-    <p class="section-lead">本ミーティングで明らかになった現状認識と、合意した方向性を整理します。</p>
-  </div>
-
-  <div class="exec-summary">
-    <h3>Executive Summary</h3>
-    <p>
-      スリーカウントは <strong>2026年5月の経営方針発表会までにAI基盤の第1弾を完成させる</strong> という目標を掲げている。
-      現状は <strong>ナレッジが個人に属人化</strong> し、顧客への伴走品質を高めたいという社員の意欲が
-      残業増加に直結している。AI導入の本質は効率化ではなく、<strong>「提供価値・品質の向上」</strong>
-      を実現することであり、その副産物として生産性向上と残業削減が生まれるという方針で合意した。
-      まずは <strong>Google Workspace環境の整備</strong> を最優先で進め、全社のAI活用基盤を構築する。
-    </p>
-  </div>
-
-  <div class="key-insight">
-    <span class="tag">Key Insight</span>
-    <p>
-      <strong>「残業を減らすためにAI」ではなく、「より良いものを提供するためにAI」。</strong><br>
-      効率化を前面に出すと、手間はかかるが品質が上がる仕事（＝うなぎの炭焼きのような仕事）を社員が避けるようになる。
-      向き合う意図が強まっている今こそ、その意図を強化する方向でAIを位置づけるべき。
-    </p>
-  </div>
-
-  <div class="card-grid" style="margin-top: 32px;">
-    <div class="card">
-      <div class="card-icon red">🔍</div>
-      <h3>明らかになった課題</h3>
-      <p>ナレッジの属人化、AIリテラシーの個人差、環境整備の遅れ、進行中プロジェクトの停滞、セキュリティ設定の不備。</p>
-    </div>
-    <div class="card">
-      <div class="card-icon blue">🧭</div>
-      <h3>合意した方向性</h3>
-      <p>品質向上を軸としたメッセージング、Google Workspace環境の集約、ツール体系の整理、段階的なAI導入レベルの引き上げ。</p>
-    </div>
-    <div class="card">
-      <div class="card-icon green">⚡</div>
-      <h3>即時アクション</h3>
-      <p>Workspace プラン変更、個人アカウント運用、社内Meet化、AI学習モードのオフ確認、代理店選定。</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 2: PROGRESS ===================== -->
-<section class="section" id="progress">
-  <div class="section-header">
-    <div class="section-number">2</div>
-    <h2 class="section-title">アクション確認</h2>
-    <p class="section-lead">本ミーティングで合意したアクションアイテムの一覧です。</p>
-  </div>
-
-  <table class="action-table">
-    <thead>
-      <tr>
-        <th style="width:5%">#</th>
-        <th style="width:40%">アクション</th>
-        <th style="width:15%">担当</th>
-        <th style="width:15%">ステータス</th>
-        <th style="width:25%">備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td><span class="priority high"></span>Workspace → Business Standard 移行</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">代理店経由の場合、契約手続きの進捗</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td><span class="priority high"></span>Google Workspace 代理店の選定</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">ストリートスマート等の候補</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td><span class="priority high"></span>ChatGPT / Gemini 学習モードのオフ確認</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">全アカウント対象</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td><span class="priority mid"></span>全社員の個人Googleアカウントログイン</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">朝礼での周知</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td><span class="priority mid"></span>社内ミーティングのGoogle Meet 移行</td>
-        <td><span class="owner-tag all">全員</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">Zoom契約の見直しも含む</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td><span class="priority mid"></span>広告入稿ツール（GAS）のバグ修正継続</td>
-        <td><span class="owner-tag fukumoto">福本</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">検索広告の初期版</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td><span class="priority low"></span>Google広告アカウントの個人ログイン影響調査</td>
-        <td><span class="owner-tag fukumoto">福本</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">運用上の不都合の洗い出し</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td><span class="priority low"></span>Loomの活用方法の調査・整理</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">部屋機能の理解</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td><span class="priority low"></span>AI方針メッセージの作成</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">品質向上を軸とした社内発信</td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td><span class="priority low"></span>Claude 導入の検討</td>
-        <td><span class="owner-tag fukumoto">福本</span> <span class="owner-tag hakuto">白都</span></td>
-        <td><span class="status-badge change">確認</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">原稿執筆用途</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p style="margin-top: 16px; font-size: 13px; color: var(--gray-400);">
-    ※ ステータスは本日のミーティング冒頭で各担当から報告・更新します。
-  </p>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 3: STRATEGY ===================== -->
-<section class="section" id="strategy">
-  <div class="section-header">
-    <div class="section-number">3</div>
-    <h2 class="section-title">AI導入の戦略方針</h2>
-    <p class="section-lead">なぜAIを導入するのか。全社に伝えるべきメッセージの核心を整理します。</p>
-  </div>
-
-  <div class="comparison-grid">
-    <div class="comparison-box before">
-      <h4>⚠ 避けるべきメッセージ</h4>
-      <ul>
-        <li>残業時間を削減するためにAIを導入する</li>
-        <li>効率を上げて早く帰れるようにする</li>
-        <li>AIが代わりにやってくれるから楽になる</li>
-        <li>生産性向上がAI導入の目的</li>
-      </ul>
-    </div>
-    <div class="comparison-arrow">→</div>
-    <div class="comparison-box after">
-      <h4>✦ 発信すべきメッセージ</h4>
-      <ul>
-        <li>お客様により良い提案・成果を届けるためにAIを活用する</li>
-        <li>一人ひとりの専門性をAIで拡張し、品質を高める</li>
-        <li>ナレッジを共有資産にし、チーム全体の力を底上げする</li>
-        <li>結果として、生産性向上と残業削減も実現される</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="quote-block">
-    <p>
-      向き合う意図が強まっているからこそ残業が増えている。だからこそAI導入の動機も、
-      その意図の強化に直結させるべき。「効率化」を前面に出すと、社員は時短に最適化し、
-      品質を上げるための手間を惜しむようになる。
-    </p>
-    <div class="attribution">— 第1回ミーティングでの議論より</div>
-  </div>
-
-  <div class="card-grid" style="margin-top: 32px;">
-    <div class="card">
-      <div class="card-icon purple">🛡</div>
-      <h3>推進時に想定される壁</h3>
-      <p>
-        「AIに仕事を奪われるのでは」「この会社でやる意味がなくなるのでは」「自分の成長実感が薄れるのでは」
-        — ベテラン層を中心にこうした声が出ることは想定済み。先に論理的な回答を用意しておく。
-      </p>
-    </div>
-    <div class="card">
-      <div class="card-icon yellow">🤝</div>
-      <h3>浸透のための泥臭さ</h3>
-      <p>
-        経営陣と推進チームは、むしろアナログに泥臭く動く必要がある。
-        ツール導入だけでなく、各チームでのAI活用に関するざっくばらんな意見交換の場を設ける。
-        朝礼での発信、1on1でのヒアリングも重要。
-      </p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 4: ENVIRONMENT ===================== -->
-<section class="section" id="environment">
-  <div class="section-header">
-    <div class="section-number">4</div>
-    <h2 class="section-title">環境整備の設計</h2>
-    <p class="section-lead">AI導入の土台となるインフラ環境。現状から目指す姿への移行計画です。</p>
-  </div>
-
-  <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">AI導入成熟度レベル</h3>
-  <div class="level-meter">
-    <div class="level-step completed">
-      <div class="level-num">1</div>
-      <div class="level-label">個別利用</div>
-      <div class="level-desc">各自が個別にAIを試用</div>
-    </div>
-    <div class="level-step active">
-      <div class="level-num">2</div>
-      <div class="level-label">環境統一</div>
-      <div class="level-desc">全社基盤の構築 ← 現在地</div>
-    </div>
-    <div class="level-step">
-      <div class="level-num">3</div>
-      <div class="level-label">業務組込</div>
-      <div class="level-desc">業務フローへのAI統合</div>
-    </div>
-    <div class="level-step">
-      <div class="level-num">4</div>
-      <div class="level-label">データ統合</div>
-      <div class="level-desc">独自データ × AI活用</div>
-    </div>
-    <div class="level-step">
-      <div class="level-num">5</div>
-      <div class="level-label">自律運用</div>
-      <div class="level-desc">エージェントによる自動化</div>
-    </div>
-  </div>
-
-  <h3 style="font-size: 18px; font-weight: 700; margin: 40px 0 16px;">Google Workspace 移行計画</h3>
-
-  <div class="comparison-grid">
-    <div class="comparison-box before">
-      <h4>現状 — Business Starter</h4>
-      <ul>
-        <li>Gemini 連携なし</li>
-        <li>Meet 文字起こし・議事録なし</li>
-        <li>NotebookLM Pro 付与なし</li>
-        <li>個人プランで Gemini 別途契約（3アカウント）</li>
-        <li>ChatGPT 共有アカウント1つ</li>
-        <li>共有アカウントでのログイン運用</li>
-        <li>Vault（監査ログ）なし</li>
-      </ul>
-    </div>
-    <div class="comparison-arrow">→</div>
-    <div class="comparison-box after">
-      <h4>目標 — Business Standard</h4>
-      <ul>
-        <li>Gemini Pro が全社員に付与</li>
-        <li>Meet 自動文字起こし・議事録 → Gmail通知</li>
-        <li>NotebookLM Pro が全社員に付与</li>
-        <li>個人プランの Gemini 契約を解約</li>
-        <li>全社員が個人アカウントでログイン</li>
-        <li>Drive のアクセス権限を適切に設定</li>
-        <li>代理店経由でコスト最適化</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="cost-highlight">
-    <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
-      <div>
-        <div style="font-size: 14px; color: var(--gray-500); margin-bottom: 4px;">月額コスト増（約30名）</div>
-        <div style="font-family: 'Inter'; font-size: 36px; font-weight: 800; color: var(--gray-700);">+¥15,000<span style="font-size: 16px; font-weight: 400;">/月</span></div>
-        <div style="font-size: 12px; color: var(--gray-400);">代理店経由 約1,400円/人（+500円/人）</div>
-      </div>
-      <div style="font-size: 32px; color: var(--gray-300);">→</div>
-      <div>
-        <div style="font-size: 14px; color: var(--gray-500); margin-bottom: 4px;">削減可能コスト</div>
-        <div style="font-family: 'Inter'; font-size: 36px; font-weight: 800; color: var(--accent);">-¥18,600<span style="font-size: 16px; font-weight: 400;">/月</span></div>
-        <div style="font-size: 12px; color: var(--gray-400);">Gemini 個人プラン3アカウント解約分</div>
-      </div>
-      <div style="font-size: 32px; color: var(--gray-300);">＝</div>
-      <div>
-        <div style="font-size: 14px; color: var(--green); font-weight: 600; margin-bottom: 4px;">実質効果</div>
-        <div class="saving">NET ±0</div>
-        <div class="saving-label">コスト中立で全社員にAI基盤を配布</div>
-      </div>
-    </div>
-  </div>
-
-  <h3 style="font-size: 18px; font-weight: 700; margin: 40px 0 16px;">セキュリティ対策チェックリスト</h3>
-  <div class="card-grid-3">
-    <div class="card">
-      <div class="card-icon red">🔒</div>
-      <h3>AI学習モード</h3>
-      <p>ChatGPT・Gemini の学習への データ使用をオフに設定。個人が無料ツールで社内情報を入力するリスクも周知。</p>
-    </div>
-    <div class="card">
-      <div class="card-icon blue">👤</div>
-      <h3>アカウント管理</h3>
-      <p>全社員が個人Googleアカウントでログイン。共有アカウントの廃止。広告アカウントはアカウント切替で対応。</p>
-    </div>
-    <div class="card">
-      <div class="card-icon yellow">📁</div>
-      <h3>Drive権限設計</h3>
-      <p>AI（Gemini）がDriveにアクセス可能になるため、フォルダ単位の権限設計が必須。経理・人事等の機密情報を保護。</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 5: TOOLS ===================== -->
-<section class="section" id="tools">
-  <div class="section-header">
-    <div class="section-number">5</div>
-    <h2 class="section-title">ツール体系の整理</h2>
-    <p class="section-lead">目的別に最適なツールを選定し、コストと運用を最適化します。</p>
-  </div>
-
-  <table class="tool-matrix">
-    <thead>
-      <tr>
-        <th>用途</th>
-        <th>推奨ツール</th>
-        <th>対象</th>
-        <th>判断</th>
-        <th>備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>汎用AI（調査・分析・要約）</td>
-        <td><span class="tool-name">✦ Gemini Pro</span></td>
-        <td>全社員</td>
-        <td><span class="status-badge new">新規導入</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">Workspace Standard に含まれる</td>
-      </tr>
-      <tr>
-        <td>ナレッジ蓄積・RAG</td>
-        <td><span class="tool-name">✦ NotebookLM Pro</span></td>
-        <td>全社員</td>
-        <td><span class="status-badge new">新規導入</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">Drive連携で自動蓄積</td>
-      </tr>
-      <tr>
-        <td>社内ミーティング・議事録</td>
-        <td><span class="tool-name">✦ Google Meet + Gemini</span></td>
-        <td>全社員</td>
-        <td><span class="status-badge new">新規移行</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">文字起こし・議事録自動化</td>
-      </tr>
-      <tr>
-        <td>社外MTG（オンライン商談）</td>
-        <td><span class="tool-name">tl;dv</span></td>
-        <td>営業・運用</td>
-        <td><span class="status-badge keep">継続</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">高頻度の商談録画・分析向け</td>
-      </tr>
-      <tr>
-        <td>社外MTG（ライト）</td>
-        <td><span class="tool-name">Zoom / Meet</span></td>
-        <td>随時</td>
-        <td><span class="status-badge change">縮小</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">Zoom契約数を削減</td>
-      </tr>
-      <tr>
-        <td>研修・教育・マニュアル</td>
-        <td><span class="tool-name">Loom</span></td>
-        <td>推進チーム</td>
-        <td><span class="status-badge keep">継続</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">画面録画 → AI自動マニュアル化</td>
-      </tr>
-      <tr>
-        <td>原稿執筆・クリエイティブ</td>
-        <td><span class="tool-name">Claude</span></td>
-        <td>運用チーム</td>
-        <td><span class="status-badge new">検討中</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">長文・高品質テキスト生成</td>
-      </tr>
-      <tr>
-        <td>広告入稿自動化</td>
-        <td><span class="tool-name">GAS + スプレッドシート</span></td>
-        <td>運用チーム</td>
-        <td><span class="status-badge change">改修中</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">検索広告の初期版を改善中</td>
-      </tr>
-      <tr>
-        <td>ワークフロー自動化</td>
-        <td><span class="tool-name">Zapier / GAS</span></td>
-        <td>推進チーム</td>
-        <td><span class="status-badge keep">継続</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">議事録 → Slack通知 等</td>
-      </tr>
-      <tr>
-        <td>ChatGPT</td>
-        <td><span class="tool-name">ChatGPT Plus</span></td>
-        <td>限定利用</td>
-        <td><span class="status-badge change">見直し</span></td>
-        <td style="font-size:12px; color:var(--gray-500);">Gemini統合後の役割を再定義</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="key-insight" style="margin-top: 32px;">
-    <span class="tag">ポイント</span>
-    <p>
-      <strong>Google Workspace Standard への移行により、Gemini Pro + NotebookLM Pro + Meet議事録が一括で全社員に配布される。</strong>
-      これにより、ナレッジ蓄積（NotebookLM × Drive）と議事録自動化（Meet × Gemini）の基盤が同時に完成する。
-      個別に契約していたGeminiアカウントは解約でき、実質コスト中立で環境が大幅にアップグレードされる。
-    </p>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 6: ROADMAP ===================== -->
-<section class="section" id="roadmap">
-  <div class="section-header">
-    <div class="section-number">6</div>
-    <h2 class="section-title">ロードマップ</h2>
-    <p class="section-lead">5月発表会を第1マイルストーンとした段階的な推進計画です。</p>
-  </div>
-
-  <div class="roadmap">
-    <div class="roadmap-item current">
-      <span class="phase-label now">Phase 1 — Now</span>
-      <h4>環境構築（2月〜3月）</h4>
-      <p>
-        全社のAI活用基盤を整備する最重要フェーズ。Workspace移行、セキュリティ設定、
-        アカウント運用の統一、社内Meet化を完了させる。
-      </p>
-      <div class="tasks">
-        <span class="task-tag doing">Workspace移行</span>
-        <span class="task-tag doing">代理店選定</span>
-        <span class="task-tag doing">セキュリティ設定</span>
-        <span class="task-tag doing">Meet移行</span>
-        <span class="task-tag doing">アカウント統一</span>
-      </div>
-    </div>
-
-    <div class="roadmap-item current">
-      <span class="phase-label now">Phase 2 — 3月</span>
-      <h4>ナレッジ基盤の設計・運用開始</h4>
-      <p>
-        議事録の自動化と蓄積の仕組みを確立。Drive → NotebookLM の連携を構築し、
-        日々の業務データが自動でナレッジとして蓄積される状態を作る。
-        業務フローの可視化にも着手。
-      </p>
-      <div class="tasks">
-        <span class="task-tag">議事録自動化</span>
-        <span class="task-tag">Drive構造設計</span>
-        <span class="task-tag">NotebookLM運用</span>
-        <span class="task-tag">業務フロー可視化</span>
-      </div>
-    </div>
-
-    <div class="roadmap-item">
-      <span class="phase-label next">Phase 3 — 4月</span>
-      <h4>業務フローへのAI組込・効果測定</h4>
-      <p>
-        原稿改善ツールの改善・展開、入稿ツールのバグ修正完了。
-        4月21日〜5月20日の勤務期間で残業時間の変化を計測。
-        現場チームでのAI活用意見交換会の実施。
-      </p>
-      <div class="tasks">
-        <span class="task-tag">原稿改善ツール展開</span>
-        <span class="task-tag">入稿ツール修正</span>
-        <span class="task-tag">残業時間計測</span>
-        <span class="task-tag">意見交換会</span>
-      </div>
-    </div>
-
-    <div class="roadmap-item future">
-      <span class="phase-label next">Phase 4 — 5月</span>
-      <h4>発表会・成果報告</h4>
-      <p>
-        取り組みの成果を全社に発表。残業削減の定量データ、品質向上の事例、
-        ナレッジ活用の実績を共有。次フェーズに向けた方針を発表。
-      </p>
-      <div class="tasks">
-        <span class="task-tag">成果発表</span>
-        <span class="task-tag">定量データ報告</span>
-        <span class="task-tag">次フェーズ方針</span>
-      </div>
-    </div>
-
-    <div class="roadmap-item future">
-      <span class="phase-label later">Phase 5 — 6月〜</span>
-      <h4>独自データ統合・エージェント導入検討</h4>
-      <p>
-        業務データとAIの本格統合（レベル4）。エージェントの導入検討、
-        新商品・サービスの可能性検討、各チーム独自のAI活用の拡大。
-      </p>
-      <div class="tasks">
-        <span class="task-tag">データ統合</span>
-        <span class="task-tag">エージェント検討</span>
-        <span class="task-tag">新商品検討</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="metric-row">
-    <div class="metric-card">
-      <div class="metric-value">60<span class="metric-unit">%</span></div>
-      <div class="metric-label">原稿改善が占める業務時間</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">30<span class="metric-unit">分</span></div>
-      <div class="metric-label">1件あたりの議事録作成時間</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">10-15<span class="metric-unit">分</span></div>
-      <div class="metric-label">1件あたりの議事録送付作業</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-value">5月</div>
-      <div class="metric-label">第1マイルストーン（発表会）</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 7: ACTIONS ===================== -->
-<section class="section" id="actions">
-  <div class="section-header">
-    <div class="section-number">7</div>
-    <h2 class="section-title">Next Actions</h2>
-    <p class="section-lead">本日のミーティングで合意すべきアクションアイテムの候補です。</p>
-  </div>
-
-  <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">今回決めたいこと</h3>
-
-  <table class="action-table">
-    <thead>
-      <tr>
-        <th style="width:5%">#</th>
-        <th style="width:8%">優先度</th>
-        <th style="width:37%">アクション</th>
-        <th style="width:13%">担当</th>
-        <th style="width:12%">期限</th>
-        <th style="width:25%">備考</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td><span class="priority high"></span>高</td>
-        <td>Workspace Standard 移行の完了確認/残タスク</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td>〜3月上旬</td>
-        <td style="font-size:12px; color:var(--gray-500);">代理店契約含む</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td><span class="priority high"></span>高</td>
-        <td>Google Drive のフォルダ構造・権限設計</td>
-        <td><span class="owner-tag all">全員</span></td>
-        <td>〜3月中旬</td>
-        <td style="font-size:12px; color:var(--gray-500);">AI連携を前提とした設計</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td><span class="priority high"></span>高</td>
-        <td>ナレッジ蓄積の仕組み設計（議事録→Drive→NotebookLM）</td>
-        <td><span class="owner-tag hakuto">白都</span> <span class="owner-tag fukumoto">福本</span></td>
-        <td>〜3月中旬</td>
-        <td style="font-size:12px; color:var(--gray-500);">自動化フロー構築</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td><span class="priority mid"></span>中</td>
-        <td>AI方針メッセージの最終化と全社発信</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td>〜3月朝礼</td>
-        <td style="font-size:12px; color:var(--gray-500);">品質向上軸のメッセージ</td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td><span class="priority mid"></span>中</td>
-        <td>運用チーム業務フローの可視化（初版）</td>
-        <td><span class="owner-tag fukumoto">福本</span></td>
-        <td>〜3月末</td>
-        <td style="font-size:12px; color:var(--gray-500);">AI置換箇所の特定用</td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td><span class="priority mid"></span>中</td>
-        <td>原稿改善ツール（NotebookLM）の改善・リライト機能検証</td>
-        <td><span class="owner-tag yusuke">鈴木</span> <span class="owner-tag hakuto">白都</span></td>
-        <td>〜3月末</td>
-        <td style="font-size:12px; color:var(--gray-500);">プロンプト改善 or ツール変更</td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td><span class="priority mid"></span>中</td>
-        <td>運用チーム内 AI活用意見交換会の実施</td>
-        <td><span class="owner-tag fukumoto">福本</span></td>
-        <td>〜3月中</td>
-        <td style="font-size:12px; color:var(--gray-500);">現場ニーズの吸い上げ</td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td><span class="priority low"></span>低</td>
-        <td>入稿ツール（GAS）バグ修正の継続</td>
-        <td><span class="owner-tag fukumoto">福本</span></td>
-        <td>継続</td>
-        <td style="font-size:12px; color:var(--gray-500);">リソースの範囲で</td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td><span class="priority low"></span>低</td>
-        <td>Zoom 契約見直し（削減）</td>
-        <td><span class="owner-tag yusuke">鈴木</span></td>
-        <td>Workspace移行後</td>
-        <td style="font-size:12px; color:var(--gray-500);">社外用に最小限残す</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== SECTION 8: AGENDA ===================== -->
-<section class="section" id="agenda">
-  <div class="section-header">
-    <div class="section-number">8</div>
-    <h2 class="section-title">本日のアジェンダ</h2>
-    <p class="section-lead">限られた時間で最大の成果を出すための進行案です。</p>
-  </div>
-
-  <ol class="agenda-list">
-    <li>
-      <div class="agenda-content">
-        <h4>アクションの進捗報告</h4>
-        <p>Workspace移行、セキュリティ設定、Meet化、アカウント統一の実施状況を各担当から報告。完了/未完了/課題を明確に。</p>
-      </div>
-      <span class="agenda-time">10 min</span>
-    </li>
-    <li>
-      <div class="agenda-content">
-        <h4>環境構築の残タスク整理</h4>
-        <p>未完了タスクの原因と対策を議論。代理店選定の状況確認。Drive権限設計の方針合意。</p>
-      </div>
-      <span class="agenda-time">10 min</span>
-    </li>
-    <li>
-      <div class="agenda-content">
-        <h4>ナレッジ蓄積の仕組み設計</h4>
-        <p>議事録 → Drive → NotebookLM の自動化フローを具体化。フォルダ構造、命名規則、業種/顧客別の整理方針を決定。</p>
-      </div>
-      <span class="agenda-time">15 min</span>
-    </li>
-    <li>
-      <div class="agenda-content">
-        <h4>原稿改善ツールの改善方針</h4>
-        <p>NotebookLMの出力品質の評価。リライト機能の検証結果共有。ツール変更（Claude等）の必要性を判断。</p>
-      </div>
-      <span class="agenda-time">10 min</span>
-    </li>
-    <li>
-      <div class="agenda-content">
-        <h4>AI方針メッセージと社内浸透の進め方</h4>
-        <p>品質向上を軸としたメッセージの確認。全社発信のタイミングと方法。意見交換会の実施計画。</p>
-      </div>
-      <span class="agenda-time">10 min</span>
-    </li>
-    <li>
-      <div class="agenda-content">
-        <h4>Next Actions・次回日程</h4>
-        <p>今回決まったアクションの担当・期限の最終確認。次回ミーティングの日程調整。</p>
-      </div>
-      <span class="agenda-time">5 min</span>
-    </li>
-  </ol>
-
-  <div style="background: var(--gray-100); border-radius: var(--radius-sm); padding: 16px 24px; margin-top: 24px; display: flex; align-items: center; gap: 12px;">
-    <span style="font-size: 20px;">⏱</span>
-    <span style="font-size: 14px; color: var(--gray-600); font-weight: 600;">想定所要時間：約60分</span>
-  </div>
-</section>
-
-<div class="divider"><hr></div>
-
-<!-- ===================== CTA ===================== -->
-<section class="section" style="padding-bottom: 40px;">
-  <div class="cta-section">
-    <h3>AI基盤の構築が、すべての出発点。</h3>
-    <p>
-      環境が整えば、ナレッジが蓄積され、品質が向上し、<br>
-      結果として生産性と働き方が変わっていく。<br>
-      まず、確実に土台を固めましょう。
-    </p>
-  </div>
-</section>
-
-<!-- ===================== FOOTER ===================== -->
-<div class="footer">
-  <p>
-    <strong>3C AI推進プロジェクト</strong> | 第1回ミーティング資料<br>
-    Confidential — スリーカウント株式会社 × AI推進支援<br>
-    <span style="font-size: 11px;">Last updated: 2026.02.17</span>
-  </p>
-</div>
-
 </body>
 </html>
